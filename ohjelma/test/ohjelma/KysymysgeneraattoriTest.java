@@ -25,9 +25,9 @@ public class KysymysgeneraattoriTest {
     @Before
     public void setUp() {
         testi = new Kysymysgeneraattori();
-        testi.luoHelpotKysymykset();
-        testi.luoKeskivaikeatKysymykset();
-        testi.luoVaikeatKysymykset();
+        testi.lataaHelpotKysymykset();
+        testi.lataaKeskivaikeatKysymykset();
+        testi.lataaVaikeatKysymykset();
         lista = new ArrayList<String>();
         lista.add("Ac");
         lista.add("Al");
