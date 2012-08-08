@@ -78,4 +78,10 @@ public class Kysymysgeneraattori {
         }
         Collections.shuffle(vaikeatKysymykset);
     }
+    
+    public void luoKaikkiKysymykset() {
+        lataaHelpotKysymykset();
+        lataaKeskivaikeatKysymykset();
+        lataaVaikeatKysymykset();
+    }
 }
