@@ -61,7 +61,7 @@ Rahanarvo voidaan kytkeä tähän metalliin.
 kupari
 Cu
 Tämän metallin pinta muuttuu vihreäksi, kun se hapettuu.
-litum
+litium
 Li
 Kevyin metalli.
 lyijy
