@@ -61,7 +61,7 @@ public class Peli {
 
     public void aloitaPeli() {
         System.out.println("");
-        System.out.println("Ohjelma antaa sinulle alkuaineen kemiallisen symbolin. Kirjoita symboli vastaavan aineen nimi.");
+        System.out.println("Ohjelma antaa alkuaineen kemiallisen symbolin. Kirjoita symbolia vastaavan aineen nimi.");
         System.out.println("");
         kysyHelpot();
         if (helpot == 11) {

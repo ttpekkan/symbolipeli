@@ -39,8 +39,6 @@ public class Kysymysgeneraattori {
                 helpotKysymykset.add(new Alkuaine(lukija.nextLine(), lukija.nextLine(), lukija.nextLine()));
             }
         } catch (Exception e) {
-            System.out.println("1 Virhe");
-            System.out.println(e.getMessage());
         }
         Collections.shuffle(helpotKysymykset);
     }
@@ -56,8 +54,6 @@ public class Kysymysgeneraattori {
                 keskivaikeatKysymykset.add(new Alkuaine(lukija.nextLine(), lukija.nextLine(), lukija.nextLine()));
             }
         } catch (Exception e) {
-            System.out.println("2 Virhe");
-            System.out.println(e.getMessage());
         }
         Collections.shuffle(keskivaikeatKysymykset);
     }
@@ -73,8 +69,6 @@ public class Kysymysgeneraattori {
                 vaikeatKysymykset.add(new Alkuaine(lukija.nextLine(), lukija.nextLine(), lukija.nextLine()));
             }
         } catch (Exception e) {
-            System.out.println("3 Virhe");
-            System.out.println(e.getMessage());
         }
         Collections.shuffle(vaikeatKysymykset);
     }

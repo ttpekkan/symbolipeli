@@ -189,4 +189,13 @@ public class KysymysgeneraattoriTest {
     public void tarkistaMäärä() {
         assertEquals(lista.size(), ((testi.helpotKysymykset.size() + testi.keskivaikeatKysymykset.size() + testi.vaikeatKysymykset.size())));
     }
+    
+    @Test
+    public void tarkistaLuoKaikkiKysymykset() {
+        testi.helpotKysymykset.clear();
+        testi.keskivaikeatKysymykset.clear();
+        testi.vaikeatKysymykset.clear();
+        testi.luoKaikkiKysymykset();
+        assertEquals(lista.size(), ((testi.helpotKysymykset.size() + testi.keskivaikeatKysymykset.size() + testi.vaikeatKysymykset.size())));
+    }
 }

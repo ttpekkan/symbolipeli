@@ -3,11 +3,11 @@ package ohjelma;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Scanner;
 
 /**
  * Tämä luokka sisältää taustamusiikit ja muutaman ääniefektin.
@@ -21,13 +21,17 @@ public class Musiikkikirjasto {
     public ArrayList<AudioClip> lista;
     public AudioClip päävalikkoMusa;
     public AudioClip pelimusa;
+    public ArrayList<AudioClip> yksiBiisi;
     
    /**
-    * Luokan konstruktori. Luo ArrayListin, joka sisältää AudioClippeja. 
+    * Luokan konstruktori. Luo ArrayListin, joka sisältää AudioClippeja.
+    * 
+    * yksiBiisi arrayListiä käytetään testauksen apuna.
     */
     
     public Musiikkikirjasto() {
-        lista = new ArrayList<AudioClip>();     
+        lista = new ArrayList<AudioClip>();
+        yksiBiisi = new ArrayList<AudioClip>();
     } 
     
     /**
@@ -41,11 +45,12 @@ public class Musiikkikirjasto {
         URL url = new URL(currentDirURL, "src/päävalikkoMusa.wav");
         päävalikkoMusa = Applet.newAudioClip(url);
         päävalikkoMusa.loop();
+        yksiBiisi.clear();
+        yksiBiisi.add(päävalikkoMusa);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-    }
-    
+    } 
+      
     /**
      * Etsii ja soittaa (yhden kerran) pelin aloituksessa käytettävän musiikkitiedoston. 
      */
@@ -57,8 +62,9 @@ public class Musiikkikirjasto {
         URL url = new URL(currentDirURL, "src/pelinaloitus.wav");
         AudioClip musa = Applet.newAudioClip(url);
         musa.play();
+        yksiBiisi.clear();
+        yksiBiisi.add(musa);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
     
@@ -76,7 +82,6 @@ public class Musiikkikirjasto {
         AudioClip clip = Applet.newAudioClip(url);
         lista.add(clip);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
     
@@ -93,7 +98,6 @@ public class Musiikkikirjasto {
         try {
             Thread.sleep(7000);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         } 
         pelimusa.loop();
     }
@@ -109,8 +113,9 @@ public class Musiikkikirjasto {
         URL url = new URL(currentDirURL, "src/win.wav");
         AudioClip voitto = Applet.newAudioClip(url);
         voitto.play();
+        yksiBiisi.clear();
+        yksiBiisi.add(voitto);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
     
@@ -125,8 +130,9 @@ public class Musiikkikirjasto {
         URL url = new URL(currentDirURL, "src/lose.wav");
         AudioClip häviö = Applet.newAudioClip(url);
         häviö.play();
+        yksiBiisi.clear();
+        yksiBiisi.add(häviö);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
     
@@ -146,5 +152,4 @@ public class Musiikkikirjasto {
         Collections.shuffle(lista);
         pelimusa = lista.get(0);
     }
-    
 }

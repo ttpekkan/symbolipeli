@@ -2,10 +2,12 @@ Berkeley
 8
 Sokrates
 6
+Hume
+5
 Locke
 5
-Hume
-3
+Marx
+1
 Aristotle
 0
 Hegel
@@ -15,6 +17,4 @@ Kant
 Marx
 0
 Nietzsche
-0
-Plato
 0
