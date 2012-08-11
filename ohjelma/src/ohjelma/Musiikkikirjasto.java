@@ -9,15 +9,30 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Tämä luokka sisältää taustamusiikit ja muutaman ääniefektin.
+ * 
+ * Metodeilla luodaan biisit ja ohjataan niiden käyttöä. 
+ * @author timo
+ */
+
 
 public class Musiikkikirjasto {
     public ArrayList<AudioClip> lista;
     public AudioClip päävalikkoMusa;
     public AudioClip pelimusa;
     
+   /**
+    * Luokan konstruktori. Luo ArrayListin, joka sisältää AudioClippeja. 
+    */
+    
     public Musiikkikirjasto() {
         lista = new ArrayList<AudioClip>();     
     } 
+    
+    /**
+     * Tällä metodilla etsitään taustamusiikkitiedosto ja sitten loopataan se. 
+     */
 
     public void aloitaTaustaMusa() {
         try {
@@ -31,6 +46,10 @@ public class Musiikkikirjasto {
         }
     }
     
+    /**
+     * Etsii ja soittaa (yhden kerran) pelin aloituksessa käytettävän musiikkitiedoston. 
+     */
+    
     public void aloitusKlippi() {
         try {
         File currentDir = new File(".");
@@ -42,6 +61,12 @@ public class Musiikkikirjasto {
             System.out.println(e.getMessage());
         }
     }
+    
+    /**
+     * Tämän metodin avulla voi lisätä AudioClippeja ArrayListiin. 
+     * 
+     * @param tiedostonimi Etsittävä musiikkitiedosto.
+     */
     
     public void lisääBiisi(String tiedostonimi) {
         try {
@@ -55,16 +80,27 @@ public class Musiikkikirjasto {
         }
     }
     
+    /**
+     * Tämän metodin avulla soitetaan aloitusklippi, jonka jälkeen aloitetaan pelimusiikki (loopattuna).
+     * 
+     * Thread.sleep ajetaan sen vuoksi, ettei musiikit menisi päällekkäin. Täytyy ehkä löytää parempi
+     * tapa estää musiikkien päällekkäisyys. 
+     */
+    
     public void uusiPeli() {
         lisääBiisit();
-    /*    aloitusKlippi();
+        aloitusKlippi();
         try {
             Thread.sleep(7000);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } */
+        } 
         pelimusa.loop();
     }
+    
+    /**
+     * Metodi soittaa voitto-ääniefektin. 
+     */
     
     public void voitto() {
         try {
@@ -78,6 +114,10 @@ public class Musiikkikirjasto {
         }
     }
     
+    /**
+     * Metodi soittaa häviö-ääniefektin.
+     */
+    
     public void häviö() {
         try {
         File currentDir = new File(".");
@@ -90,6 +130,9 @@ public class Musiikkikirjasto {
         }
     }
     
+    /**
+     * Metodi lisää halutut biisit ArrayListiin AudioClippeinä ja sitten sekoittaa listan. 
+     */    
     
     public void lisääBiisit() {
         lisääBiisi("stageselect.wav");

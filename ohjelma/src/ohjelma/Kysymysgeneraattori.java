@@ -79,6 +79,10 @@ public class Kysymysgeneraattori {
         Collections.shuffle(vaikeatKysymykset);
     }
     
+    /**
+     * Tämä metodi luo kaikki kysymykset kerralla, käyttäen edellisiä metodjeja. 
+     */
+    
     public void luoKaikkiKysymykset() {
         lataaHelpotKysymykset();
         lataaKeskivaikeatKysymykset();
