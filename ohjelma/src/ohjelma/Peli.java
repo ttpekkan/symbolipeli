@@ -1,6 +1,7 @@
 package ohjelma;
 
 import java.util.Scanner;
+import java.util.Timer;
 
 /**
  * Tämä luokka on varsinainen symbolipeli.
@@ -21,6 +22,8 @@ public class Peli {
     public int kokonaispisteet;
     public Kysymysgeneraattori kysymykset;
     public Scanner input = new Scanner(System.in);
+    public int aika;
+    public Timer ajastin;
 
 /**
  * Luokan konstruktori.
@@ -108,6 +111,7 @@ public class Peli {
         if (laskuri == 1) {
             System.out.println("Vihje: " + aine.vihje);
             System.out.print("Yritä uudestaan: ");
+            aika = 10;
             String vastaus2 = input.nextLine();
             if (vastaus2.equals(aine.nimi)) {
                 System.out.println("Oikein!");

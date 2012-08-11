@@ -2,6 +2,7 @@
 package ohjelma;
 
 import java.io.FileNotFoundException;
+import javax.swing.*;
 
 /**
  * Alkuainepeli!
@@ -14,8 +15,8 @@ public class Ohjelma {
      * @param args 
      */
     public static void main(String[] args)  {
-            Päävalikko valikko = new Päävalikko();
-            valikko.valinta(); 
+           Graafinen uusi = new Graafinen();
+           SwingUtilities.invokeLater(uusi);
         }
-    }
+}
 
