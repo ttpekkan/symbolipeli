@@ -3,11 +3,11 @@ package ohjelma;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * Tämä luokka sisältää taustamusiikit ja muutaman ääniefektin.
@@ -19,9 +19,10 @@ import java.util.Scanner;
 
 public class Musiikkikirjasto {
     public ArrayList<AudioClip> lista;
-    public AudioClip päävalikkoMusa;
+    public static AudioClip päävalikkoMusa;
     public AudioClip pelimusa;
-    public ArrayList<AudioClip> yksiBiisi;
+    public static ArrayList<AudioClip> yksiBiisi;
+    public ArrayList<BiisiJaKuva> lista2;
     
    /**
     * Luokan konstruktori. Luo ArrayListin, joka sisältää AudioClippeja.
@@ -31,6 +32,7 @@ public class Musiikkikirjasto {
     
     public Musiikkikirjasto() {
         lista = new ArrayList<AudioClip>();
+        lista2 = new ArrayList<BiisiJaKuva>();
         yksiBiisi = new ArrayList<AudioClip>();
     } 
     
@@ -38,7 +40,7 @@ public class Musiikkikirjasto {
      * Tällä metodilla etsitään taustamusiikkitiedosto ja sitten loopataan se. 
      */
 
-    public void aloitaTaustaMusa() {
+    public static void aloitaTaustaMusa() {
         try {
         File currentDir = new File(".");
         URL currentDirURL = currentDir.toURL();
@@ -74,7 +76,7 @@ public class Musiikkikirjasto {
      * @param tiedostonimi Etsittävä musiikkitiedosto.
      */
     
-    public void lisääBiisi(String tiedostonimi) {
+   /* public void lisääBiisi(String tiedostonimi) {
         try {
         File currentDir = new File(".");
         URL currentDirURL = currentDir.toURL();
@@ -83,7 +85,7 @@ public class Musiikkikirjasto {
         lista.add(clip);
         } catch (Exception e) {
         }
-    }
+    } */
     
     /**
      * Tämän metodin avulla soitetaan aloitusklippi, jonka jälkeen aloitetaan pelimusiikki (loopattuna).
@@ -93,12 +95,12 @@ public class Musiikkikirjasto {
      */
     
     public void uusiPeli() {
-        lisääBiisit();
-        aloitusKlippi();
+        lisääBiisit2();
+      /*  aloitusKlippi();
         try {
             Thread.sleep(7000);
         } catch (Exception e) {
-        } 
+        } */
         pelimusa.loop();
     }
     
@@ -140,7 +142,7 @@ public class Musiikkikirjasto {
      * Metodi lisää halutut biisit ArrayListiin AudioClippeinä ja sitten sekoittaa listan. 
      */    
     
-    public void lisääBiisit() {
+ /*   public void lisääBiisit() {
         lisääBiisi("stageselect.wav");
         lisääBiisi("mylittlepony.wav");
         lisääBiisi("lovegravy.wav");
@@ -150,6 +152,31 @@ public class Musiikkikirjasto {
         lisääBiisi("avaus.wav");
         lisääBiisi("otsikko.wav");
         Collections.shuffle(lista);
-        pelimusa = lista.get(0);
+        pelimusa = lista.get(0); 
+    } */
+    
+    public void lisääBiisi2(String tiedostonimi1, String tiedostonimi2) {
+        try {
+        File currentDir = new File(".");
+        URL currentDirURL = currentDir.toURL();
+        URL url1 = new URL(currentDirURL, "src/" + tiedostonimi1);
+        AudioClip clip = Applet.newAudioClip(url1);
+        String nimi = "/home/timo/symbolipeli/ohjelma/src/" + tiedostonimi2;
+        lista2.add(new BiisiJaKuva(clip, nimi));
+        } catch (Exception e) {
+        }
+    }
+    
+    public void lisääBiisit2() {
+        lisääBiisi2("stageselect.wav", "stageselect.jpg");
+        lisääBiisi2("mylittlepony.wav", "mylittlepony.png");
+        lisääBiisi2("lovegravy.wav", "lovegravy.JPG");
+        lisääBiisi2("teaparty.wav", "teaparty.jpeg");
+        lisääBiisi2("always.wav", "always.jpg");
+        lisääBiisi2("future.wav", "future.png");
+        lisääBiisi2("avaus.wav", "avaus.jpg");
+        lisääBiisi2("otsikko.wav", "otsikko.jpg");
+        Collections.shuffle(lista2);
+        pelimusa = lista2.get(0).laulu;
     }
 }

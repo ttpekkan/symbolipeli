@@ -10,13 +10,14 @@ import javax.swing.*;
  */
 
 public class Ohjelma {
+    public static Graafinen pääohjelma;
     /**
      * Aloittaa pelin.
      * @param args 
      */
     public static void main(String[] args)  {
-           Graafinen uusi = new Graafinen();
-           SwingUtilities.invokeLater(uusi);
+           pääohjelma = new Graafinen();
+           SwingUtilities.invokeLater(pääohjelma);
         }
 }
 
