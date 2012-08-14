@@ -7,9 +7,9 @@ import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 public class NappulanKuuntelija implements ActionListener {
-    public Graafinen ohjelma;
+    public Päävalikko ohjelma;
     
-    public NappulanKuuntelija(Graafinen ohjelma) {
+    public NappulanKuuntelija(Päävalikko ohjelma) {
         this.ohjelma = ohjelma;
     }
     
@@ -24,7 +24,7 @@ public class NappulanKuuntelija implements ActionListener {
         }
         if (nappula.getText().equals("Aloita Peli")) {
             ohjelma.musa.päävalikkoMusa.stop();
-            GraafinenPeli uusi = new GraafinenPeli();
+            Peli uusi = new Peli();
             SwingUtilities.invokeLater(uusi);
         }
     }

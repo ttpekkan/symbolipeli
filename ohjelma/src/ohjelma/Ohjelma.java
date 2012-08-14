@@ -10,13 +10,13 @@ import javax.swing.*;
  */
 
 public class Ohjelma {
-    public static Graafinen pääohjelma;
+    public static Päävalikko pääohjelma;
     /**
      * Aloittaa pelin.
      * @param args 
      */
     public static void main(String[] args)  {
-           pääohjelma = new Graafinen();
+           pääohjelma = new Päävalikko();
            SwingUtilities.invokeLater(pääohjelma);
         }
 }
