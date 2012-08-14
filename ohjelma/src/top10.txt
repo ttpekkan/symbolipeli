@@ -1,3 +1,5 @@
+Robespierre
+499
 Marx
 13
 Berkeley
@@ -15,6 +17,4 @@ Hegel
 Plato
 2
 Aristotles
-0
-Frege
 0
