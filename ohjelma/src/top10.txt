@@ -1,5 +1,7 @@
 Robespierre
 499
+Napoleon
+14
 Marx
 13
 Berkeley
@@ -16,5 +18,3 @@ Hegel
 2
 Plato
 2
-Aristotles
-0

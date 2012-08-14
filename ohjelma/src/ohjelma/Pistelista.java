@@ -4,9 +4,11 @@
  */
 package ohjelma;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.Point;
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -20,15 +22,15 @@ import javax.swing.border.LineBorder;
  */
 public class Pistelista implements Runnable {
 
-    public JFrame ikkuna2;
-    public Container pohja;
-    public ArrayList<Tulos> pistelista;
-    public static int laskuri = 0;
+    private JFrame ikkuna2;
+    private Container pohja;
+    private ArrayList<Tulos> pistelista;
+    private static int laskuri = 0;
 
     public void run() {
-        ikkuna2 = new JFrame();
         if (laskuri == 0) {
-             laskuri = laskuri + 1;
+            ikkuna2 = new JFrame();
+            laskuri = laskuri + 1;
             ikkuna2.setTitle("Symbolipeli");
             Point piste = new Point(130, 200);
             ikkuna2.setLocation(piste);
@@ -40,12 +42,18 @@ public class Pistelista implements Runnable {
             ikkuna2.setResizable(false);
             ikkuna2.pack();
             ikkuna2.setVisible(true);
-        } else {
-            ikkuna2.dispose();
         }
     }
 
-    public void luoKomponentit() {
+    public void vähennäIkkunoidenMäärää() {
+        laskuri = laskuri - 1;
+    }
+
+    public JFrame palautaPisteListaIkkuna() {
+        return ikkuna2;
+    }
+
+    private void luoKomponentit() {
         pohja = ikkuna2.getContentPane();
 
         JButton nappula = new JButton("Sulje Pistelista");
@@ -59,14 +67,13 @@ public class Pistelista implements Runnable {
         nappula.setBorderPainted(true);
         nappula.setFont(new Font("Serif", Font.BOLD, 26));
         nappula.setBorder(new LineBorder(Color.green.darker()));
-        nappula.addActionListener(new NappulanKuuntelija2(this));
+        nappula.addActionListener(new PistelistanKuuntelija(this));
         pohja.add(nappula);
 
-        lataaPistelista();
         lisääJLabelit();
     }
 
-    public void luoKuva() {
+    private void luoKuva() {
         try {
             JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/pistelista.jpg"))));
             ikkuna2.setContentPane(label);
@@ -75,7 +82,7 @@ public class Pistelista implements Runnable {
         }
     }
 
-    public void lataaPistelista() {
+    private void lataaPistelista() {
         pistelista = new ArrayList<Tulos>();
         try {
             Scanner lukija = new Scanner(new File("src/top10.txt"));
@@ -88,16 +95,17 @@ public class Pistelista implements Runnable {
         Collections.sort(pistelista);
     }
 
-    public void lisääJLabelit() {
+    private void lisääJLabelit() {
+        lataaPistelista();
         ArrayList<JLabel> tekstit = new ArrayList<JLabel>();
         for (Tulos nimi : pistelista) {
-            tekstit.add(new JLabel(nimi.nimi));
+            tekstit.add(new JLabel(nimi.palautaNimi()));
         }
         int luku = 1;
         int x = 25;
         int y = 10;
         for (int i = 0; i < 10; i = i + 1) {
-            tekstit.get(i).setText(luku + ". " + pistelista.get(i).nimi + "  " + pistelista.get(i).pisteet);
+            tekstit.get(i).setText(luku + ". " + pistelista.get(i).palautaNimi() + "  " + pistelista.get(i).palautaPisteet());
             tekstit.get(i).setLocation(x, y);
             tekstit.get(i).setSize(500, 40);
             tekstit.get(i).setOpaque(false);

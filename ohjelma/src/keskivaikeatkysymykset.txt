@@ -1,0 +1,138 @@
+argon
+Ar
+Maapallon yleisin jalokaasu.
+antimoni
+Sb
+Tämän aineen sulfidia käytettiin silmien meikkaukseen mm. muinaisessa egyptissä.
+arseeni
+As
+Käytetään myrkkynä mm. Hercule Poirot -kirjoissa.
+barium
+Ba
+Tämän yhdisteitä käytetään ilotulitteissa vihreän värin aikaansaamiseksi.
+beryllium
+Be
+Kevein maa-alkalimetalli.
+boori
+B
+Jaksollisen järjestelmän kolmas ryhmä on nimetty tämän aineen mukaan.
+bromi
+Br
+Halogeeni, neste huoneenlämmössä.
+cesium
+Cs
+Käytetään atomikelloissa. Tämän avulla myös määritetään sekunti.
+elohopea
+Hg
+Nestemäinen metalli.
+fosfori
+P
+Valontuoja, Lucifer.
+hopea
+Ag
+Voidaa käyttää aterimissa.
+jodi
+I
+Kiinteä halogeeni, violetti.
+kadmium
+Cd
+Tätä voi käyttää teräksen galvanoinnissa.
+kalium
+K
+Potaska.
+kalsium
+Ca
+Luut, maito.
+koboltti
+Co
+Nimetty saksalaisessa mytologiassa esiintyvän hahmon mukaan (kobold).
+kromi
+Cr
+Tätä käytetään metallien pinnoittamiseen.
+krypton
+Kr
+Melkein samanniminen kun teräsmiehen heikkous.
+ksenon
+Xe
+Jalokaasu, jota voi käyttää valon tuottamiseen.
+kulta
+Au
+Rahanarvo voidaan kytkeä tähän metalliin.
+kupari
+Cu
+Tämän metallin pinta muuttuu vihreäksi, kun se hapettuu.
+litium
+Li
+Kevyin metalli.
+lyijy
+Pb
+Tästä alkuaineesta tehtyjen vesijohtojen on spekuloitu olleen yksi syy rooman rappeutumiseen.
+magnesium
+Mg
+Tämän metallin polttaminen synnyttää erittäin kirkkaan valkoisen liekin.
+mangaani
+Mn
+Nimi tulee latinan sanasta magnes (magneetti).
+natrium
+Na
+Tämän alkuaineen ioneja löytyy mm. pöytäsuolasta.
+neon
+Ne
+Tätä jalokaasua käytetään mm. mainoslampuissa.
+nikkeli
+Ni
+Nimetty saksalaisessa mytologiassa esiintyvän hahmon mukaan (kupfernickel).
+palladium
+Pd
+Nimetty erään asteroidin mukaan, joka puolestaan nimettiin Pallas Athenan mukaan.
+pii
+Si
+On esitetty, että elämä voisi perustua hiilen sijasta myös tähän alkuaineeseen.
+platina
+Pt
+Vetypolttokennoissa joudutaan usein käyttämään tätä kallista jalometallia katalyyttinä.
+plutonium
+Pu
+Fat Man.
+polonium
+Po
+Litvinenko myrkytettiin tällä radioaktiivisella aineella, kun sitä lisättiin hänen teehensä.
+radium
+Ra
+Tämä radioaktiivinen aine kulkeutuu helposti luustoon, koska se muistuttaa kalsiumia.
+radon
+Rn
+Tätä radioaktiivista jalokaasua voi esiintyä sisäilmassa.
+rubidium
+Rb
+Punainen jalokivi.
+seleeni
+Se
+Celine Dionin etunimi.
+sinkki
+Zn
+Teräs voidaan galvanoida tällä metallilla.
+strontium
+Sr
+Löydettiin Strontian-nimisestä kylästä Skotlannissa.
+tallium
+Tl
+Käytetään mm. rotanmyrkyissä.
+tina
+Sn
+Vuodenvaihteessa tätä metallia ensin sulatetaan ja sitten heitetään veteen.
+titaani
+Ti
+Zeus kumppaneineen syrjäyttivät nämä mytologiset hahmot.
+torium
+Th
+Nimetty viikinkien ukkosenjumalan mukaan.
+vanadiini
+V
+Johdettu jumalatar Freyjan vaihtoehtoisesta nimestä.
+vismutti
+Bi
+Käytetään mm. kestomagneettien valmistukseen.
+volframi
+W
+Tämän aineen karbideja käytetään mm. Leopardin alikalipeeriammuksissa.
