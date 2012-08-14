@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ohjelma;
 
 import java.awt.Color;
@@ -17,44 +13,73 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 /**
+ * Tämä luokan avulla avataan pistelistaikkuna.
  *
- * @author timo
+ * @author Timo Pekkanen
  */
-public class Pistelista implements Runnable {
 
-    private JFrame ikkuna2;
+public class Pistelista implements Runnable {
+    
+    /**
+     * Pistelistan attribuutit.
+     * pistelistaikkuna: Pistelistaikkuna.
+     * pohja: Pistelistaikkunan pohja.
+     * pistelista: ArrayList, joka sisältää tulokset.
+     * laskuri: Laskuri, jonka avulla pidetään huolta, että vain yksi pistelistaikkuna on avattu kerralla.
+     */
+    
+    public void Attribuutit() {     
+    }
+    private JFrame pistelistaikkuna;
     private Container pohja;
     private ArrayList<Tulos> pistelista;
     private static int laskuri = 0;
+    
+    /**
+     * Käynnistää pistelistaikkunan ja määrää sen ominaisuudet.
+     */
 
     public void run() {
         if (laskuri == 0) {
-            ikkuna2 = new JFrame();
+            pistelistaikkuna = new JFrame();
             laskuri = laskuri + 1;
-            ikkuna2.setTitle("Symbolipeli");
+            pistelistaikkuna.setTitle("Symbolipeli");
             Point piste = new Point(130, 200);
-            ikkuna2.setLocation(piste);
+            pistelistaikkuna.setLocation(piste);
             UIManager.put("Button.select", Color.green);
             luoKuva();
             luoKomponentit();
 
-            ikkuna2.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            ikkuna2.setResizable(false);
-            ikkuna2.pack();
-            ikkuna2.setVisible(true);
+            pistelistaikkuna.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            pistelistaikkuna.setResizable(false);
+            pistelistaikkuna.pack();
+            pistelistaikkuna.setVisible(true);
         }
     }
+    
+    /**
+     * Tämä metodi vähentää laskuri-attribuuttia yhdellä. 
+     */
 
     public void vähennäIkkunoidenMäärää() {
         laskuri = laskuri - 1;
     }
+    
+    /**
+     * Tämä metodi palauttaa pistelistaikkunan.
+     * @return Pistelistaikkuna.
+     */
 
     public JFrame palautaPisteListaIkkuna() {
-        return ikkuna2;
+        return pistelistaikkuna;
     }
+    
+    /**
+     * Tämä metodi luo halutut komponentit pistelistaikkunaan.
+     */
 
     private void luoKomponentit() {
-        pohja = ikkuna2.getContentPane();
+        pohja = pistelistaikkuna.getContentPane();
 
         JButton nappula = new JButton("Sulje Pistelista");
         nappula.setLocation(400, 50);
@@ -72,15 +97,23 @@ public class Pistelista implements Runnable {
 
         lisääJLabelit();
     }
+    
+    /**
+     * Tämä metodi luo taustakuvan pistelistaikkunalle.
+     */
 
     private void luoKuva() {
         try {
             JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/pistelista.jpg"))));
-            ikkuna2.setContentPane(label);
+            pistelistaikkuna.setContentPane(label);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+    
+    /**
+     * Tämä metodi lataa pistelistan tulokset ArrayListiin.
+     */
 
     private void lataaPistelista() {
         pistelista = new ArrayList<Tulos>();
@@ -94,6 +127,10 @@ public class Pistelista implements Runnable {
         }
         Collections.sort(pistelista);
     }
+    
+    /**
+     * Tämä metodi muodostaa tuloksista JLabel-esityksen. 
+     */
 
     private void lisääJLabelit() {
         lataaPistelista();

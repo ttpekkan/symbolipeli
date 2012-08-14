@@ -5,13 +5,30 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
+/**
+ * Tämä luokka valvoo, mitä nappeja päävalikkoikkunassa painetaan.
+ * 
+ * @author Timo Pekkanen
+ */
+
 public class PäävalikonKuuntelija implements ActionListener {
 
     private Päävalikko ohjelma;
+    
+    /**
+     * Luokan konstruktori.
+     * 
+     * @param ohjelma Päävalikkoikkuna. 
+     */
 
     public PäävalikonKuuntelija(Päävalikko ohjelma) {
         this.ohjelma = ohjelma;
     }
+    
+    /**
+     * Tämä metodi kertoo mitä tehdä, kun jotain nappia painetaan.
+     * @param e Napinpainallus.
+     */
 
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
@@ -25,6 +42,5 @@ public class PäävalikonKuuntelija implements ActionListener {
             Pistelista uusi = new Pistelista();
             SwingUtilities.invokeLater(uusi);
         }
-
     }
 }

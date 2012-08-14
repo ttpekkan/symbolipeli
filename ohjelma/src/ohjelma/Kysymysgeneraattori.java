@@ -8,10 +8,9 @@ import java.util.Scanner;
 /**
  * Tämä luokka generoi pelissä käytettävät kysymykset.
  *
- * @author timo
+ * @author Timo Pekkanen
  */
 public class Kysymysgeneraattori {
-
     private ArrayList<Alkuaine> helpotKysymykset;
     private ArrayList<Alkuaine> keskivaikeatKysymykset;
     private ArrayList<Alkuaine> vaikeatKysymykset;
@@ -19,6 +18,7 @@ public class Kysymysgeneraattori {
     /**
      * Luokan konstruktori, joka luo kolme valmista ArrayListiä.
      */
+    
     public Kysymysgeneraattori() {
         helpotKysymykset = new ArrayList<Alkuaine>();
         keskivaikeatKysymykset = new ArrayList<Alkuaine>();
@@ -39,9 +39,11 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Metodi lisää helpot kysymykset helpotKysymykset ArrayListiin ja sekoittaa
-     * listan.
+     * Lataa kysymysarjan ArrayListiin. 
+     * @param tiedosto Tiedosto, josta alkuaineet ladataan.
+     * @param sarja ArrayList, johon alkuaineet lisätään. 
      */
+    
     private void lataaKysymyssarja(String tiedosto, ArrayList<Alkuaine> sarja) {
         try {
             Scanner lukija = new Scanner(new File("src/" + tiedosto));
@@ -52,6 +54,10 @@ public class Kysymysgeneraattori {
             System.out.println(e);
         }
     }
+    
+    /**
+     * Lisää helpot alkuaineet ArrayListiin ja sekoittaa sen.
+     */
 
     private void lataaHelpotKysymykset() {
         lataaKysymyssarja("helpotkysymykset.txt", helpotKysymykset);
@@ -59,25 +65,25 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Metodi lisää keskivaikeat kysymykset keskivaikeatKysymykset ArrayListiin
-     * ja sekoittaa listan.
+     * Lisää keskivaikeat alkuaineet ArrayListiin ja sekoittaa sen.
      */
+    
     private void lataaKeskivaikeatKysymykset() {
         lataaKysymyssarja("keskivaikeatkysymykset.txt", keskivaikeatKysymykset);
         Collections.shuffle(keskivaikeatKysymykset);
     }
 
     /**
-     * Metodi lisää vaikeat kysymykset vaikeatKysymykset ArrayListiin ja
-     * sekoittaa listan.
+     * Lisää vaikeat alkuaineet ArrayListiin ja sekoittaa sen.
      */
+    
     private void lataaVaikeatKysymykset() {
         lataaKysymyssarja("vaikeatkysymykset.txt", vaikeatKysymykset);
         Collections.shuffle(vaikeatKysymykset);
     }
 
     /**
-     * Tämä metodi luo kaikki kysymykset kerralla, käyttäen edellisiä metodjeja.
+     * Lataa kaikki alkuaineet, edellisiä metodeja hyväksikäyttäen. 
      */
     private void luoKaikkiKysymykset() {
         lataaHelpotKysymykset();

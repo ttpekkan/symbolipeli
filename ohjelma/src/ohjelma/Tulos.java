@@ -34,7 +34,7 @@ public class Tulos implements Comparable<Tulos> {
      * tulos-olioita.
      *
      * @param toinen Verrattava tulos-olio.
-     * @return
+     * @return Vertauksessa käytetty luku.
      */
     public int compareTo(Tulos toinen) {
         if (this.pisteet == toinen.pisteet) {

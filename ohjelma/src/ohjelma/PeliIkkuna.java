@@ -14,11 +14,44 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 /**
- *
- * @author timo
+ * Tämä luokka kontrolloi tapahtumia, kun peli on aloitettu.
+ * 
+ * @author Timo Pekkanen
  */
-public class PeliIkkuna implements Runnable {
 
+public class PeliIkkuna implements Runnable {
+    
+    /**
+     * Attribuuttien dokumentointi.
+     * kysyttyAine: Alkuaine, jota ohjelma kysesellä hetkellä kysyy.
+     * pistelista: Pistelista sisältää aikasempia tuloksia.
+     * aika: Tämän luvun avulla päivitetään jäljellä olevaa aikaa.
+     * helpot: Tämän luvun avulla kysytään helpot kysymykset.
+     * keskivaikeat: Tämän luvun avulla kysytään keskivaikeat kysymykset.
+     * kokonaispisteet: Kertoo, paljonko pisteitä on yhteensä kasassa.
+     * kysymysnumero: Tämän avulla päivitetään monesko kysymys on menossa.
+     * vaikeat: Tämän luvun avulla kysytään vaikeat kysymykset.
+     * häviöIkkuna. Häviöikkuna JFrame.
+     * kysymysIkkuna: Kysymysikkuna JFrame.
+     * pelinPääikkuna: Pelin pääikkuna JFrame.
+     * voittoikkuna: voittoikkuna JFrame.
+     * ajanäyttö: JLabel, joka kertoo jäljellä olevan ajan.
+     * moneskoKysymysMenossa: JLabel, joka kertoo, monesko kysymys on menossa.
+     * pistetilanne: Näyttää, paljonko pisteistä on kasassa.
+     * symboli: Näyttää kysyttävän aineen kemiallisen symbolin.
+     * vaikeusaste: Näyttää, millä vaikeusasteella ollaan.
+     * vihje: Mahdollisesti näyttää, mikä kysytyn aineen vihje on.
+     * vastauskenttä: Kenttä, johon vastaukset kirjoitetaan.
+     * Kysymysgeneraattori: Tämän avulla luodaan kysymykset.
+     * musa: Tämän avulla huolehditaan äänentoistosta.
+     * pistelistanimi: nimi, joka mahdollisesti tallennetaan pistelistaan.
+     * ajastin: Tämän avulla lasketaan aikaa.
+     * pääIkkunalaskuri: Tämän avulla pidetään huolta siitä, että vain yksi pääikkuna on auki kerralla. 
+     * kysymysIkkunalaskuri. Tämän avulla pidetään huolta siitä, että vain yksi kysymysIkkuna on auki kerralla.
+     */
+    
+    public void Attribuutit() {     
+    }
     private Alkuaine kysyttyAine;
     private ArrayList<Tulos> pistelista;
     private int aika;
@@ -34,7 +67,7 @@ public class PeliIkkuna implements Runnable {
     private JFrame pelinPääikkuna;
     private JFrame voittoikkuna;
     private JLabel ajannäyttö;
-    private JLabel kysymysnro;
+    private JLabel moneskoKysymysMenossa;
     private JLabel pistetilanne;
     private JLabel symboli;
     private JLabel vaikeusaste;
@@ -47,6 +80,10 @@ public class PeliIkkuna implements Runnable {
     private Timer ajastin;
     private static int pääikkunalaskuri = 0;
     private static int kysynimiIkkunalaskuri = 0;
+    
+    /**
+     * Käynnistää pelin Pääikkunan ja asettaa sen alkuominaisuudet.
+     */
 
     public void run() {
         if (pääikkunalaskuri == 0) {
@@ -70,6 +107,25 @@ public class PeliIkkuna implements Runnable {
             luoKysymysikkuna();
         }
     }
+    
+    /**
+     * Tämän metodin avulla asetetaan halutulle nappulalle kaikki tarvittavat ominaisuudet.
+     * 
+     * @param nappula JButton, jota muokataan.
+     * @param xSijainti Asettaa nappulan sijainnin x-tasossa.
+     * @param ySijainti Asettaa nappulan sijainnin y-tasossa.
+     * @param xKoko Asettaa nappulan leveyden.
+     * @param yKoko Asettaa nappulan korkeuden.
+     * @param väriTausta Asettaa nappulan taustavärin.
+     * @param tausta Asettaa, näkyykö nappulan tausta vai ei.
+     * @param väriTeksti Asettaa nappulan tekstin värin.
+     * @param kohdistusMaalaus Asettaa, reagoiko nappula kun sitä kohdistetaan vai ei.
+     * @param täytäAlue Asettaa, reagoiko nappula kun sitä painetaan vai ei.
+     * @param näytäRajat Asettaa, näytetäänkä nappulan rajat vai ei.
+     * @param fonttikoko Asettaa nappulassa olevan fontin koon.
+     * @param rajanvärit Asettaa, minkä värinen nappulan raja on.
+     * @param pohja Määrää, mihin pohjaan nappula lisätään.
+     */
 
     private void luoNappula(JButton nappula, int xSijainti, int ySijainti, int xKoko,
             int yKoko, Color väriTausta, boolean tausta, Color väriTeksti,
@@ -87,6 +143,21 @@ public class PeliIkkuna implements Runnable {
         nappula.setBorder(new LineBorder(rajanvärit));
         pohja.add(nappula);
     }
+    
+    /**
+     * Tämän metodin avulla asetetaan halutulle tekstille kaikki tarvittavat ominaisuudet.
+     * 
+     * @param teksti JLabel, jota muokataan.
+     * @param xSijainti Asettaa tekstin sijainnin x-tasossa.
+     * @param ySijainti Asettaa tekstin sijainnin y-tasossa.
+     * @param xKoko Asettaa tekstilaatikon leveyden.
+     * @param yKoko Asettaa tekstilaatikon korkeuden.
+     * @param tausta Asettaa, näkyykö tekstilaatikon tausta vai ei.
+     * @param väriTausta Asettaa tekstilaatikon taustavärin.
+     * @param väriKirjoitus Asettaa tekstin värin.
+     * @param fonttikoko Asettaa tekstin fontin koon.
+     * @param pohja  Määrää, mihin pohjaan nappula lisätään.
+     */
 
     private void luoTeksti(JLabel teksti, int xSijainti, int ySijainti, int xKoko,
             int yKoko, boolean tausta, Color väriTausta, Color väriKirjoitus,
@@ -99,6 +170,19 @@ public class PeliIkkuna implements Runnable {
         teksti.setFont(new Font("Serif", Font.BOLD, fonttikoko));
         pohja.add(teksti);
     }
+    
+    /**
+     * Tämän metodin avulla asetetaan halutulle tekstikentälle kaikki tarvittavat ominaisuudet.
+     * 
+     * @param kenttä Kenttä, jota muokataan.
+     * @param xSijainti Asettaa kentän sijainnin x-tasossa.
+     * @param ySijainti Asettaa kentän sijainnin y-tasossa.
+     * @param xKoko Asettaa kentän leveyden.
+     * @param yKoko Asettaa kentän korkeuden.
+     * @param fonttikoko Asettaa tekstikentän fontin koon.
+     * @param kentänTeksti Asettaa tekstikenttään halutun tekstin.
+     * @param pohja Määrää, mihin pohjaan tekstikenttä lisätään.
+     */
 
     private void luoTekstikenttä(JTextField kenttä, int xSijainti, int ySijainti,
             int xKoko, int yKoko, int fonttikoko, String kentänTeksti,
@@ -109,6 +193,12 @@ public class PeliIkkuna implements Runnable {
         kenttä.setText(kentänTeksti);
         pohja.add(kenttä);
     }
+    
+    /**
+     * Metodi suorittaa ne toiminnot, jotka ovat identtisiä jokaisessa ikkunnassa.
+     * 
+     * @param ikkuna Ikkuna määrää, mihin ikkunaan toiminnot tehdään. 
+     */
 
     private void neIkkunanavausToiminnotJotkaAinaSama(JFrame ikkuna) {
         ikkuna.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -116,6 +206,10 @@ public class PeliIkkuna implements Runnable {
         ikkuna.pack();
         ikkuna.setVisible(true);
     }
+    
+    /**
+     * Metodi luo halutut komponentit Pelin pääikkunaan.
+     */
 
     private void luoKomponentit() {
 
@@ -132,14 +226,21 @@ public class PeliIkkuna implements Runnable {
         vaikeusaste = new JLabel("Vaikeusaste: helppo");
         luoTeksti(vaikeusaste, 30, 630, 290, 20, true, Color.GRAY, Color.white, 20, pohja);
 
-        kysymysnro = new JLabel("Kysymys: " + kysymysnumero);
-        luoTeksti(kysymysnro, 30, 660, 160, 20, true, Color.GRAY, Color.white, 20, pohja);
+        moneskoKysymysMenossa = new JLabel("Kysymys: " + kysymysnumero);
+        luoTeksti(moneskoKysymysMenossa, 30, 660, 160, 20, true, Color.GRAY, Color.white, 20, pohja);
 
         ajastin = new Timer(1000, new AjastimenKuuntelija(this));
 
         ajannäyttö = new JLabel("Aika: " + aika);
         luoTeksti(ajannäyttö, 850, 630, 150, 50, true, Color.GRAY, Color.white, 30, pohja);
     }
+    
+    /**
+     * Metodi luo taustakuvan haluttuun ikkunaan.
+     * 
+     * @param tiedosto Kuvatiedosto, jonka pohjalta taustakuva muodostetaan.
+     * @param ikkuna Ikkuna, johon taustakuva lisätään.
+     */
 
     private void luoKuva(String tiedosto, JFrame ikkuna) {
         try {
@@ -149,9 +250,13 @@ public class PeliIkkuna implements Runnable {
             System.out.println(e);
         }
     }
+    
+    /**
+     * Suorittaa alustavat toimenpiteet, kun peli aloitetaan.
+     */
 
     public void aloitaPeli() {
-        kysymysnro.setText("Kysymys: " + kysymysnumero);
+        moneskoKysymysMenossa.setText("Kysymys: " + kysymysnumero);
         helpot = 0;
         keskivaikeat = 0;
         vaikeat = 0;
@@ -165,6 +270,12 @@ public class PeliIkkuna implements Runnable {
         musa.palautaPelilaulu().loop();
         ajastin.start();
     }
+    
+    /**
+     * Tämän metodin avulla esitetään kysymys alkuaineesta.
+     * 
+     * @param aine Alkuaine-olio, josta kysymys esitetään.
+     */
 
     private void kysyKysymys(Alkuaine aine) {
         väärät = 0;
@@ -174,6 +285,12 @@ public class PeliIkkuna implements Runnable {
             vastauskenttä.setText("Kirjoita symbolia vastaavan alkuaineen nimi tähän (pienillä).");
         }
     }
+    
+    /**
+     * Tämä metodi päivittää tilanteen, jos on vastannut oikein, sekä laukaisee voitto-metodin, jos olosuhteet oikeat.
+     * 
+     * @param kerroin Kerroin vaikuttaa siihen, paljonko pisteitä annetaan. Kertoimen määrää sen mukaan, onko vihjettä annettu vai ei.
+     */
 
     public void päivitäTilanne(int kerroin) {
         aika = 15;
@@ -181,7 +298,7 @@ public class PeliIkkuna implements Runnable {
         vastauskenttä.setText("");
         väärät = 0;
         kysymysnumero = kysymysnumero + 1;
-        kysymysnro.setText("Kysymys: " + kysymysnumero);
+        moneskoKysymysMenossa.setText("Kysymys: " + kysymysnumero);
         if (helpot < 11 && keskivaikeat == 0 && vaikeat == 0) {
             kysyHelppo(kerroin);
             if (helpot == 11) {
@@ -207,6 +324,12 @@ public class PeliIkkuna implements Runnable {
             }
         }
     }
+    
+    /**
+     * Tämän metodin avulla kysytään helpot kysymykset ja päivitetään tilannetta. 
+     * 
+     * @param kertoluku Kertoluku vaikuttaa siihen, paljonko pisteitä annetaan. Kertoimen määrää päivitäTilanne-metodin kerroin.
+     */
 
     private void kysyHelppo(int kertoluku) {
         helpot = helpot + 1;
@@ -216,6 +339,12 @@ public class PeliIkkuna implements Runnable {
             kysyKysymys(alkuaineet.palautaHelpotKysymykset().get(helpot));
         }
     }
+    
+    /**
+     * Tämän metodin avulla kysytään keskivaikeat kysymykset ja päivitetään tilannetta.
+     * 
+     * @param kertoluku Kertoluku vaikuttaa siihen, paljonko pisteitä annetaan. Kertoimen määrää päivitäTilanne-metodin kerroin.
+     */
 
     private void kysyKeskivaikea(int kertoluku) {
         keskivaikeat = keskivaikeat + 1;
@@ -225,6 +354,12 @@ public class PeliIkkuna implements Runnable {
             kysyKysymys(alkuaineet.palautaKeskivaikeatKysymykset().get(keskivaikeat));
         }
     }
+    
+    /**
+     * Tämän metodin avulla kysytään vaikeat kysymykset ja päivitetään tilannetta.
+     * 
+     * @param kertoluku Kertoluku vaikuttaa siihen, paljonko pisteitä annetaan. Kertoimen määrää päivitäTilanne-metodin kerroin.
+     */
 
     private void kysyVaikea(int kertoluku) {
         vaikeat = vaikeat + 1;
@@ -234,6 +369,10 @@ public class PeliIkkuna implements Runnable {
             kysyKysymys(alkuaineet.palautaVaikeatKysymykset().get(vaikeat));
         }
     }
+    
+    /**
+     * Tämä metodin avulla annetaan pelaajalle vihje, jos hän on vastannut väärin. 
+     */
 
     public void annaVihje() {
         aika = 15;
@@ -241,6 +380,10 @@ public class PeliIkkuna implements Runnable {
         vihje.setText(kysyttyAine.palautaVihje());
         vastauskenttä.setText("");
     }
+    
+    /**
+     * Tämä metodi luo kysymysikkunan.
+     */
 
     private void luoKysymysikkuna() {
         kysymysikkuna = new JFrame();
@@ -250,6 +393,10 @@ public class PeliIkkuna implements Runnable {
 
         neIkkunanavausToiminnotJotkaAinaSama(kysymysikkuna);
     }
+    
+    /**
+     * Tämä metodi luo tarvittavat kysymysikkunan komponentit.
+     */
 
     private void luoKysymystenKomponentit() {
         Container pohja = kysymysikkuna.getContentPane();
@@ -273,6 +420,10 @@ public class PeliIkkuna implements Runnable {
         ok.addActionListener(new PeliIkkunanKuuntelija(this));
         kysymysikkuna.getRootPane().setDefaultButton(ok);
     }
+    
+    /**
+     * Metodi luo voittoikkunan, jos pelaaja voittaa pelin. 
+     */
 
     private void voitit() {
         ajastin.stop();
@@ -286,6 +437,10 @@ public class PeliIkkuna implements Runnable {
 
         neIkkunanavausToiminnotJotkaAinaSama(voittoikkuna);
     }
+    
+    /**
+     * Metodi luo tarvittavat komponentit voittoikkunaan.
+     */
 
     private void voittoKomponentit() {
         Container pohja = voittoikkuna.getContentPane();
@@ -301,6 +456,10 @@ public class PeliIkkuna implements Runnable {
                 true, true, 16, Color.gray, pohja);
         lopeta.addActionListener(new PeliIkkunanKuuntelija(this));
     }
+    
+    /**
+     * Metodi luo häviöikkunan, jos pelaaja häviää pelin. 
+     */
 
     public void hävisit() {
         ajastin.stop();
@@ -314,6 +473,10 @@ public class PeliIkkuna implements Runnable {
 
         neIkkunanavausToiminnotJotkaAinaSama(häviöikkuna);
     }
+    
+    /**
+     * Metodi luo tarvittavat komponentit häviöikkunaan. 
+     */
 
     private void hävisitKomponentit() {
         Container pohja = häviöikkuna.getContentPane();
@@ -332,6 +495,10 @@ public class PeliIkkuna implements Runnable {
                 true, true, 16, Color.white, pohja);
         lopeta.addActionListener(new PeliIkkunanKuuntelija(this));
     }
+    
+    /**
+     * Metodi luo kysynimimerkki-ikkunan, jonka avullaa tiedustellaan pelaajan nimimerkkiä. 
+     */
 
     public void kysyNimimerkki() {
         if (kysynimiIkkunalaskuri == 0) {
@@ -344,6 +511,10 @@ public class PeliIkkuna implements Runnable {
             neIkkunanavausToiminnotJotkaAinaSama(kysynimiIkkuna);
         }
     }
+    
+    /**
+     * Metodi luo tarvittavat komponentit kysynimimerkki-ikkunaan.
+     */
 
     private void luoKysyNimimerkkiKomponentit() {
         Container pohja = kysynimiIkkuna.getContentPane();
@@ -360,6 +531,13 @@ public class PeliIkkuna implements Runnable {
         ok.addActionListener(new PeliIkkunanKuuntelija(this));
 
     }
+    
+    /**
+     * Metodi laskee, pääseekö tulos pistelistalle. 
+     * 
+     * @param pisteet Pelaajan pisteet.
+     * @return Metodi palauttaa true tai false, pisteistä ja pistelistasta riippuen.
+     */
 
     public boolean pääseeListalle(int pisteet) {
         if (pisteet > pistelista.get(pistelista.size() - 1).palautaPisteet()) {
@@ -368,6 +546,10 @@ public class PeliIkkuna implements Runnable {
             return false;
         }
     }
+    
+    /**
+     * Tämä metodi lataa pistelista-ArrayListiin tekstitiedostossa olevat tiedot. 
+     */
 
     private void lataaPistelista() {
         pistelista = new ArrayList<Tulos>();
@@ -381,12 +563,23 @@ public class PeliIkkuna implements Runnable {
         }
         Collections.sort(pistelista);
     }
+    
+    /**
+     * Metodi lisää tuloksen pistelistaan.
+     * 
+     * @param nimi Pistelistaan lisätty nimimerkki.
+     * @param pisteet Pistelistaan lisätyt pisteet.
+     */
 
     public void lisääTulos(String nimi, int pisteet) {
         pistelista.remove(pistelista.size() - 1);
         pistelista.add(new Tulos(nimi, pisteet));
         Collections.sort(pistelista);
     }
+    
+    /**
+     * Tämä metodi tallentaa pistelista-ArrayListin tiedot tekstitiedostoon. 
+     */
 
     public void tallennaPistelista() {
         try {
@@ -400,6 +593,10 @@ public class PeliIkkuna implements Runnable {
             System.out.println("Virhe!");
         }
     }
+    
+    /**
+     * Tämä metodi vähentää aikaa, laukaisee vihjeen tai laukaisee häviön. 
+     */
 
     public void vähennäAikaa() {
         if (aika > 0) {
@@ -414,66 +611,143 @@ public class PeliIkkuna implements Runnable {
             }
         }
     }
+    
+    /**
+     * Palauttaa sen alkuaine-olion, jotta tällä hetkellä kysytään.
+     * @return Kysytty alkuaine-olio.
+     */
 
     public Alkuaine palautaKysyttyAine() {
         return kysyttyAine;
     }
+    
+    /**
+     * Asettaa kysymysnumeron arvoksi yhden.
+     */
 
     public void AsetaKysymynumero() {
         kysymysnumero = 1;
     }
+    
+    /**
+     * Metodi palauttaa kysymysnumeron.
+     * @return Palautettu kysymysnumero. 
+     */
 
     public int palautaKysymysnumero() {
         return kysymysnumero;
     }
+    
+    /**
+     * Metodi kertoo, mikä väärät-attribuutin arvo on.
+     * @return väärät-attribuutin arvo.
+     */
 
     public int palautaVäärät() {
         return väärät;
     }
+    
+    /**
+     * Metodi palauttaa kokonaispisteet.
+     * @return Kokonaispisteet-attribuutin arvo.
+     */
 
     public int palautaKokonaispisteet() {
         return kokonaispisteet;
     }
+    
+    /**
+     * Palauttaa pelin pääikkunan.
+     * @return Pelin pääikkuna.
+     */
 
     public JFrame palautaPelinPääikkuna() {
         return pelinPääikkuna;
     }
+    
+    /**
+     * Palauttaa voittoikkunan.
+     * @return Voittoikkuna.
+     */
 
     public JFrame palautaVoittoikkuna() {
         return voittoikkuna;
     }
+    
+    /**
+     * Palauttaa häviöikkunan.
+     * @return Häviöikkuna.
+     */
 
     public JFrame palautaHäviöikkuna() {
         return häviöikkuna;
     }
+    
+    /**
+     * Palauttaa kysymysikkunan.
+     * @return Kysymysikkuna.
+     */
 
     public JFrame palautaKysymysikkuna() {
         return kysymysikkuna;
     }
+    
+    /**
+     * Palauttaa kysynimi-ikkunan.
+     * @return Kysynimi-ikkuna.
+     */
 
     public JFrame palautaKysynimiIkkuna() {
         return kysynimiIkkuna;
     }
+    
+    /**
+     * Metodi vähentää yhden pääikkunalaskurista. 
+     */
 
     public void vähennäPääikkunalaskuri() {
         pääikkunalaskuri = pääikkunalaskuri - 1;
     }
+    
+    /**
+     * Metodi vähentää yhden kysynimi-ikkunalaskurista.
+     */
 
     public void vähennäKysynimiIkkunalaskuri() {
         kysynimiIkkunalaskuri = kysynimiIkkunalaskuri - 1;
     }
+    
+    /**
+     * Metodi palauttaa Musiikkikirjaston.
+     * @return Musiikkikirjasto.
+     */
 
     public Musiikkikirjasto palautaMusiikkikirjasto() {
         return musa;
     }
+    
+    /**
+     * Metodi palauttaa ajastimen.
+     * @return Ajastin.
+     */
 
     public Timer palautaAjastin() {
         return ajastin;
     }
+    
+    /**
+     * Metodi palauttaa vastauskentän.
+     * @return Vastauskenttä.
+     */
 
     public JTextField palautaVastauskenttä() {
         return vastauskenttä;
     }
+    
+    /**
+     * Metodi antaa arvon pistelistanimi-attribuutille, jos nimikentällä on arvo, ja palauttaa sen.
+     * @return Pistelistaan annettu nimi;
+     */
 
     public String palautaPistelistanimi() {
         pistelistanimi = "";

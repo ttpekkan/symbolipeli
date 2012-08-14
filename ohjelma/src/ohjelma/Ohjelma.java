@@ -3,14 +3,14 @@ package ohjelma;
 import javax.swing.SwingUtilities;
 
 /**
- * Alkuainepeli!
- *
- * @author timo
+ * Alkuainepelin pääluokka.
+ * 
+ * @author Timo Pekkanen
  */
 public class Ohjelma {
 
     /**
-     * Aloittaa pelin.
+     * Luo uuden Päävalikko-olion.
      *
      * @param args
      */

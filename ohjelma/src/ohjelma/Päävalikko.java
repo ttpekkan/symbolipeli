@@ -9,17 +9,36 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class Päävalikko implements Runnable {
+/**
+ * Tällä luokalla luodaan pelin päävalikko.
+ * 
+ * @author Timo Pekkanen
+ */
 
-    private JFrame ikkuna;
+public class Päävalikko implements Runnable {
+    
+    /**
+     * Päävalikon attribuutit.
+     * päävalikkoikkuna: Päävalikkoikkuna.
+     * pohja: Päävalikkoikkunan pohja.
+     * musa: Tämän avulla huolehditaan äänentoistosta.
+     */
+    
+    public void Attribuutit() {     
+    }
+    private JFrame päävalikkoikkuna;
     private Container pohja;
     private Musiikkikirjasto musa;
+    
+    /**
+     * Tämä metodi luo päävalikkoikkunan.
+     */
 
     public void run() {
-        ikkuna = new JFrame();
-        ikkuna.setTitle("Symbolipeli");
+        päävalikkoikkuna = new JFrame();
+        päävalikkoikkuna.setTitle("Symbolipeli");
         Point piste = new Point(230, 180);
-        ikkuna.setLocation(piste);
+        päävalikkoikkuna.setLocation(piste);
         UIManager.put("Button.select", Color.green);
         luoKuva();
 
@@ -27,14 +46,18 @@ public class Päävalikko implements Runnable {
         musa.palautaPäävalikkolaulu().loop();
         luoKomponentit();
 
-        ikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        ikkuna.setResizable(false);
-        ikkuna.pack();
-        ikkuna.setVisible(true);
+        päävalikkoikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        päävalikkoikkuna.setResizable(false);
+        päävalikkoikkuna.pack();
+        päävalikkoikkuna.setVisible(true);
     }
+    
+    /**
+     * Tämä metodi luo päävalikkoikkunankomponentit.
+     */
 
     private void luoKomponentit() {
-        pohja = ikkuna.getContentPane();
+        pohja = päävalikkoikkuna.getContentPane();
 
         JButton nappula1 = new JButton("Aloita Peli");
         JButton nappula2 = new JButton("Pistelista");
@@ -46,19 +69,33 @@ public class Päävalikko implements Runnable {
         luoNappulat(nappula2);
         luoNappulat(nappula3);
     }
+    
+    /**
+     * Tämä metodi palauttaa Musiikkikirjaston.
+     * @return Musiikkikirjasto.
+     */
 
     public Musiikkikirjasto palautaMusiikkikirjasto() {
         return musa;
     }
+    
+    /**
+     * Tämä metodi luo päävalikkoikkunan taustakuvan.
+     */
 
     private void luoKuva() {
         try {
             JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/taustakuva.jpg"))));
-            ikkuna.setContentPane(label);
+            päävalikkoikkuna.setContentPane(label);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+    
+    /**
+     * Tämän metodin avulla määrätään päävalikkoikkunan ominaisuudet (paitsi sijainti).
+     * @param nappula Nappula, jota halutaan muokata. 
+     */
 
     private void luoNappulat(JButton nappula) {
         nappula.setSize(200, 50);

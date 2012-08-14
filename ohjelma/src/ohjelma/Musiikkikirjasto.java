@@ -8,14 +8,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Tämä luokka sisältää taustamusiikit ja muutaman ääniefektin.
- *
- * Metodeilla luodaan biisit ja ohjataan niiden käyttöä.
- *
- * @author timo
+ * Tämän luokan avulla hoidetaan äänentoisto.
+ * @author Timo Pekkanen
  */
-public class Musiikkikirjasto {
 
+public class Musiikkikirjasto {
+    
+    /**
+     * Musiikkikirjaston attribuutit.
+     * päävalikkolaulu: Päävalikon taustamusiiki.
+     * pelilaulu: Pelin taustamusiikki.
+     * lauluJaKuvaLista: ArrayList, josta arvotaan pelin taustamusiikki ja taustakuva.
+     * voittolaulu: Laulu, joka soitetaan, kun pelaaja voitaa.
+     * häviölaulu: Laulu, joka soitetaan, kun pelaaja häviää.
+     * aloituslaulu: Laulu, joka soitetaan, kun pelaaja aloittaa pelin.
+     */
+    
+    public void Attribuutit() {     
+    }
     private static AudioClip päävalikkolaulu;
     private static AudioClip pelilaulu;
     private static ArrayList<LauluJaKuva> lauluJaKuvaLista;
@@ -24,10 +34,9 @@ public class Musiikkikirjasto {
     private static AudioClip aloituslaulu;
 
     /**
-     * Luokan konstruktori. Luo ArrayListin, joka sisältää AudioClippeja.
-     *
-     * yksiBiisi arrayListiä käytetään testauksen apuna.
+     * Luokan konstruktori. Luo halutut audioklipit ja yhden LauluJaKuva ArrayListin.
      */
+    
     public Musiikkikirjasto() {
         lauluJaKuvaLista = new ArrayList<LauluJaKuva>();
         lisääKaikkiLaulutJaKuvat();
@@ -36,30 +45,66 @@ public class Musiikkikirjasto {
         aloituslaulu = palautaHaluttuLaulu("pelinaloitus.wav");
         päävalikkolaulu = palautaHaluttuLaulu("päävalikko.wav");
     }
+    
+    /**
+     * Tällä päästään käsiksi pelilauluun. 
+     * @return Pelilaulu-audioklippi.
+     */
 
     public AudioClip palautaPelilaulu() {
         return pelilaulu;
     }
+    
+    /**
+     * Tällä päästään käsiksi päävalikkolauluun. 
+     * @return päävalikko-audioklippi.
+     */
 
     public AudioClip palautaPäävalikkolaulu() {
         return päävalikkolaulu;
     }
+    
+    /**
+     * Tällä päästään käsiksi voitto-ääniefektiin. 
+     * @return voitto-audioklippi.
+     */
 
     public AudioClip palautaVoittolaulu() {
         return voittolaulu;
     }
+    
+    /**
+     * Tällä päästään käsiksi häviö-ääniefektiin. 
+     * @return häviö-audioklippi.
+     */
 
     public AudioClip palautaHäviölaulu() {
         return häviölaulu;
     }
+    
+    /**
+     * Tällä päästään käsiksi pelinaloitus-ääniefektiin. 
+     * @return Pelinaloitus-audioklippi.
+     */
 
     public AudioClip palautaAloituslaulu() {
         return aloituslaulu;
     }
+    
+    /**
+     * Metodi palauttaa LauluJaKuva ArrayListin.
+     * @return LauluJaKuva ArrayList.
+     */
 
     public ArrayList<LauluJaKuva> PalautaLauluJaKuvaLista() {
         return lauluJaKuvaLista;
     }
+    
+    /**
+     * Luo ja palauttaa audioklipin, joka ladataan halutusta tiedostosta.
+     * @param tiedosto Haluttu äänitiedosto.
+     * @return Palautettu audioklippi.
+     */
 
     private AudioClip palautaHaluttuLaulu(String tiedosto) {
         AudioClip musa = null;
@@ -73,6 +118,12 @@ public class Musiikkikirjasto {
         }
         return musa;
     }
+    
+    /**
+     * Metodi luo LauluJaKuva-olion ja lisää sen ArrayListiin.
+     * @param tiedostonimi1 Haluttu audioklippi.
+     * @param tiedostonimi2 Halutun kuvatiedoston nimi merkkijonona.
+     */
 
     private void lisääLaulu(String tiedostonimi1, String tiedostonimi2) {
         try {
@@ -86,6 +137,12 @@ public class Musiikkikirjasto {
             System.out.println(e);
         }
     }
+    
+    /**
+     * Luo kahdeksan LauluJaKuva oliota ja lisää ne ArrayListiin.
+     * 
+     * Peli myös sekoittaa ArrayListin, samalla arpoen pelin taustakuvan ja pelimusiikin. 
+     */
 
     private void lisääKaikkiLaulutJaKuvat() {
         lisääLaulu("stageselect.wav", "stageselect.jpg");
