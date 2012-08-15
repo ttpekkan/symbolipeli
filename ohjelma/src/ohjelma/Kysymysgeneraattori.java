@@ -51,7 +51,7 @@ public class Kysymysgeneraattori {
                 sarja.add(new Alkuaine(lukija.nextLine(), lukija.nextLine(), lukija.nextLine()));
             }
         } catch (Exception e) {
-            System.out.println(e);
+            
         }
     }
     

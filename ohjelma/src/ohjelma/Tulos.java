@@ -38,11 +38,15 @@ public class Tulos implements Comparable<Tulos> {
      */
     public int compareTo(Tulos toinen) {
         if (this.pisteet == toinen.pisteet) {
-            return this.nimi.compareTo(toinen.nimi);
+           if (this.nimi.compareTo(toinen.nimi) < 0) {
+               return -1;
+           } else if (this.nimi.compareTo(toinen.nimi) == 0) {
+               return 0;
+           } else {
+               return 1;
+           }
         } else if (this.pisteet < toinen.pisteet) {
             return 1;
-        } else if (this.pisteet == toinen.pisteet && this.nimi.equals(toinen.nimi)) {
-            return 0;
         } else {
             return -1;
         }
