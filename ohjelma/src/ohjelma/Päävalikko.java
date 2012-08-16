@@ -43,7 +43,7 @@ public class Päävalikko implements Runnable {
         luoKuva();
 
         musa = new Musiikkikirjasto();
-        musa.palautaPäävalikkolaulu().loop();
+        musa.jatkuvaToistoPäävalikkolaulu();
         luoKomponentit();
 
         päävalikkoikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -62,9 +62,9 @@ public class Päävalikko implements Runnable {
         JButton nappula1 = new JButton("Aloita Peli");
         JButton nappula2 = new JButton("Pistelista");
         JButton nappula3 = new JButton("Lopeta");
-        nappula1.setLocation(296, 25);
-        nappula2.setLocation(296, 150);
-        nappula3.setLocation(296, 450);
+        nappula1.setLocation(46, 450);
+        nappula2.setLocation(296, 450);
+        nappula3.setLocation(546, 450);
         luoNappulat(nappula1);
         luoNappulat(nappula2);
         luoNappulat(nappula3);
@@ -85,7 +85,8 @@ public class Päävalikko implements Runnable {
 
     private void luoKuva() {
         try {
-            JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/taustakuva.jpg"))));
+        //  JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/taustakuva.jpg"))));
+            JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("src/taustakuva.png"))));
             päävalikkoikkuna.setContentPane(label);
         } catch (Exception e) {
             System.out.println(e);
@@ -100,7 +101,7 @@ public class Päävalikko implements Runnable {
     private void luoNappulat(JButton nappula) {
         nappula.setSize(200, 50);
         nappula.setBackground(Color.white);
-        nappula.setOpaque(false);
+        nappula.setOpaque(true);
         nappula.setForeground(Color.green.darker());
         nappula.setFocusPainted(false);
         nappula.setContentAreaFilled(true);

@@ -97,9 +97,9 @@ public class PeliIkkuna implements Runnable {
             pelinPääikkuna.setLocation(piste);
             UIManager.put("Button.select", Color.green);
             musa = new Musiikkikirjasto();
-            musa.palautaAloituslaulu().play();
+            musa.soitaAloituslaulu();
 
-            luoKuva(musa.PalautaLauluJaKuvaLista().get(0).palautaKuva(), pelinPääikkuna);
+            luoKuva(musa.palautaKuvannimi(), pelinPääikkuna);
             luoKomponentit();
             lataaPistelista();
 
@@ -244,10 +244,13 @@ public class PeliIkkuna implements Runnable {
 
     private void luoKuva(String tiedosto, JFrame ikkuna) {
         try {
-            JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File(tiedosto))));
+         // JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File(tiedosto))));
+            JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("src/" + tiedosto))));
             ikkuna.setContentPane(label);
         } catch (Exception e) {
+            System.out.println("HEI HEI");
             System.out.println(e);
+            System.out.println("HEI HEI");
         }
     }
     
@@ -267,7 +270,7 @@ public class PeliIkkuna implements Runnable {
             Thread.sleep(4000);
         } catch (Exception e) {
         }
-        musa.palautaPelilaulu().loop();
+        musa.jatkuvaToistoPelilaulu();
         ajastin.start();
     }
     
@@ -387,7 +390,8 @@ public class PeliIkkuna implements Runnable {
 
     private void luoKysymysikkuna() {
         kysymysikkuna = new JFrame();
-        luoKuva("/home/timo/symbolipeli/ohjelma/src/kysymys.jpeg", kysymysikkuna);
+     // luoKuva("/home/timo/symbolipeli/ohjelma/src/kysymys.jpeg", kysymysikkuna);
+        luoKuva("kysymys.png", kysymysikkuna);
         kysymysikkuna.setLocation(100, 10);
         luoKysymystenKomponentit();
 
@@ -428,11 +432,12 @@ public class PeliIkkuna implements Runnable {
     private void voitit() {
         ajastin.stop();
         kysymysikkuna.dispose();
-        musa.palautaPelilaulu().stop();
-        musa.palautaVoittolaulu().play();
+        musa.pysäytäPelilaulu();
+        musa.soitaVoittolaulu();
         voittoikkuna = new JFrame();
         voittoikkuna.setLocation(200, 300);
-        luoKuva("/home/timo/symbolipeli/ohjelma/src/voitto.jpeg", voittoikkuna);
+     // luoKuva("/home/timo/symbolipeli/ohjelma/src/voitto.jpeg", voittoikkuna);
+        luoKuva("voitto.png", voittoikkuna);
         voittoKomponentit();
 
         neIkkunanavausToiminnotJotkaAinaSama(voittoikkuna);
@@ -464,11 +469,12 @@ public class PeliIkkuna implements Runnable {
     public void hävisit() {
         ajastin.stop();
         kysymysikkuna.dispose();
-        musa.palautaPelilaulu().stop();
-        musa.palautaHäviölaulu().play();
+        musa.pysäytäPelilaulu();
+        musa.soitaHäviölaulu();
         häviöikkuna = new JFrame();
         häviöikkuna.setLocation(200, 300);
-        luoKuva("/home/timo/symbolipeli/ohjelma/src/häviö.jpeg", häviöikkuna);
+     // luoKuva("/home/timo/symbolipeli/ohjelma/src/häviö.jpeg", häviöikkuna);
+        luoKuva("häviö.png", häviöikkuna);
         hävisitKomponentit();
 
         neIkkunanavausToiminnotJotkaAinaSama(häviöikkuna);
@@ -504,7 +510,8 @@ public class PeliIkkuna implements Runnable {
         if (kysynimiIkkunalaskuri == 0) {
             kysynimiIkkuna = new JFrame();
             kysynimiIkkunalaskuri = kysynimiIkkunalaskuri + 1;
-            luoKuva("/home/timo/symbolipeli/ohjelma/src/kysymys.jpeg", kysynimiIkkuna);
+         // luoKuva("/home/timo/symbolipeli/ohjelma/src/kysymys.jpeg", kysynimiIkkuna);
+            luoKuva("kysymys.png", kysynimiIkkuna);
             kysynimiIkkuna.setLocation(300, 300);
             luoKysyNimimerkkiKomponentit();
 

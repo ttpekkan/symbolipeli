@@ -47,57 +47,75 @@ public class Musiikkikirjasto {
     }
     
     /**
-     * Tällä päästään käsiksi pelilauluun. 
-     * @return Pelilaulu-audioklippi.
+     * Laitetaan pelilaulu jatkuvaan toistoon.
      */
 
-    public AudioClip palautaPelilaulu() {
-        return pelilaulu;
+    public void jatkuvaToistoPelilaulu() {
+        pelilaulu.loop();
     }
     
     /**
-     * Tällä päästään käsiksi päävalikkolauluun. 
-     * @return päävalikko-audioklippi.
+     * Pysäytetään pelilaulu.
      */
-
-    public AudioClip palautaPäävalikkolaulu() {
-        return päävalikkolaulu;
+    
+    public void pysäytäPelilaulu() {
+        pelilaulu.stop();
     }
     
     /**
-     * Tällä päästään käsiksi voitto-ääniefektiin. 
-     * @return voitto-audioklippi.
+     * Laitetaan päävalikko laulu jatkuvaan toistoon.
      */
 
-    public AudioClip palautaVoittolaulu() {
-        return voittolaulu;
+    public void jatkuvaToistoPäävalikkolaulu() {
+        päävalikkolaulu.loop();
     }
     
     /**
-     * Tällä päästään käsiksi häviö-ääniefektiin. 
-     * @return häviö-audioklippi.
+     * Pysäytetään päävalikkolaulu.
      */
-
-    public AudioClip palautaHäviölaulu() {
-        return häviölaulu;
+    
+    public void pysäytäPäävalikkolaulu() {
+        päävalikkolaulu.stop();
     }
     
     /**
-     * Tällä päästään käsiksi pelinaloitus-ääniefektiin. 
-     * @return Pelinaloitus-audioklippi.
+     * Soita voittolaulu.
      */
 
-    public AudioClip palautaAloituslaulu() {
-        return aloituslaulu;
+    public void soitaVoittolaulu() {
+        voittolaulu.play();
     }
     
     /**
-     * Metodi palauttaa LauluJaKuva ArrayListin.
-     * @return LauluJaKuva ArrayList.
+     * Soita häviölaulu.
      */
 
-    public ArrayList<LauluJaKuva> PalautaLauluJaKuvaLista() {
-        return lauluJaKuvaLista;
+    public void soitaHäviölaulu() {
+        häviölaulu.play();
+    }
+    
+    /**
+     * Soita aloituslaulu.
+     */
+
+    public void soitaAloituslaulu() {
+        aloituslaulu.play();
+    }
+    
+    /**
+     * Pysäyttää aloituslaulun.
+     */
+    
+    public void pysäytäAloituslaulu() {
+        aloituslaulu.stop();
+    }
+    
+    /**
+     * 
+     */
+
+    public String palautaKuvannimi() {
+        return lauluJaKuvaLista.get(0).palautaKuva();
     }
     
     /**
@@ -131,7 +149,8 @@ public class Musiikkikirjasto {
             URL currentDirURL = currentDir.toURL();
             URL url1 = new URL(currentDirURL, "src/" + tiedostonimi1);
             AudioClip clip = Applet.newAudioClip(url1);
-            String nimi = "/home/timo/symbolipeli/ohjelma/src/" + tiedostonimi2;
+         // String nimi = "/home/timo/symbolipeli/ohjelma/src/" + tiedostonimi2;
+            String nimi = tiedostonimi2;
             lauluJaKuvaLista.add(new LauluJaKuva(clip, nimi));
         } catch (Exception e) {
             System.out.println(e);
@@ -145,14 +164,14 @@ public class Musiikkikirjasto {
      */
 
     private void lisääKaikkiLaulutJaKuvat() {
-        lisääLaulu("stageselect.wav", "stageselect.jpg");
-        lisääLaulu("mylittlepony.wav", "mylittlepony.jpg");
-        lisääLaulu("lovegravy.wav", "lovegravy.JPG");
-        lisääLaulu("teaparty.wav", "teaparty.jpeg");
+        lisääLaulu("stageselect.wav", "stageselect.png");
+        lisääLaulu("mylittlepony.wav", "mylittlepony.png");
+        lisääLaulu("lovegravy.wav", "lovegravy.png");
+        lisääLaulu("teaparty.wav", "teaparty.png");
         lisääLaulu("always.wav", "always.png");
         lisääLaulu("future.wav", "future.png");
-        lisääLaulu("avaus.wav", "avaus.jpg");
-        lisääLaulu("otsikko.wav", "otsikko.jpg");
+        lisääLaulu("avaus.wav", "avaus.png");
+        lisääLaulu("otsikko.wav", "otsikko.png");
         Collections.shuffle(lauluJaKuvaLista);
         pelilaulu = lauluJaKuvaLista.get(0).palautaLaulu();
     }

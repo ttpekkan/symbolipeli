@@ -84,14 +84,14 @@ public class Pistelista implements Runnable {
         JButton nappula = new JButton("Sulje Pistelista");
         nappula.setLocation(400, 50);
         nappula.setSize(300, 75);
-        nappula.setBackground(Color.white);
-        nappula.setOpaque(false);
-        nappula.setForeground(Color.green.darker());
+        nappula.setBackground(Color.green.darker());
+        nappula.setOpaque(true);
+        nappula.setForeground(Color.BLUE.darker());
         nappula.setFocusPainted(false);
         nappula.setContentAreaFilled(true);
         nappula.setBorderPainted(true);
         nappula.setFont(new Font("Serif", Font.BOLD, 26));
-        nappula.setBorder(new LineBorder(Color.green.darker()));
+        nappula.setBorder(new LineBorder(Color.green));
         nappula.addActionListener(new PistelistanKuuntelija(this));
         pohja.add(nappula);
 
@@ -104,7 +104,8 @@ public class Pistelista implements Runnable {
 
     private void luoKuva() {
         try {
-            JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/pistelista.jpg"))));
+         // JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("/home/timo/symbolipeli/ohjelma/src/pistelista.jpg"))));
+            JLabel label = new JLabel(new ImageIcon(ImageIO.read(new File("src/pistelista.png"))));
             pistelistaikkuna.setContentPane(label);
         } catch (Exception e) {
             System.out.println(e);

@@ -33,7 +33,7 @@ public class PäävalikonKuuntelija implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
         if (nappula.getText().equals("Aloita Peli")) {
-            ohjelma.palautaMusiikkikirjasto().palautaPäävalikkolaulu().stop();
+            ohjelma.palautaMusiikkikirjasto().pysäytäPäävalikkolaulu();
             PeliIkkuna uusi = new PeliIkkuna();
             SwingUtilities.invokeLater(uusi);
         } else if (nappula.getText().equals("Lopeta")) {

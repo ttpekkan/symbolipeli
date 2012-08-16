@@ -28,10 +28,10 @@ public class PeliIkkunanKuuntelija implements ActionListener {
      */
 
     private void suljePelinPääikkuna() {
-        ohjelma.palautaMusiikkikirjasto().palautaAloituslaulu().stop();
+        ohjelma.palautaMusiikkikirjasto().pysäytäAloituslaulu();
         ohjelma.palautaAjastin().stop();
-        ohjelma.palautaMusiikkikirjasto().palautaPelilaulu().stop();
-        ohjelma.palautaMusiikkikirjasto().palautaPäävalikkolaulu().loop();
+        ohjelma.palautaMusiikkikirjasto().pysäytäPelilaulu();
+        ohjelma.palautaMusiikkikirjasto().jatkuvaToistoPäävalikkolaulu();
         if (ohjelma.palautaKysymysikkuna() != null) {
             ohjelma.palautaKysymysikkuna().dispose();
         }
@@ -66,7 +66,6 @@ public class PeliIkkunanKuuntelija implements ActionListener {
         } else if (ohjelma.palautaVäärät() == 0 && !ohjelma.palautaVastauskenttä().getText().equals(ohjelma.palautaKysyttyAine().palautaNimi())) {
             ohjelma.annaVihje();
         } else {
-            ohjelma.palautaMusiikkikirjasto().palautaAloituslaulu().stop();
             ohjelma.palautaAjastin().stop();
             ohjelma.hävisit();
         }
