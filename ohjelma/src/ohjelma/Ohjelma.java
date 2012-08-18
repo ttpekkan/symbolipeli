@@ -15,7 +15,7 @@ public class Ohjelma {
      * @param args
      */
     public static void main(String[] args) {
-        Päävalikko pääohjelma = new Päävalikko();
+        Päävalikkoikkuna pääohjelma = new Päävalikkoikkuna();
         SwingUtilities.invokeLater(pääohjelma);
     }
 }

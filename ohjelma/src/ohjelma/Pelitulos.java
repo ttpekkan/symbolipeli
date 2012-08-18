@@ -5,10 +5,10 @@ package ohjelma;
  *
  * @author timo
  */
-public class Tulos implements Comparable<Tulos> {
+public class Pelitulos implements Comparable<Pelitulos> {
 
-    private int pisteet;
     private String nimi;
+    private int pisteet;
 
     /**
      * Luokan konstruktori, joka luo Tulos-olion.
@@ -16,17 +16,29 @@ public class Tulos implements Comparable<Tulos> {
      * @param nimi Annettu nimimerkki.
      * @param pisteet Annetut pisteet.
      */
-    public Tulos(String nimi, int pisteet) {
+    public Pelitulos(String nimi, int pisteet) {
         this.pisteet = pisteet;
         this.nimi = nimi;
     }
 
+    /**
+     * Palauttaa pelituloksen nimen.
+     *
+     * @return Nimi.
+     */
     public String palautaNimi() {
-        return nimi;
+        String palautus = nimi;
+        return palautus;
     }
 
+    /**
+     * Palauttaa pelituloksen pisteet.
+     *
+     * @return Pisteet.
+     */
     public int palautaPisteet() {
-        return pisteet;
+        int palautus = pisteet;
+        return palautus;
     }
 
     /**
@@ -34,17 +46,18 @@ public class Tulos implements Comparable<Tulos> {
      * tulos-olioita.
      *
      * @param toinen Verrattava tulos-olio.
-     * @return Vertauksessa käytetty luku.
+     * @return Vertaukseen käytetty luku.
      */
-    public int compareTo(Tulos toinen) {
+    @Override
+    public int compareTo(Pelitulos toinen) {
         if (this.pisteet == toinen.pisteet) {
-           if (this.nimi.compareTo(toinen.nimi) < 0) {
-               return -1;
-           } else if (this.nimi.compareTo(toinen.nimi) == 0) {
-               return 0;
-           } else {
-               return 1;
-           }
+            if (this.nimi.compareTo(toinen.nimi) < 0) {
+                return -1;
+            } else if (this.nimi.compareTo(toinen.nimi) == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
         } else if (this.pisteet < toinen.pisteet) {
             return 1;
         } else {

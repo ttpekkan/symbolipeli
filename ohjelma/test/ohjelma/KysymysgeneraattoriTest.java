@@ -27,19 +27,4 @@ public class KysymysgeneraattoriTest {
     @After
     public void tearDown() {
     }
-
-    @Test
-    public void testPalautaHelpotKysymykset() {
-        assertEquals(11, testi.palautaHelpotKysymykset().size());
-    }
-
-    @Test
-    public void testPalautaKeskivaikeatKysymykset() {
-        assertEquals(46, testi.palautaKeskivaikeatKysymykset().size());
-    }
-
-    @Test
-    public void testPalautaVaikeatKysymykset() {
-        assertEquals(54, testi.palautaVaikeatKysymykset().size());
-    }
 }

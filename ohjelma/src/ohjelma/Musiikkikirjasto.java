@@ -9,121 +9,100 @@ import java.util.Collections;
 
 /**
  * Tämän luokan avulla hoidetaan äänentoisto.
+ *
  * @author Timo Pekkanen
  */
-
 public class Musiikkikirjasto {
     
-    /**
-     * Musiikkikirjaston attribuutit.
-     * päävalikkolaulu: Päävalikon taustamusiiki.
-     * pelilaulu: Pelin taustamusiikki.
-     * lauluJaKuvaLista: ArrayList, josta arvotaan pelin taustamusiikki ja taustakuva.
-     * voittolaulu: Laulu, joka soitetaan, kun pelaaja voitaa.
-     * häviölaulu: Laulu, joka soitetaan, kun pelaaja häviää.
-     * aloituslaulu: Laulu, joka soitetaan, kun pelaaja aloittaa pelin.
-     */
-    
-    public void Attribuutit() {     
-    }
-    private static AudioClip päävalikkolaulu;
-    private static AudioClip pelilaulu;
-    private static ArrayList<LauluJaKuva> lauluJaKuvaLista;
-    private static AudioClip voittolaulu;
-    private static AudioClip häviölaulu;
     private static AudioClip aloituslaulu;
+    private static AudioClip häviölaulu;
+    private static AudioClip pelilaulu;    
+    private static AudioClip päävalikkolaulu;    
+    private static AudioClip voittolaulu;    
+    private static ArrayList<KuvaJaLaulu> kuvaJaLaulu_Lista;
 
     /**
-     * Luokan konstruktori. Luo halutut audioklipit ja yhden LauluJaKuva ArrayListin.
-     */
-    
+     * Luokan konstruktori. Luo halutut audioklipit ja yhden LauluJaKuva
+     * ArrayListin.
+     */    
     public Musiikkikirjasto() {
-        lauluJaKuvaLista = new ArrayList<LauluJaKuva>();
-        lisääKaikkiLaulutJaKuvat();
-        voittolaulu = palautaHaluttuLaulu("win.wav");
-        häviölaulu = palautaHaluttuLaulu("lose.wav");
         aloituslaulu = palautaHaluttuLaulu("pelinaloitus.wav");
+        häviölaulu = palautaHaluttuLaulu("lose.wav");
         päävalikkolaulu = palautaHaluttuLaulu("päävalikko.wav");
+        voittolaulu = palautaHaluttuLaulu("win.wav");        
+        kuvaJaLaulu_Lista = new ArrayList<KuvaJaLaulu>();
+        lisääKaikkiLaulutJaKuvat();
     }
-    
+
     /**
      * Laitetaan pelilaulu jatkuvaan toistoon.
      */
-
     public void jatkuvaToistoPelilaulu() {
         pelilaulu.loop();
     }
-    
+
     /**
      * Pysäytetään pelilaulu.
-     */
-    
+     */    
     public void pysäytäPelilaulu() {
         pelilaulu.stop();
     }
-    
+
     /**
      * Laitetaan päävalikko laulu jatkuvaan toistoon.
      */
-
     public void jatkuvaToistoPäävalikkolaulu() {
         päävalikkolaulu.loop();
     }
-    
+
     /**
      * Pysäytetään päävalikkolaulu.
      */
-    
     public void pysäytäPäävalikkolaulu() {
         päävalikkolaulu.stop();
     }
-    
+
     /**
      * Soita voittolaulu.
      */
-
     public void soitaVoittolaulu() {
         voittolaulu.play();
     }
-    
+
     /**
      * Soita häviölaulu.
      */
-
     public void soitaHäviölaulu() {
         häviölaulu.play();
     }
-    
+
     /**
      * Soita aloituslaulu.
      */
-
     public void soitaAloituslaulu() {
         aloituslaulu.play();
     }
-    
+
     /**
      * Pysäyttää aloituslaulun.
-     */
-    
+     */    
     public void pysäytäAloituslaulu() {
         aloituslaulu.stop();
     }
-    
-    /**
-     * 
-     */
 
+    /**
+     * Palauttaa kuvan nimen kuvaJaLaulu_Listasta.
+     */
     public String palautaKuvannimi() {
-        return lauluJaKuvaLista.get(0).palautaKuva();
+        return kuvaJaLaulu_Lista.get(0).palautaKuva();
     }
-    
+
     /**
      * Luo ja palauttaa audioklipin, joka ladataan halutusta tiedostosta.
+     *
      * @param tiedosto Haluttu äänitiedosto.
      * @return Palautettu audioklippi.
      */
-
     private AudioClip palautaHaluttuLaulu(String tiedosto) {
         AudioClip musa = null;
         try {
@@ -136,43 +115,43 @@ public class Musiikkikirjasto {
         }
         return musa;
     }
-    
+
     /**
      * Metodi luo LauluJaKuva-olion ja lisää sen ArrayListiin.
+     *
      * @param tiedostonimi1 Haluttu audioklippi.
      * @param tiedostonimi2 Halutun kuvatiedoston nimi merkkijonona.
      */
-
-    private void lisääLaulu(String tiedostonimi1, String tiedostonimi2) {
+    private void lisääKuvaJaLaulu(String tiedostonimi1, String tiedostonimi2) {
         try {
             File currentDir = new File(".");
             URL currentDirURL = currentDir.toURL();
-            URL url1 = new URL(currentDirURL, "src/" + tiedostonimi1);
+            URL url1 = new URL(currentDirURL, "src/" + tiedostonimi2);
             AudioClip clip = Applet.newAudioClip(url1);
-         // String nimi = "/home/timo/symbolipeli/ohjelma/src/" + tiedostonimi2;
-            String nimi = tiedostonimi2;
-            lauluJaKuvaLista.add(new LauluJaKuva(clip, nimi));
+            // String nimi = "/home/timo/symbolipeli/ohjelma/src/" + tiedostonimi2;
+            String nimi = tiedostonimi1;
+            kuvaJaLaulu_Lista.add(new KuvaJaLaulu(nimi, clip));
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     /**
      * Luo kahdeksan LauluJaKuva oliota ja lisää ne ArrayListiin.
-     * 
-     * Peli myös sekoittaa ArrayListin, samalla arpoen pelin taustakuvan ja pelimusiikin. 
+     *
+     * Peli myös sekoittaa ArrayListin, samalla arpoen pelin taustakuvan ja
+     * pelimusiikin.
      */
-
     private void lisääKaikkiLaulutJaKuvat() {
-        lisääLaulu("stageselect.wav", "stageselect.png");
-        lisääLaulu("mylittlepony.wav", "mylittlepony.png");
-        lisääLaulu("lovegravy.wav", "lovegravy.png");
-        lisääLaulu("teaparty.wav", "teaparty.png");
-        lisääLaulu("always.wav", "always.png");
-        lisääLaulu("future.wav", "future.png");
-        lisääLaulu("avaus.wav", "avaus.png");
-        lisääLaulu("otsikko.wav", "otsikko.png");
-        Collections.shuffle(lauluJaKuvaLista);
-        pelilaulu = lauluJaKuvaLista.get(0).palautaLaulu();
+        lisääKuvaJaLaulu("stageselect.png", "stageselect.wav");
+        lisääKuvaJaLaulu("mylittlepony.png", "mylittlepony.wav");
+        lisääKuvaJaLaulu("lovegravy.png", "lovegravy.wav");
+        lisääKuvaJaLaulu("teaparty.png", "teaparty.wav");
+        lisääKuvaJaLaulu("always.png", "always.wav");
+        lisääKuvaJaLaulu("future.png", "future.wav");
+        lisääKuvaJaLaulu("avaus.png", "avaus.wav");
+        lisääKuvaJaLaulu("otsikko.png", "otsikko.wav");
+        Collections.shuffle(kuvaJaLaulu_Lista);
+        pelilaulu = kuvaJaLaulu_Lista.get(0).palautaLaulu();
     }
 }

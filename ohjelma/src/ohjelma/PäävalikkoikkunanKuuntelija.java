@@ -7,39 +7,37 @@ import javax.swing.SwingUtilities;
 
 /**
  * Tämä luokka valvoo, mitä nappeja päävalikkoikkunassa painetaan.
- * 
+ *
  * @author Timo Pekkanen
  */
+public class PäävalikkoikkunanKuuntelija implements ActionListener {
+    private Päävalikkoikkuna päävalikkoikkuna;
 
-public class PäävalikonKuuntelija implements ActionListener {
-
-    private Päävalikko ohjelma;
-    
     /**
      * Luokan konstruktori.
-     * 
-     * @param ohjelma Päävalikkoikkuna. 
+     *
+     * @param ohjelma Päävalikkoikkuna.
      */
-
-    public PäävalikonKuuntelija(Päävalikko ohjelma) {
-        this.ohjelma = ohjelma;
+    public PäävalikkoikkunanKuuntelija(Päävalikkoikkuna päävalikkoikkuna) {
+        this.päävalikkoikkuna = päävalikkoikkuna;
     }
-    
+
     /**
      * Tämä metodi kertoo mitä tehdä, kun jotain nappia painetaan.
+     *
      * @param e Napinpainallus.
      */
-
+    @Override
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
         if (nappula.getText().equals("Aloita Peli")) {
-            ohjelma.palautaMusiikkikirjasto().pysäytäPäävalikkolaulu();
-            PeliIkkuna uusi = new PeliIkkuna();
+            päävalikkoikkuna.lopetaLaulu();
+            Peli_ikkuna uusi = new Peli_ikkuna();
             SwingUtilities.invokeLater(uusi);
         } else if (nappula.getText().equals("Lopeta")) {
             System.exit(0);
         } else {
-            Pistelista uusi = new Pistelista();
+            Pistelistaikkuna uusi = new Pistelistaikkuna();
             SwingUtilities.invokeLater(uusi);
         }
     }

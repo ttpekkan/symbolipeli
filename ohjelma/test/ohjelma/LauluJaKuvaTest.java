@@ -8,7 +8,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class LauluJaKuvaTest {
-    public LauluJaKuva testi;
+    public KuvaJaLaulu testi;
     public AudioClip musa;
     
     public LauluJaKuvaTest() {
@@ -33,7 +33,7 @@ public class LauluJaKuvaTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        testi = new LauluJaKuva(musa, "Pelle Hermanni");
+        testi = new KuvaJaLaulu("Pelle Hermanni", musa);
         
     }
     

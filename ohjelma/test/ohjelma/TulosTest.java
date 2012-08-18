@@ -5,11 +5,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class TulosTest {
-    public Tulos eka;
-    public Tulos toka;
-    public Tulos kolmas;
-    public Tulos neljäs;
-    public Tulos viides;
+    public Pelitulos eka;
+    public Pelitulos toka;
+    public Pelitulos kolmas;
+    public Pelitulos neljäs;
+    public Pelitulos viides;
     
     public TulosTest() {
     }
@@ -24,11 +24,11 @@ public class TulosTest {
     
     @Before
     public void setUp() {
-        eka = new Tulos("Jesaja", 200);
-        toka = new Tulos("Jeremia", 150);
-        kolmas = new Tulos("Hesekiel", 150);
-        neljäs = new Tulos("Daniel", 100);
-        viides = new Tulos("Daniel", 100);
+        eka = new Pelitulos("Jesaja", 200);
+        toka = new Pelitulos("Jeremia", 150);
+        kolmas = new Pelitulos("Hesekiel", 150);
+        neljäs = new Pelitulos("Daniel", 100);
+        viides = new Pelitulos("Daniel", 100);
     }
     
     @After

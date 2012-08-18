@@ -11,6 +11,7 @@ import java.util.Scanner;
  * @author Timo Pekkanen
  */
 public class Kysymysgeneraattori {
+
     private ArrayList<Alkuaine> helpotKysymykset;
     private ArrayList<Alkuaine> keskivaikeatKysymykset;
     private ArrayList<Alkuaine> vaikeatKysymykset;
@@ -18,7 +19,6 @@ public class Kysymysgeneraattori {
     /**
      * Luokan konstruktori, joka luo kolme valmista ArrayListiä.
      */
-    
     public Kysymysgeneraattori() {
         helpotKysymykset = new ArrayList<Alkuaine>();
         keskivaikeatKysymykset = new ArrayList<Alkuaine>();
@@ -26,24 +26,42 @@ public class Kysymysgeneraattori {
         luoKaikkiKysymykset();
     }
 
-    public ArrayList<Alkuaine> palautaHelpotKysymykset() {
-        return helpotKysymykset;
-    }
-
-    public ArrayList<Alkuaine> palautaKeskivaikeatKysymykset() {
-        return keskivaikeatKysymykset;
-    }
-
-    public ArrayList<Alkuaine> palautaVaikeatKysymykset() {
-        return vaikeatKysymykset;
+    /**
+     * Metodi palauttaa helpon alkuaineen.
+     *
+     * @param hakuluku Alkuaineen sijainti ArrayListissä.
+     * @return Haluttu alkuaine.
+     */
+    public Alkuaine palautaHelppoKysymys(int hakuluku) {
+        return helpotKysymykset.get(hakuluku);
     }
 
     /**
-     * Lataa kysymysarjan ArrayListiin. 
-     * @param tiedosto Tiedosto, josta alkuaineet ladataan.
-     * @param sarja ArrayList, johon alkuaineet lisätään. 
+     * Metodi palauttaa keskivaikean alkuaineen.
+     *
+     * @param hakuluku Alkuaineen sijainti ArrayListissä.
+     * @return Haluttu alkuaine.
      */
-    
+    public Alkuaine palautaKeskivaikeaKysymys(int hakuluku) {
+        return keskivaikeatKysymykset.get(hakuluku);
+    }
+
+    /**
+     * Metodi palauttaa vaikean alkuaineen.
+     *
+     * @param hakuluku Alkuaineen sijainti ArrayListissä.
+     * @return Haluttu alkuaine.
+     */
+    public Alkuaine palautaVaikeaKysymys(int hakuluku) {
+        return vaikeatKysymykset.get(hakuluku);
+    }
+
+    /**
+     * Lataa kysymysarjan ArrayListiin.
+     *
+     * @param tiedosto Tiedosto, josta alkuaineet ladataan.
+     * @param sarja ArrayList, johon alkuaineet lisätään.
+     */
     private void lataaKysymyssarja(String tiedosto, ArrayList<Alkuaine> sarja) {
         try {
             Scanner lukija = new Scanner(new File("src/" + tiedosto));
@@ -51,14 +69,13 @@ public class Kysymysgeneraattori {
                 sarja.add(new Alkuaine(lukija.nextLine(), lukija.nextLine(), lukija.nextLine()));
             }
         } catch (Exception e) {
-            
+            System.out.println(e);
         }
     }
-    
+
     /**
      * Lisää helpot alkuaineet ArrayListiin ja sekoittaa sen.
      */
-
     private void lataaHelpotKysymykset() {
         lataaKysymyssarja("helpotkysymykset.txt", helpotKysymykset);
         Collections.shuffle(helpotKysymykset);
@@ -67,7 +84,6 @@ public class Kysymysgeneraattori {
     /**
      * Lisää keskivaikeat alkuaineet ArrayListiin ja sekoittaa sen.
      */
-    
     private void lataaKeskivaikeatKysymykset() {
         lataaKysymyssarja("keskivaikeatkysymykset.txt", keskivaikeatKysymykset);
         Collections.shuffle(keskivaikeatKysymykset);
@@ -76,14 +92,13 @@ public class Kysymysgeneraattori {
     /**
      * Lisää vaikeat alkuaineet ArrayListiin ja sekoittaa sen.
      */
-    
     private void lataaVaikeatKysymykset() {
         lataaKysymyssarja("vaikeatkysymykset.txt", vaikeatKysymykset);
         Collections.shuffle(vaikeatKysymykset);
     }
 
     /**
-     * Lataa kaikki alkuaineet, edellisiä metodeja hyväksikäyttäen. 
+     * Lataa kaikki alkuaineet, edellisiä metodeja hyväksikäyttäen.
      */
     private void luoKaikkiKysymykset() {
         lataaHelpotKysymykset();

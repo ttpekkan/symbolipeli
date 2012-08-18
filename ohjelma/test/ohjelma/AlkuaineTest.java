@@ -29,15 +29,15 @@ public class AlkuaineTest {
 
     @Test
     public void testPalautaNimi() {
-        assertEquals("Mansikka", testi.palautaNimi());
+        assertEquals("Mansikka", testi.aineenNimi());
     }
     @Test
     public void testPalautaSymboli() {
-      assertEquals("Ma", testi.palautaSymboli());
+      assertEquals("Ma", testi.aineenSymboli());
     }
 
     @Test
     public void testPalautaVihje() {
-        assertEquals("Maksavat mansikoita.", testi.palautaVihje());
+        assertEquals("Maksavat mansikoita.", testi.aineenVihje());
     }
 }
