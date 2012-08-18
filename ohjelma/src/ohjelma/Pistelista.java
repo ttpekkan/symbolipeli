@@ -77,7 +77,7 @@ public class Pistelista {
                 pistelista.add(new Pelitulos(lukija.nextLine(), Integer.parseInt(lukija.nextLine())));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
         Collections.sort(pistelista);
     }
@@ -99,16 +99,16 @@ public class Pistelista {
     /**
      * Tämä metodi tallentaa pistelista-ArrayListin tiedot tekstitiedostoon.
      */
-    public void tallennaPistelista() {
+    public void tallennaPistelista(String osoite) {
         try {
-            PrintWriter kirjoittaja = new PrintWriter(new File("src/top10.txt"));
+            PrintWriter kirjoittaja = new PrintWriter(new File(osoite));
             for (int i = 0; i < pistelista.size(); i = i + 1) {
                 kirjoittaja.println(pistelista.get(i).palautaNimi());
                 kirjoittaja.println(pistelista.get(i).palautaPisteet());
             }
             kirjoittaja.close();
         } catch (Exception e) {
-            System.out.println("Virhe!");
+            System.out.println(e);
         }
     }
 }

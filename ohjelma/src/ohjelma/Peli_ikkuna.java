@@ -335,7 +335,7 @@ public class Peli_ikkuna implements Runnable {
                 pistelista.lisääTulos(hävisit.palautaNimikentänNimi(), pelaajanPisteet);
             }
         }
-        pistelista.tallennaPistelista();
+        pistelista.tallennaPistelista("src/top10.txt");
     }
     
     /**
