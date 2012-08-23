@@ -1,9 +1,13 @@
+Hume
+519
 Locke
 514
 Robespierre
 499
 Danton
 272
+Hume
+40
 Hegel
 16
 Napoleon
@@ -14,7 +18,3 @@ Spinoza
 13
 Berkeley
 8
-Marat
-6
-Hume
-5

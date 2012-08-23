@@ -35,7 +35,7 @@ public class PistelistaTest {
     @Test
     public void pääseeListalle() {
         for (int i = 0; i < 10; i = i + 1) {
-            lista.lisääTulos("Katala Karhu", 10000);
+            lista.lisääTulos("Katala Karhu", 564);
         }
         boolean totta = true;
         if (lista.pääseeListalle(-1000000000) == true) {

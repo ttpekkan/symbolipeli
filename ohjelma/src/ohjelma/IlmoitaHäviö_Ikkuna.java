@@ -61,7 +61,7 @@ public class IlmoitaHäviö_Ikkuna {
         JLabel gameover = new JLabel("Game Over!");
         komponentit.luoTeksti(gameover, 320, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
         JLabel oikeaVastausOlisiOllut = new JLabel("Oikea vastaus olisi ollut: " + oikeaVastaus);
-        komponentit.luoTeksti(oikeaVastausOlisiOllut, 320, 340, 400, 30, false, Color.red, Color.white, 18, pohja);
+        komponentit.luoTeksti(oikeaVastausOlisiOllut, 320, 340, 520, 30, false, Color.red, Color.white, 18, pohja);
         suljePeliNappula = new JButton("Lopeta Peli");
         komponentit.luoNappula(suljePeliNappula, 345, 610, 180, 50, Color.white, true, Color.blue, false,
                 true, true, 16, Color.blue, pohja);

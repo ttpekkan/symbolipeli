@@ -18,6 +18,7 @@ public class Peli_ikkuna implements Runnable {
     private ArrayList<String> henkilöt;
     private ArrayList<String> onnittelut;
     private JButton ok_nappula;
+    private JButton sulje;
     private IlmoitaHäviö_Ikkuna hävisit;
     private IlmoitaVoitto_Ikkuna voitit;
     private int aika;
@@ -97,10 +98,10 @@ public class Peli_ikkuna implements Runnable {
         komponentit.luoNappula(ok_nappula, 876, 671, 190, 66, Color.white, false, Color.green, false, true,
                 false, 0, Color.white, pohja);
         ok_nappula.addActionListener(new Peli_ikkunanKuuntelija(this));
-        JButton nappula = new JButton("Sulje Peli");
-        komponentit.luoNappula(nappula, 911, 780, 125, 47, Color.white, false,
+        sulje = new JButton("Sulje Peli");
+        komponentit.luoNappula(sulje, 911, 780, 125, 47, Color.white, false,
                 Color.green.darker(), false, true, false, 0, Color.green.darker(), pohja);
-        nappula.addActionListener(new Peli_ikkunanKuuntelija(this));
+        sulje.addActionListener(new Peli_ikkunanKuuntelija(this));
         peli_ikkuna.getRootPane().setDefaultButton(ok_nappula);
     }
 
@@ -324,19 +325,37 @@ public class Peli_ikkuna implements Runnable {
     /**
      * Tämän metodin avulla lisätään tulos pistelistaan.
      */
-    public void lisääNimi() {
+    public void lisääNimi(String tiedosto, String nimi) {
         if (voitit != null) {
-            if (voitit.palautaNimikentänNimi().length() > 0) {
-                pistelista.lisääTulos(voitit.palautaNimikentänNimi(), pelaajanPisteet);
+            if (nimi.length() > 0) {
+                pistelista.lisääTulos(nimi, pelaajanPisteet);
+                pistelista.tallennaPistelista(tiedosto);
             }
         }
         if (hävisit != null) {
-            if (hävisit.palautaNimikentänNimi().length() > 0) {
-                pistelista.lisääTulos(hävisit.palautaNimikentänNimi(), pelaajanPisteet);
+            if (nimi.length() > 0) {
+                pistelista.lisääTulos(nimi, pelaajanPisteet);
+                pistelista.tallennaPistelista(tiedosto);
             }
         }
-        pistelista.tallennaPistelista("src/top10.txt");
     }
+    
+    /**
+     * Metodi palauttaa nimen, laitettu erikseen testaussyistä.
+     * @return Palauttaa nimen voitit-olion tekstikentästä
+     */
+    public String palautaVoittoNimi() {
+        return voitit.palautaNimikentänNimi();
+    }
+    
+    /**
+     * Metodi palauttaa nimen, laitettu erikseen testaussyistä.
+     * @return Palauttaa nimen häviö-olion tekstikentästä
+     */
+    public String palautaHäviöNimi() {
+        return hävisit.palautaNimikentänNimi();
+    }
+
     
     /**
      * Toiminnot, jotka tehdään, kun suljetaan peli_ikkuna.

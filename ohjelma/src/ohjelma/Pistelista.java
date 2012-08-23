@@ -111,4 +111,20 @@ public class Pistelista {
             System.out.println(e);
         }
     }
+    
+    /**
+     * Tätä listaa käytetään testauksessa.
+     */   
+    public void lataaTestilista() {
+        this.pistelista = new ArrayList<Pelitulos>();
+        try {
+            Scanner lukija = new Scanner(new File("src/testi.txt"));
+            while (lukija.hasNextLine()) {
+                pistelista.add(new Pelitulos(lukija.nextLine(), Integer.parseInt(lukija.nextLine())));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        Collections.sort(pistelista);
+    }
 }

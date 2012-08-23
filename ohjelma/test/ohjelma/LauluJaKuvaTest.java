@@ -4,8 +4,8 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
 import java.net.URL;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 public class LauluJaKuvaTest {
     public KuvaJaLaulu testi;

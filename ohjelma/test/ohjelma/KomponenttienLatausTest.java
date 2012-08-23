@@ -4,9 +4,12 @@ package ohjelma;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 public class KomponenttienLatausTest {
     public KomponenttienLataus testi;

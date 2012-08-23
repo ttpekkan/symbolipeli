@@ -13,6 +13,9 @@ import javax.swing.WindowConstants;
  * @author Timo Pekkanen
  */
 public class Päävalikkoikkuna implements Runnable {
+    private JButton aloita; 
+    private JButton lopeta;
+    private JButton pistelista;  
     private Container pohja;
     private JFrame päävalikkoikkuna;
     private KomponenttienLataus komponentit;
@@ -40,13 +43,13 @@ public class Päävalikkoikkuna implements Runnable {
      */
     private void luoKomponentit() {
         pohja = päävalikkoikkuna.getContentPane();
-        JButton aloita = new JButton("Aloita Peli");
+        aloita = new JButton("Aloita Peli");
         komponentit.luoNappula(aloita, 46, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
         aloita.addActionListener(new PäävalikkoikkunanKuuntelija(this));
-        JButton pistelista = new JButton("Pistelista");
+        pistelista = new JButton("Pistelista");
         komponentit.luoNappula(pistelista, 296, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
         pistelista.addActionListener(new PäävalikkoikkunanKuuntelija(this));
-        JButton lopeta = new JButton("Lopeta");
+        lopeta = new JButton("Lopeta");
         komponentit.luoNappula(lopeta, 546, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
         lopeta.addActionListener(new PäävalikkoikkunanKuuntelija(this));
         päävalikkoikkuna.getRootPane().setDefaultButton(aloita);

@@ -12,6 +12,7 @@ import javax.swing.UIManager;
  * @author Timo Pekkanen
  */
 public class Pistelistaikkuna implements Runnable {
+    private JButton sulje;
     private Container pohja;
     private JFrame pistelistaikkuna;
     private KomponenttienLataus komponentit;
@@ -42,12 +43,12 @@ public class Pistelistaikkuna implements Runnable {
      */
     private void luoKomponentit() {
         pohja = pistelistaikkuna.getContentPane();
-        JButton nappula = new JButton("Sulje Pistelista");
-        komponentit.luoNappula(nappula, 400, 50, 300, 75,
+        sulje = new JButton("Sulje Pistelista");
+        komponentit.luoNappula(sulje, 400, 50, 300, 75,
                 Color.green.darker(), true, Color.BLUE.darker(), false, true, true, 26,
                 Color.green, pohja);
-        nappula.addActionListener(new PistelistaikkunanKuuntelija(this));
-        pistelistaikkuna.getRootPane().setDefaultButton(nappula);
+        sulje.addActionListener(new PistelistaikkunanKuuntelija(this));
+        pistelistaikkuna.getRootPane().setDefaultButton(sulje);
         pistelista.JLabelesitys(pohja);
     }
 

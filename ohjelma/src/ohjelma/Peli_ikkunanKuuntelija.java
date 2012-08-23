@@ -41,7 +41,11 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
             okNappula();
         }
         if (nappula.getText().equals("Lopeta Peli")) {
-            ohjelma.lisääNimi();
+            if (ohjelma.palautaKysymysnumero() == 111) {
+                ohjelma.lisääNimi("src/top10.txt", ohjelma.palautaVoittoNimi());
+            } else {
+                ohjelma.lisääNimi("src/top10.txt", ohjelma.palautaHäviöNimi());
+            }
             ohjelma.sulje();
         }
     }
