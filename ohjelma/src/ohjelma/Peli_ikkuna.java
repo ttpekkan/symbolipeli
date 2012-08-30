@@ -2,8 +2,6 @@ package ohjelma;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.*;
 
 /**
@@ -13,20 +11,12 @@ import javax.swing.*;
  */
 public class Peli_ikkuna extends Päävalikkoikkuna {
 
-    private Alkuaine kysyttyAine;
-    private ArrayList<String> henkilöt;
-    private ArrayList<String> onnittelut;
     private JButton ok_nappula;
+    private HaeArvoja peli;
     private JButton sulje;
     private IlmoitaHäviö_Ikkuna hävisit;
     private IlmoitaVoitto_Ikkuna voitit;
     private int aika;
-    private int kysymysnumero;
-    private int moneskoHelppoKysytään;
-    private int moneskoKeskivaikeaKysytään;
-    private int moneskoVaikeaKysytään;
-    private int pelaajanPisteet;
-    private int yrityskerta;
     private JDialog lopetusikkuna;
     private JFrame peli_ikkuna;
     private JLabel ajannäyttö;
@@ -38,30 +28,25 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
     private JLabel vaikeusaste;
     private JLabel vihje;
     private JTextField vastauskenttä;
-    private Kysymysgeneraattori alkuaineet;
-    private Musiikkikirjasto musa;
-    private Pistelista pistelista;
     private Timer ajastin;
 
     /**
      * Käynnistää pelin Pääikkunan ja asettaa sen alkuominaisuudet.
      */
-
-
+    @Override
     public void run(JFrame ikkuna) {
-            peli_ikkuna = ikkuna;
-            pelaajanPisteet = 0;
-            kysymysnumero = 0;
-            aika = 15;
-            peli_ikkuna.setTitle("Symbolipeli");
-            peli_ikkuna.setLocation(130, 180);
-            UIManager.put("Button.select", Color.green);
-            Musiikkikirjasto.soitaAloituslaulu();
-            KomponenttienMuokkaus.luoContentPaneKuvasta(Musiikkikirjasto.palautaKuvannimi(),  peli_ikkuna);
-            luoKomponentit();
-            KomponenttienMuokkaus.neIkkunanavausToiminnotJotkaAinaSamat( peli_ikkuna);
-            peli_ikkuna.addWindowListener(new Peli_ikkunanKuuntelija(this));
-        
+        peli_ikkuna = ikkuna;
+        peli = new Peli();
+        aika = 15;
+        peli_ikkuna.setTitle("Symbolipeli");
+        peli_ikkuna.setLocation(130, 180);
+        UIManager.put("Button.select", Color.green);
+        Musiikkikirjasto.soitaAloituslaulu();
+        KomponenttienMuokkaus.luoContentPaneKuvasta(Musiikkikirjasto.palautaKuvannimi(), peli_ikkuna);
+        luoKomponentit();
+        KomponenttienMuokkaus.neIkkunanavausToiminnotJotkaAinaSamat(peli_ikkuna);
+        peli_ikkuna.addWindowListener(new Peli_ikkunanKuuntelija(this));
+
     }
 
     /**
@@ -69,11 +54,11 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
      */
     private void luoKomponentit() {
         Container pohja = peli_ikkuna.getContentPane();
-        pistetilanne = new JLabel("Pisteet: " + pelaajanPisteet);
+        pistetilanne = new JLabel("Kysymys: " + 0);
         KomponenttienMuokkaus.luoTeksti(pistetilanne, 805, 360, 140, 30, false, Color.GRAY, Color.white, 20, pohja);
         vaikeusaste = new JLabel("Vaikeusaste: helppo");
         KomponenttienMuokkaus.luoTeksti(vaikeusaste, 805, 326, 290, 30, false, Color.GRAY, Color.white, 20, pohja);
-        moneskoKysymysMenossa = new JLabel("Kysymys: " + kysymysnumero);
+        moneskoKysymysMenossa = new JLabel("Kysymys: " + 0);
         KomponenttienMuokkaus.luoTeksti(moneskoKysymysMenossa, 805, 290, 160, 30, false, Color.GRAY, Color.white, 20, pohja);
         ajastin = new Timer(1000, new AjastimenKuuntelija(this));
         pelinAntamaAloitusOhje = new JLabel("Oikaan yläkulmaan annetaan alkuaineen symboli. Kirjoita sitä vastaava alkuaine tekstikenttään.");
@@ -87,7 +72,7 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
         vihje = new JLabel("Arrhenius, Lewis, Debye ja Pauling tarpeen mukaan jakavat neuvoja tähän kohtaan.");
         KomponenttienMuokkaus.luoTeksti(vihje, 17, 585, 1070, 30, false, Color.red, Color.white, 14, pohja);
         vastauskenttä = new JTextField();
-        KomponenttienMuokkaus.luoTekstikenttä(vastauskenttä, 375, 615, 300, 40, 24, "Kirjoita 'pelaa' tähän.", pohja);
+        KomponenttienMuokkaus.luoTekstikenttä(vastauskenttä, 375, 615, 300, 40, 24, "Aloitus: Paina OK", pohja);
         ok_nappula = new JButton("ok");
         KomponenttienMuokkaus.luoNappula(ok_nappula, 876, 671, 190, 66, Color.white, false, Color.green, false, true,
                 false, 0, Color.white, pohja);
@@ -100,180 +85,6 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
     }
 
     /**
-     * Suorittaa alustavat toimenpiteet, kun peli aloitetaan.
-     */
-    public void aloitaPeli() {
-        Musiikkikirjasto.pysäytäAloituslaulu();
-        kysymysnumero = kysymysnumero + 1;
-        vastauskenttä.setText("");
-        pelinAntamaAloitusOhje.setVisible(false);
-        tekstikentänSelitys.setVisible(false);
-        moneskoKysymysMenossa.setText("Kysymys: " + kysymysnumero);
-        moneskoHelppoKysytään = 0;
-        moneskoKeskivaikeaKysytään = 0;
-        moneskoVaikeaKysytään = 0;
-        yrityskerta = 0;
-        lisääHenkilöt();
-        lisääOnnittelut();
-        alkuaineet = new Kysymysgeneraattori();
-        kysyKysymys(alkuaineet.palautaHelppoKysymys(moneskoHelppoKysytään));
-        Musiikkikirjasto.jatkuvaToistoPelilaulu();
-        ajastin.start();
-    }
-    
-    /**
-     * Lisää henkilöt-arraylistiin henkilöitä.
-     */
-    private void lisääHenkilöt() {
-        henkilöt = new ArrayList<String>();
-        henkilöt.add("Pauling");
-        henkilöt.add("Arrhenius");
-        henkilöt.add("Lewis");
-        henkilöt.add("Debye");
-    }
-    /**
-     * Metodi palauttaa satunnaisen henkiön.
-     * 
-     * @return Henkilö. 
-     */
-    private String palautaSatunnainenNimi() {
-        Collections.shuffle(henkilöt);
-        return henkilöt.get(0);
-    }
-    
-    /**
-     * Metodi lisää onnittelut arraylistiin.
-     */
-    private void lisääOnnittelut() {
-        onnittelut = new ArrayList<String>();
-        onnittelut.add("Mainiota!");
-        onnittelut.add("Hienoa!");
-        onnittelut.add("Mahtavaa!");
-        onnittelut.add("Täysin oikein!");
-        onnittelut.add("Vaikuttavaa!");
-    }
-    
-    /**
-     * Palauttaa satunnaisen onnittelun.
-     * 
-     * @return Onnittelu. 
-     */
-    private String palautaSatunnainenOnnittelu() {
-        Collections.shuffle(onnittelut);
-        return onnittelut.get(0);
-    }
-
-    /**
-     * Tämän metodin avulla esitetään kysymys alkuaineesta.
-     *
-     * @param aine Alkuaine-olio, josta kysymys esitetään.
-     */
-    private void kysyKysymys(Alkuaine aine) {
-        kysyttyAine = aine;
-        symboli.setText("                  " + kysyttyAine.aineenSymboli());
-    }
-
-    /**
-     * Tämä metodi päivittää tilanteen, jos on vastannut oikein, sekä laukaisee
-     * voitto-metodin, jos olosuhteet oikeat.
-     *
-     * @param kerroin Kerroin vaikuttaa siihen, paljonko pisteitä annetaan.
-     * Kertoin määrätään sen mukaan, onko vihjettä annettu vai ei.
-     */
-    public void päivitäTilanne(int kerroin) {
-        aika = 15;
-        vihje.setText(palautaSatunnainenNimi() + ": " + palautaSatunnainenOnnittelu());
-        vastauskenttä.setText("");
-        yrityskerta = 0;
-        kysymysnumero = kysymysnumero + 1;
-        moneskoKysymysMenossa.setText("Kysymys: " + kysymysnumero);
-        if (moneskoHelppoKysytään < 11 && moneskoKeskivaikeaKysytään == 0 && moneskoVaikeaKysytään == 0) {
-            kysyHelppo(kerroin);
-            if (moneskoHelppoKysytään == 11) {
-                vaikeusaste.setText("Vaikeusaste: keskivaikea");
-                vihje.setText(palautaSatunnainenNimi() + ": Edellinen Oikein! Siirrytään keskivaikeisiin.");
-                kysyKysymys(alkuaineet.palautaKeskivaikeaKysymys(moneskoKeskivaikeaKysytään));
-                return;
-            }
-        }
-        if (moneskoHelppoKysytään == 11 && moneskoKeskivaikeaKysytään < 46 && moneskoVaikeaKysytään == 0) {
-            kysyKeskivaikea(kerroin);
-            if (moneskoKeskivaikeaKysytään == 46) {
-                vaikeusaste.setText("Vaikeusaste: vaikea");
-                vihje.setText(palautaSatunnainenNimi() + ": Siirrytään vaikeisiin.");
-                kysyKysymys(alkuaineet.palautaVaikeaKysymys(moneskoVaikeaKysytään));
-                return;
-            }
-        }
-        if (moneskoHelppoKysytään == 11 && moneskoKeskivaikeaKysytään == 46 && moneskoVaikeaKysytään < 54) {
-            kysyVaikea(kerroin);
-            if (moneskoVaikeaKysytään == 54) {
-                kysymysnumero = kysymysnumero - 1;
-                lopetus();
-            }
-        }
-    }
-
-    /**
-     * Tämän metodin avulla kysytään helpot kysymykset ja päivitetään
-     * tilannetta.
-     *
-     * @param kertoluku Kertoluku vaikuttaa siihen, paljonko pisteitä annetaan.
-     * Kertoimen määrää päivitäTilanne-metodin kerroin.
-     */
-    private void kysyHelppo(int kertoluku) {
-        moneskoHelppoKysytään = moneskoHelppoKysytään + 1;
-        pelaajanPisteet = pelaajanPisteet + (1 * kertoluku);
-        pistetilanne.setText("Pisteet: " + pelaajanPisteet);
-        if (moneskoHelppoKysytään < 11) {
-            kysyKysymys(alkuaineet.palautaHelppoKysymys(moneskoHelppoKysytään));
-        }
-    }
-
-    /**
-     * Tämän metodin avulla kysytään keskivaikeat kysymykset ja päivitetään
-     * tilannetta.
-     *
-     * @param kertoluku Kertoluku vaikuttaa siihen, paljonko pisteitä annetaan.
-     * Kertoimen määrää päivitäTilanne-metodin kerroin.
-     */
-    private void kysyKeskivaikea(int kertoluku) {
-        moneskoKeskivaikeaKysytään = moneskoKeskivaikeaKysytään + 1;
-        pelaajanPisteet = pelaajanPisteet + (2 * kertoluku);
-        pistetilanne.setText("Pisteet: " + pelaajanPisteet);
-        if (moneskoKeskivaikeaKysytään < 46) {
-            kysyKysymys(alkuaineet.palautaKeskivaikeaKysymys(moneskoKeskivaikeaKysytään));
-        }
-    }
-
-    /**
-     * Tämän metodin avulla kysytään vaikeat kysymykset ja päivitetään
-     * tilannetta.
-     *
-     * @param kertoluku Kertoluku vaikuttaa siihen, paljonko pisteitä annetaan.
-     * Kertoimen määrää päivitäTilanne-metodin kerroin.
-     */
-    private void kysyVaikea(int kertoluku) {
-        moneskoVaikeaKysytään = moneskoVaikeaKysytään + 1;
-        pelaajanPisteet = pelaajanPisteet + (3 * kertoluku);
-        pistetilanne.setText("Pisteet: " + pelaajanPisteet);
-        if (moneskoVaikeaKysytään < 54) {
-            kysyKysymys(alkuaineet.palautaVaikeaKysymys(moneskoVaikeaKysytään));
-        }
-    }
-
-    /**
-     * Tämä metodin avulla annetaan pelaajalle vihje, jos hän on vastannut
-     * väärin.
-     */
-    public void annaVihje() {
-        aika = 15;
-        yrityskerta = yrityskerta + 1;
-        vihje.setText(palautaSatunnainenNimi() + ": " + kysyttyAine.aineenVihje());
-        vastauskenttä.setText("");
-    }
-
-    /**
      * Tämä metodi vähentää aikaa, laukaisee vihjeen tai laukaisee häviön.
      */
     public void vähennäAikaa() {
@@ -281,7 +92,7 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
             aika = aika - 1;
             ajannäyttö.setText("Aika: " + aika);
         } else {
-            if (yrityskerta == 0) {
+            if (peli.palautaYrityskerta() == 0) {
                 annaVihje();
             } else {
                 ajastin.stop();
@@ -289,68 +100,67 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
             }
         }
     }
-    
+
+    public void annaVihje() {
+        aika = 15;
+        vihje.setText(peli.annaVihje());
+        vastauskenttä.setText("");
+    }
+
+    public void päivitäKomponentit(int kerroin) {
+        if (peli.onko54() < 54) {
+            aika = 15;
+            peli.päivitäTilanne(kerroin);
+            vihje.setText(peli.palautaOnnittelu());
+            vastauskenttä.setText("");
+            moneskoKysymysMenossa.setText("Kysymys: " + peli.palautaKysymysnumero());
+            pistetilanne.setText("Pisteet: " + peli.palautaPisteet());
+            symboli.setText("                  " + peli.palautaSymboli());
+            vaikeusaste.setText("Vaikeusaste: " + peli.palautaVaikeusaste());
+        } 
+        if (peli.onko54() == 54) {
+            lopetus();
+        }
+    }
+
+    public void peliAlkaa() {
+        Musiikkikirjasto.pysäytäAloituslaulu();
+        Musiikkikirjasto.jatkuvaToistoPelilaulu();
+        vastauskenttä.setText("");
+        pelinAntamaAloitusOhje.setVisible(false);
+        tekstikentänSelitys.setVisible(false);
+        moneskoKysymysMenossa.setText("Kysymys: " + peli.palautaKysymysnumero());
+        symboli.setText("                  " + peli.palautaSymboli());
+        vaikeusaste.setText("Vaikeusaste: " + peli.palautaVaikeusaste());
+        ajastin.start();
+    }
+
     /**
-     * Tämä metodi laukaisee lopetusikkunan. 
+     * Tämä metodi laukaisee lopetusikkunan.
      */
     public void lopetus() {
-        pistelista = new Pistelista();
-        ajastin.stop();
         Musiikkikirjasto.pysäytäPelilaulu();
+        ajastin.stop();
+        vastauskenttä.setText("");
         vastauskenttä.setEnabled(false);
         ok_nappula.setEnabled(false);
         lopetusikkuna = new JDialog(peli_ikkuna, false);
         lopetusikkuna.addWindowListener(new Peli_ikkunanKuuntelija(this));
-        if (moneskoVaikeaKysytään == 54) {
+        if (peli.onko54() == 54) {
             Musiikkikirjasto.soitaVoittolaulu();
-            vihje.setText(palautaSatunnainenNimi() + ": Mestarillinen suoritus!");
-            voitit = new IlmoitaVoitto_Ikkuna(lopetusikkuna, pelaajanPisteet, pistelista.pääseeListalle(pelaajanPisteet));
+            vihje.setText(peli.palautaOnnittelu());
+            voitit = new IlmoitaVoitto_Ikkuna(lopetusikkuna, peli.palautaPisteet(), peli.pääseeListalle());
             voitit.run();
             voitit.lisääActionListeneriin(this);
         } else {
             Musiikkikirjasto.soitaHäviölaulu();
-            vihje.setText(palautaSatunnainenNimi() + ": Voi voi minkä menit tekemään! No, harjoitus tekee mestarin.");
-            hävisit = new IlmoitaHäviö_Ikkuna(lopetusikkuna, pelaajanPisteet, pistelista.pääseeListalle(pelaajanPisteet), kysyttyAine.aineenNimi());
+            vihje.setText(peli.palautaOnnittelu());
+            hävisit = new IlmoitaHäviö_Ikkuna(lopetusikkuna, peli.palautaPisteet(), peli.pääseeListalle(), peli.palautaOikeaVastaus());
             hävisit.run();
             hävisit.lisääActionListeneriin(this);
         }
     }
-    
-    /**
-     * Tämän metodin avulla lisätään tulos pistelistaan.
-     */
-    public void lisääNimi(String tiedosto, String nimi) {
-        if (voitit != null) {
-            if (nimi.length() > 0) {
-                pistelista.lisääTulos(nimi, pelaajanPisteet);
-                pistelista.tallennaPistelista(tiedosto);
-            }
-        }
-        if (hävisit != null) {
-            if (nimi.length() > 0) {
-                pistelista.lisääTulos(nimi, pelaajanPisteet);
-                pistelista.tallennaPistelista(tiedosto);
-            }
-        }
-    }
-    
-    /**
-     * Metodi palauttaa nimen, laitettu erikseen testaussyistä.
-     * @return Palauttaa nimen voitit-olion tekstikentästä
-     */
-    public String palautaVoittoNimi() {
-        return voitit.palautaNimikentänNimi();
-    }
-    
-    /**
-     * Metodi palauttaa nimen, laitettu erikseen testaussyistä.
-     * @return Palauttaa nimen häviö-olion tekstikentästä
-     */
-    public String palautaHäviöNimi() {
-        return hävisit.palautaNimikentänNimi();
-    }
 
-    
     /**
      * Toiminnot, jotka tehdään, kun suljetaan peli_ikkuna.
      */
@@ -365,43 +175,47 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
             lopetusikkuna.dispose();
         }
     }
-    
-    /**
-     * Metodi palauttaa kysymysnumeron. 
-     * 
-     * @return kysymysnumero. 
-     */
-    public int palautaKysymysnumero() {
-        int palautus = kysymysnumero;
-        return palautus;
+
+    public int mitäTehdäänNumero() {
+        if (moneskoKysymysMenossa.getText().equals("Kysymys: " + 0)) {
+            return 0;
+        } else if (vastauskenttä.getText().equals(peli.palautaOikeaVastaus()) && peli.palautaYrityskerta() == 0) {
+            return 1;
+        } else if (vastauskenttä.getText().equals(peli.palautaOikeaVastaus()) && peli.palautaYrityskerta() == 1) {
+            return 2;
+        } else if (!vastauskenttä.getText().equals(peli.palautaOikeaVastaus()) && peli.palautaYrityskerta() == 0) {
+            return 3;
+        } else {
+            return 4;
+        }
     }
     
-    /**
-     * Metodi palauttaa pelaajan antaman vastauksen.
-     * 
-     * @return Pelaajan vastaus. 
-     */
-    public String palautaVastaus() {
-        String palautus = vastauskenttä.getText();
-        return palautus;
+     public void lisääNimi(String nimi, String tiedosto) {
+        if (voitit != null) {
+            if (nimi.length() > 0) {
+                peli.lisääNimi(nimi, tiedosto);
+            }
+        }
+        if (hävisit != null) {
+            if (nimi.length() > 0) {
+                peli.lisääNimi(nimi, tiedosto);
+            }
+        }
+    }
+     
+    public String palautaVoittoNimi() {
+        return voitit.palautaNimikentänNimi();
     }
     
-    /**
-     * Metodi palauttaa oikean vastauksen. 
-     * @return 
-     */
-    public String palautaOikeaVastaus() {
-        Alkuaine palautus = kysyttyAine;
-        return palautus.aineenNimi();
+    public String palutaHäviöNimi() {
+        return hävisit.palautaNimikentänNimi();
     }
     
-    /**
-     * Palauttaa pelaajan yrityksien määrän nykyistä kysymystä kohden.
-     * 
-     * @return Yrityksien määrä. 
-     */
-    public int yrityksienMäärä() {
-        int palautus = yrityskerta;
-        return palautus;
+    public boolean häviöVaiVoitto() {
+        if (hävisit == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

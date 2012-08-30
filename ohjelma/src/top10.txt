@@ -1,5 +1,7 @@
 Hume
 519
+Bishop Berkeley
+517
 Locke
 514
 Robespierre
@@ -16,5 +18,3 @@ Marx
 13
 Spinoza
 13
-Berkeley
-8

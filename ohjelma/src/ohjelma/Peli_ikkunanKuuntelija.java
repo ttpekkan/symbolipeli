@@ -41,25 +41,23 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
             okNappula();
         }
         if (nappula.getText().equals("Lopeta Peli")) {
-            if (ohjelma.palautaKysymysnumero() == 111) {
-                ohjelma.lisääNimi("src/top10.txt", ohjelma.palautaVoittoNimi());
+            if (ohjelma.häviöVaiVoitto() == true) {
+                ohjelma.lisääNimi(ohjelma.palautaVoittoNimi(), "src/top10.txt");
             } else {
-                ohjelma.lisääNimi("src/top10.txt", ohjelma.palautaHäviöNimi());
+                ohjelma.lisääNimi(ohjelma.palutaHäviöNimi(), "src/top10.txt");
             }
             ohjelma.sulje();
         }
     }
 
     private void okNappula() {
-        if (ohjelma.palautaKysymysnumero() == 0 && !ohjelma.palautaVastaus().equals("pelaa")) {
-            ohjelma.sulje();
-        } else if (ohjelma.palautaKysymysnumero() == 0 && ohjelma.palautaVastaus().equals("pelaa")) {
-            ohjelma.aloitaPeli();
-        } else if (ohjelma.palautaVastaus().equals(ohjelma.palautaOikeaVastaus()) && ohjelma.yrityksienMäärä() == 0) {
-            ohjelma.päivitäTilanne(2);
-        } else if (ohjelma.palautaVastaus().equals(ohjelma.palautaOikeaVastaus()) && ohjelma.yrityksienMäärä() == 1) {
-            ohjelma.päivitäTilanne(1);
-        } else if (!ohjelma.palautaVastaus().equals(ohjelma.palautaOikeaVastaus()) && ohjelma.yrityksienMäärä() == 0) {
+        if (ohjelma.mitäTehdäänNumero() == 0) {
+            ohjelma.peliAlkaa();
+        } else if (ohjelma.mitäTehdäänNumero() == 1) {
+            ohjelma.päivitäKomponentit(2);
+        } else if (ohjelma.mitäTehdäänNumero() == 2) {
+            ohjelma.päivitäKomponentit(1);
+        } else if (ohjelma.mitäTehdäänNumero() == 3) {
             ohjelma.annaVihje();
         } else {
             ohjelma.lopetus();
