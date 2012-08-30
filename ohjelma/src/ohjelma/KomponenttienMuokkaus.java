@@ -17,18 +17,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Timo Pekkanen
  */
-public class KomponenttienLataus {
-
-    private JFrame ikkunaJohonKomponenttejaLisätään;
-
-    /**
-     * Luokan konstruktori.
-     *
-     * @param ikkuna JFrame, johon komponentteja halutaan lisätä.
-     */
-    public KomponenttienLataus(JFrame parametrinaAnnettuIkkuna) {
-        this.ikkunaJohonKomponenttejaLisätään = parametrinaAnnettuIkkuna;
-    }
+public class KomponenttienMuokkaus {
 
     /**
      * Tämän metodin avulla lisätään halutut ominaisuudet nappulaan.
@@ -48,7 +37,7 @@ public class KomponenttienLataus {
      * @param rajanvärit Minkä värinen on nappulan raja.
      * @param pohja Mihin pohjaan nappula lisätään.
      */
-    public void luoNappula(JButton nappula, int xSijainti, int ySijainti, int xKoko,
+    public static void luoNappula(JButton nappula, int xSijainti, int ySijainti, int xKoko,
             int yKoko, Color väriTausta, boolean tausta, Color väriTeksti,
             boolean kohdistusMaalaus, boolean täytäAlue, boolean näytäRajat,
             int fonttikoko, Color rajanvärit, Container pohja) {
@@ -79,7 +68,7 @@ public class KomponenttienLataus {
      * @param fonttikoko Kirjoituksen fonttikoko.
      * @param pohja Pohja mihin teksti lisätään. 
      */
-    public void luoTeksti(JLabel teksti, int xSijainti, int ySijainti, int xKoko,
+    public static void luoTeksti(JLabel teksti, int xSijainti, int ySijainti, int xKoko,
             int yKoko, boolean tausta, Color väriTausta, Color väriKirjoitus,
             int fonttikoko, Container pohja) {
         teksti.setLocation(xSijainti, ySijainti);
@@ -104,7 +93,7 @@ public class KomponenttienLataus {
      * @param kentänTeksti Mitä tekstikenttään on kirjoitettu.
      * @param pohja Mihin pohjaan tekstikenttä lisätään.
      */
-    public void luoTekstikenttä(JTextField kenttä, int xSijainti, int ySijainti,
+    public static void luoTekstikenttä(JTextField kenttä, int xSijainti, int ySijainti,
             int xKoko, int yKoko, int fonttikoko, String kentänTeksti,
             Container pohja) {
         kenttä.setLocation(xSijainti, ySijainti);
@@ -117,11 +106,11 @@ public class KomponenttienLataus {
     /**
      * Lista niistä toiminnoista, jotka ovat aina samat, kun tehdään JFrame.
      */
-    public void neIkkunanavausToiminnotJotkaAinaSamat() {
-        ikkunaJohonKomponenttejaLisätään.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        ikkunaJohonKomponenttejaLisätään.setResizable(false);
-        ikkunaJohonKomponenttejaLisätään.pack();
-        ikkunaJohonKomponenttejaLisätään.setVisible(true);
+    public static void neIkkunanavausToiminnotJotkaAinaSamat(JFrame ikkuna) {
+        ikkuna.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        ikkuna.setResizable(false);
+        ikkuna.pack();
+        ikkuna.setVisible(true);
     }
     
     /**
@@ -129,12 +118,30 @@ public class KomponenttienLataus {
      *
      * @param tiedosto Kuvatiedosto. jota halutaan käyttää.
      */
-    public void luoContentPaneKuvasta(String tiedosto) {
+    public static void luoContentPaneKuvasta(String tiedosto, JFrame ikkuna) {
         try {
             JLabel kuva = new JLabel(new ImageIcon(ImageIO.read(new File("src/" + tiedosto))));
-            ikkunaJohonKomponenttejaLisätään.setContentPane(kuva);
+            ikkuna.setContentPane(kuva);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+    
+    public static void luoDialoginContentPaneKuvasta(String tiedosto, JDialog ikkuna) {
+        try {
+            JLabel kuva = new JLabel(new ImageIcon(ImageIO.read(new File("src/" + tiedosto))));
+            ikkuna.setContentPane(kuva);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public static void neDialoginavausToiminnotJotkaAinaSamat(JDialog ikkuna) {
+        ikkuna.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        ikkuna.setResizable(false);
+        ikkuna.pack();
+        ikkuna.setVisible(true);
+        ikkuna.setModal(true);
+    }
+    
 }

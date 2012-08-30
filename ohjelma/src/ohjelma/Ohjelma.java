@@ -1,6 +1,6 @@
 package ohjelma;
 
-import javax.swing.SwingUtilities;
+import javax.swing.JFrame;
 
 /**
  * Alkuainepelin pääluokka.
@@ -15,7 +15,10 @@ public class Ohjelma {
      * @param args
      */
     public static void main(String[] args) {
+        JFrame ikkuna = new JFrame();       
+        Musiikkikirjasto musa = new Musiikkikirjasto();
         Päävalikkoikkuna pääohjelma = new Päävalikkoikkuna();
-        SwingUtilities.invokeLater(pääohjelma);
+        pääohjelma.run(ikkuna);
     }
+    
 }

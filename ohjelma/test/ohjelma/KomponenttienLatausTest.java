@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.*;
 
 public class KomponenttienLatausTest {
-    public KomponenttienLataus testi;
+    public KomponenttienMuokkaus testi;
     
     public KomponenttienLatausTest() {
     }
@@ -37,7 +37,7 @@ public class KomponenttienLatausTest {
     public void nappuloidenMäärä() {
         int luku = 0;
         JFrame a = new JFrame();
-        testi = new KomponenttienLataus(a);
+        testi = new KomponenttienMuokkaus(a);
         testi.luoContentPaneKuvasta("taustakuva.png");
         Container b = a.getContentPane();
         JButton c = new JButton();

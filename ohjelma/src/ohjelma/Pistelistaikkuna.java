@@ -3,6 +3,7 @@ package ohjelma;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -11,31 +12,26 @@ import javax.swing.UIManager;
  *
  * @author Timo Pekkanen
  */
-public class Pistelistaikkuna implements Runnable {
+public class Pistelistaikkuna {
+
     private JButton sulje;
     private Container pohja;
-    private JFrame pistelistaikkuna;
-    private KomponenttienLataus komponentit;
+    private JDialog pistelistaikkuna;
     private Pistelista pistelista;
-    private static int laskuri = 0;
- 
+
     /**
      * Käynnistää pistelistaikkunan.
      */
-    @Override
-    public void run() {
-        if (laskuri == 0) {
-            pistelistaikkuna = new JFrame("Symbolipeli");
-            laskuri = laskuri + 1;
-            pistelista = new Pistelista();
-            komponentit = new KomponenttienLataus(pistelistaikkuna);
-            pistelistaikkuna.setLocation(130, 200);
-            UIManager.put("Button.select", Color.green);
-            komponentit.luoContentPaneKuvasta("pistelista.png");
-            luoKomponentit();
-            komponentit.neIkkunanavausToiminnotJotkaAinaSamat();
-            pistelistaikkuna.addWindowListener(new PistelistaikkunanKuuntelija(this));
-        }
+    public void run(JFrame omistus) {
+        pistelistaikkuna = new JDialog(omistus, true);
+        pistelista = new Pistelista();
+        pistelistaikkuna.setLocation(130, 200);
+        UIManager.put("Button.select", Color.green);
+        KomponenttienMuokkaus.luoDialoginContentPaneKuvasta("pistelista.png", pistelistaikkuna);
+        luoKomponentit();
+        KomponenttienMuokkaus.neDialoginavausToiminnotJotkaAinaSamat(pistelistaikkuna);
+        pistelistaikkuna.addWindowListener(new PistelistaikkunanKuuntelija(this));
+
     }
 
     /**
@@ -44,7 +40,7 @@ public class Pistelistaikkuna implements Runnable {
     private void luoKomponentit() {
         pohja = pistelistaikkuna.getContentPane();
         sulje = new JButton("Sulje Pistelista");
-        komponentit.luoNappula(sulje, 400, 50, 300, 75,
+        KomponenttienMuokkaus.luoNappula(sulje, 400, 50, 300, 75,
                 Color.green.darker(), true, Color.BLUE.darker(), false, true, true, 26,
                 Color.green, pohja);
         sulje.addActionListener(new PistelistaikkunanKuuntelija(this));
@@ -53,7 +49,6 @@ public class Pistelistaikkuna implements Runnable {
     }
 
     public void sulje() {
-        laskuri = laskuri - 1;
         pistelistaikkuna.dispose();
     }
 }

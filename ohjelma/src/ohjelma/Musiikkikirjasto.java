@@ -37,63 +37,65 @@ public class Musiikkikirjasto {
     /**
      * Laitetaan pelilaulu jatkuvaan toistoon.
      */
-    public void jatkuvaToistoPelilaulu() {
+    public static void jatkuvaToistoPelilaulu() {
         pelilaulu.loop();
     }
 
     /**
      * Pysäytetään pelilaulu.
      */    
-    public void pysäytäPelilaulu() {
+    public static void pysäytäPelilaulu() {
         pelilaulu.stop();
     }
 
     /**
      * Laitetaan päävalikko laulu jatkuvaan toistoon.
      */
-    public void jatkuvaToistoPäävalikkolaulu() {
+    public static void jatkuvaToistoPäävalikkolaulu() {
         päävalikkolaulu.loop();
     }
 
     /**
      * Pysäytetään päävalikkolaulu.
      */
-    public void pysäytäPäävalikkolaulu() {
+    public static void pysäytäPäävalikkolaulu() {
         päävalikkolaulu.stop();
     }
 
     /**
      * Soita voittolaulu.
      */
-    public void soitaVoittolaulu() {
+    public static void soitaVoittolaulu() {
         voittolaulu.play();
     }
 
     /**
      * Soita häviölaulu.
      */
-    public void soitaHäviölaulu() {
+    public static void soitaHäviölaulu() {
         häviölaulu.play();
     }
 
     /**
      * Soita aloituslaulu.
      */
-    public void soitaAloituslaulu() {
+    public static void soitaAloituslaulu() {
         aloituslaulu.play();
     }
 
     /**
      * Pysäyttää aloituslaulun.
      */    
-    public void pysäytäAloituslaulu() {
+    public static void pysäytäAloituslaulu() {
         aloituslaulu.stop();
     }
 
     /**
      * Palauttaa kuvan nimen kuvaJaLaulu_Listasta.
      */
-    public String palautaKuvannimi() {
+    public static String palautaKuvannimi() {
+        Collections.shuffle(kuvaJaLaulu_Lista);
+        pelilaulu = kuvaJaLaulu_Lista.get(0).palautaLaulu();
         return kuvaJaLaulu_Lista.get(0).palautaKuva();
     }
 
@@ -151,7 +153,5 @@ public class Musiikkikirjasto {
         lisääKuvaJaLaulu("future.png", "future.wav");
         lisääKuvaJaLaulu("avaus.png", "avaus.wav");
         lisääKuvaJaLaulu("otsikko.png", "otsikko.wav");
-        Collections.shuffle(kuvaJaLaulu_Lista);
-        pelilaulu = kuvaJaLaulu_Lista.get(0).palautaLaulu();
     }
 }

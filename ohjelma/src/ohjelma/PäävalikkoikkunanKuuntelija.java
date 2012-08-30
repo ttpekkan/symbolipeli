@@ -3,7 +3,6 @@ package ohjelma;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 
 /**
  * Tämä luokka valvoo, mitä nappeja päävalikkoikkunassa painetaan.
@@ -31,14 +30,12 @@ public class PäävalikkoikkunanKuuntelija implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
         if (nappula.getText().equals("Aloita Peli")) {
-            päävalikkoikkuna.lopetaLaulu();
-            Peli_ikkuna uusi = new Peli_ikkuna();
-            SwingUtilities.invokeLater(uusi);
+            Musiikkikirjasto.pysäytäPäävalikkolaulu();
+            päävalikkoikkuna.peli_ikkuna();
         } else if (nappula.getText().equals("Lopeta")) {
             System.exit(0);
         } else {
-            Pistelistaikkuna uusi = new Pistelistaikkuna();
-            SwingUtilities.invokeLater(uusi);
+           päävalikkoikkuna.pistelista();
         }
     }
 }
