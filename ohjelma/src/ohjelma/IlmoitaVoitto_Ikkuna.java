@@ -24,9 +24,10 @@ public class IlmoitaVoitto_Ikkuna {
     /**
      * IlmoitaVoitto_Ikkunan konstruktori.
      *
-     * @param ikkuna
-     * @param pisteet
-     * @param pääsee
+     * @param lopetusikkuna Ikkuna, johon kaikki tavara lisätään.
+     * @param pelaajanPisteet Pelaajan loppupisteet.
+     * @param pääseeköListalle Jos tulos tarpeeksi hyvä, niin true, muuten
+     * false.
      */
     public IlmoitaVoitto_Ikkuna(JDialog lopetusikkuna, int pelaajanPisteet, boolean pääseeköListalle) {
         this.ilmoitaVoittoIkkuna = lopetusikkuna;
@@ -39,9 +40,9 @@ public class IlmoitaVoitto_Ikkuna {
      */
     public void run() {
         ilmoitaVoittoIkkuna.setLocation(250, 30);
-        KomponenttienMuokkaus.luoDialoginContentPaneKuvasta("voitto.png", ilmoitaVoittoIkkuna);
+        MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("voitto.png", ilmoitaVoittoIkkuna);
         voittoKomponentit();
-        KomponenttienMuokkaus.neDialoginavausToiminnotJotkaAinaSamat(ilmoitaVoittoIkkuna);
+        MuokkaaKomponenttia.suoritaNeDialoginavausToiminnotJotkaAinaSamat(ilmoitaVoittoIkkuna);
     }
 
     /**
@@ -50,18 +51,18 @@ public class IlmoitaVoitto_Ikkuna {
     private void voittoKomponentit() {
         pohja = ilmoitaVoittoIkkuna.getContentPane();
         JLabel ilmoitaPisteet = new JLabel("Pisteesi: " + pelaajanPisteet);
-        KomponenttienMuokkaus.luoTeksti(ilmoitaPisteet, 350, 240, 300, 40, false, Color.red, Color.white, 24, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(ilmoitaPisteet, 350, 240, 300, 40, false, Color.red, Color.white, 24, pohja);
         JLabel voitto = new JLabel("Voitit Pelin!");
-        KomponenttienMuokkaus.luoTeksti(voitto, 300, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(voitto, 300, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
         suljePeliNappula = new JButton("Lopeta Peli");
-        KomponenttienMuokkaus.luoNappula(suljePeliNappula, 340, 590, 180, 50, Color.white, true, Color.blue, false,
+        MuokkaaKomponenttia.muokkaaJButtonia(suljePeliNappula, 340, 590, 180, 50, Color.white, true, Color.blue, false,
                 true, true, 16, Color.blue, pohja);
         ilmoitaVoittoIkkuna.getRootPane().setDefaultButton(suljePeliNappula);
         if (pääseeköListalle == true) {
             JLabel nimi = new JLabel("Kirjoita nimesi tekstikenttään, jos haluat liittyä kemistien eliittiin.");
-            KomponenttienMuokkaus.luoTeksti(nimi, 75, 290, 700, 25, false, Color.red, Color.white, 18, pohja);
+            MuokkaaKomponenttia.muokkaaJLabelia(nimi, 75, 290, 700, 25, false, Color.red, Color.white, 18, pohja);
             nimikenttä = new JTextField();
-            KomponenttienMuokkaus.luoTekstikenttä(nimikenttä, 285, 340, 300, 40, 24, "", pohja);
+            MuokkaaKomponenttia.muokkaaJTextFieldiä(nimikenttä, 285, 340, 300, 40, 24, "", pohja);
         }
     }
 

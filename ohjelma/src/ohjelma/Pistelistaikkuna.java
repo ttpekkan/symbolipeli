@@ -17,19 +17,19 @@ public class Pistelistaikkuna {
     private JButton sulje;
     private Container pohja;
     private JDialog pistelistaikkuna;
-    private Pistelista pistelista;
+    private HaePistelista pistelista;
 
     /**
      * Käynnistää pistelistaikkunan.
      */
     public void run(JFrame omistus) {
-        pistelistaikkuna = new JDialog(omistus, true);
+        pistelistaikkuna = new JDialog(omistus, false);
         pistelista = new Pistelista();
         pistelistaikkuna.setLocation(130, 200);
         UIManager.put("Button.select", Color.green);
-        KomponenttienMuokkaus.luoDialoginContentPaneKuvasta("pistelista.png", pistelistaikkuna);
+        MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("pistelista.png", pistelistaikkuna);
         luoKomponentit();
-        KomponenttienMuokkaus.neDialoginavausToiminnotJotkaAinaSamat(pistelistaikkuna);
+        MuokkaaKomponenttia.suoritaNeDialoginavausToiminnotJotkaAinaSamat(pistelistaikkuna);
         pistelistaikkuna.addWindowListener(new PistelistaikkunanKuuntelija(this));
 
     }
@@ -40,7 +40,7 @@ public class Pistelistaikkuna {
     private void luoKomponentit() {
         pohja = pistelistaikkuna.getContentPane();
         sulje = new JButton("Sulje Pistelista");
-        KomponenttienMuokkaus.luoNappula(sulje, 400, 50, 300, 75,
+        MuokkaaKomponenttia.muokkaaJButtonia(sulje, 400, 50, 300, 75,
                 Color.green.darker(), true, Color.BLUE.darker(), false, true, true, 26,
                 Color.green, pohja);
         sulje.addActionListener(new PistelistaikkunanKuuntelija(this));
@@ -49,6 +49,7 @@ public class Pistelistaikkuna {
     }
 
     public void sulje() {
+        MuokkaaKomponenttia.asetaLaskurinArvo(0);
         pistelistaikkuna.dispose();
-    }
+    }  
 }

@@ -3,24 +3,38 @@ package ohjelma;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Peli implements HaeArvoja  {
+/**
+ * Tämä luokka sisältää pelin toimintalogiikan.
+ *
+ * Julkisten metodien avulla pelissä tapahtuvat muutokset kommunikoidaan
+ * käyttäliittymälle. Käyttöliittymästä voidaan päivittää Pelitilanetta.
+ *
+ * @author Timo Pekkanen
+ */
+public class Peli implements HaePelinArvoja {
 
-    private Alkuaine kysyttyAine;
+    private Alkuaine kysyttyAine;  
+    private ArrayList<String> henkilöt;
+    private ArrayList<String> onnittelut;
+    private HaePistelista pistelista;
     private int kysymysnumero;
-    private String symboli;
-    private String vihje;
-    private String vaikeusaste;
-    private String oikeaVastaus;
     private int moneskoHelppoKysytään;
     private int moneskoKeskivaikeaKysytään;
     private int moneskoVaikeaKysytään;
     private int pelaajanPisteet;
     private int yrityskerta;
-    private ArrayList<String> henkilöt;
-    private ArrayList<String> onnittelut;
     private Kysymysgeneraattori alkuaineet;
-    private Pistelista pistelista;
+    private String oikeaVastaus;
+    private String symboli;    
+    private String vaikeusaste;
+    private String vihje;
 
+    /**
+     * Luokan konstruktori.
+     *
+     * Konstruktori luo henkilöt, onnittelut, kysymykset, pistelistan ja asettaa
+     * lukujen alkuarvot.
+     */
     public Peli() {
         lisääHenkilöt();
         lisääOnnittelut();
@@ -36,6 +50,9 @@ public class Peli implements HaeArvoja  {
         yrityskerta = 0;
     }
 
+    /**
+     * Lisää henkilöt arrayListiin.
+     */
     private void lisääHenkilöt() {
         henkilöt = new ArrayList<String>();
         henkilöt.add("Pauling");
@@ -44,6 +61,9 @@ public class Peli implements HaeArvoja  {
         henkilöt.add("Debye");
     }
 
+    /**
+     * Lisää onnittelut arrayListiin.
+     */
     private void lisääOnnittelut() {
         onnittelut = new ArrayList<String>();
         onnittelut.add("Mainiota!");
@@ -53,22 +73,44 @@ public class Peli implements HaeArvoja  {
         onnittelut.add("Vaikuttavaa!");
     }
 
+    /**
+     * Palauttaa satunnaisen henkilön nimen.
+     *
+     * @return Nimi merkkijonona.
+     */
     private String palautaSatunnainenNimi() {
         Collections.shuffle(henkilöt);
         return henkilöt.get(0);
     }
 
+    /**
+     * Palauttaa satunnaissen onnittelun.
+     *
+     * @return Onnittelu merkkijonona.
+     */
     private String palautaSatunnainenOnnittelu() {
         Collections.shuffle(onnittelut);
         return onnittelut.get(0);
     }
 
+    /**
+     * Tämä metodin avulla päivitetään kysyttävään alkuaineeseen liittyvät
+     * kentät.
+     *
+     * @param aine Alkuaineolio, jonka avulla muutetaan kolmen kentän arvoa.
+     */
     private void kysyKysymys(Alkuaine aine) {
         kysyttyAine = aine;
         symboli = kysyttyAine.aineenSymboli();
         oikeaVastaus = kysyttyAine.aineenNimi();
     }
 
+    /**
+     * Tämän metodin avulla päivitetään tilannetta ja kysytään uusi kysymys.
+     *
+     * @param kerroin Kerroin määrää, paljon edellisestä kysymyksetä annettaan
+     * pisteitä.
+     */
     @Override
     public void päivitäTilanne(int kerroin) {
         vihje = (palautaSatunnainenNimi() + ": " + palautaSatunnainenOnnittelu());
@@ -101,6 +143,12 @@ public class Peli implements HaeArvoja  {
         }
     }
 
+    /**
+     * Apumetodi, joka kysyy vaikeudeltaan helpon kysymyksen.
+     *
+     * @param kertoluku Kertoluku määrää, paljon edellisestä kysymyksestä
+     * annettaan pisteitä.
+     */
     private void kysyHelppo(int kertoluku) {
         moneskoHelppoKysytään = moneskoHelppoKysytään + 1;
         pelaajanPisteet = pelaajanPisteet + (1 * kertoluku);
@@ -109,6 +157,12 @@ public class Peli implements HaeArvoja  {
         }
     }
 
+    /**
+     * Apumetodi, joka kysyy vaikeudeltaan keskivaikean kysymyksen.
+     *
+     * @param kertoluku Kertoluku määrää, paljon edellisestä kysymyksestä
+     * annettaan pisteitä.
+     */
     private void kysyKeskivaikea(int kertoluku) {
         moneskoKeskivaikeaKysytään = moneskoKeskivaikeaKysytään + 1;
         pelaajanPisteet = pelaajanPisteet + (2 * kertoluku);
@@ -117,6 +171,12 @@ public class Peli implements HaeArvoja  {
         }
     }
 
+    /**
+     * Apumetodi, joka kysyy vaikeudeltaan vaikean kysymyksen.
+     *
+     * @param kertoluku Kertoluku määrää, paljon edellisestä kysymyksestä
+     * annettaan pisteitä.
+     */
     private void kysyVaikea(int kertoluku) {
         moneskoVaikeaKysytään = moneskoVaikeaKysytään + 1;
         pelaajanPisteet = pelaajanPisteet + (3 * kertoluku);
@@ -125,7 +185,11 @@ public class Peli implements HaeArvoja  {
         }
     }
 
-    private void lopetus() {      
+    /**
+     * Tämän luokan avulla muutetaan niitä kenttiä, joiden tulee muuttua, kun
+     * peli loppuu.
+     */
+    private void lopetus() {
         if (moneskoVaikeaKysytään == 54) {
             vihje = (palautaSatunnainenNimi() + ": Mestarillinen suoritus!");
         } else {
@@ -133,66 +197,125 @@ public class Peli implements HaeArvoja  {
         }
     }
 
+    /**
+     * Palauttaa kysyttävän aineen vihjeen.
+     *
+     * @return Palautettu vihje.
+     */
     @Override
     public String annaVihje() {
         yrityskerta = yrityskerta + 1;
-        return (palautaSatunnainenNimi() + ": " + kysyttyAine.aineenVihje());       
+        return (palautaSatunnainenNimi() + ": " + kysyttyAine.aineenVihje());
     }
-    
+
+    /**
+     * Palauttaa onnittelun.
+     *
+     * @return Palautettu onnittelu.
+     */
     @Override
     public String palautaOnnittelu() {
         String palautus = vihje;
         return palautus;
     }
-    
+
+    /**
+     * Palauttaa oikean vastauksen.
+     *
+     * @return Oikea vastaus.
+     */
     @Override
     public String palautaOikeaVastaus() {
         String palautus = oikeaVastaus;
         return palautus;
     }
-    
+
+    /**
+     * Palauttaa alkuaineen symbolin.
+     *
+     * @return Palautetty symboli.
+     */
     @Override
     public String palautaSymboli() {
         String palautus = symboli;
         return palautus;
     }
-    
+
+    /**
+     * Palauttaa kysymysnumeoron.
+     *
+     * @return Palautettu kysymysnumero.
+     */
     @Override
     public int palautaKysymysnumero() {
         int palautus = kysymysnumero;
         return palautus;
     }
-    
+
+    /**
+     * Palauttaa pelaajan keräämät pisteet.
+     *
+     * @return Palautetut pisteet.
+     */
     @Override
     public int palautaPisteet() {
         int palautus = pelaajanPisteet;
         return palautus;
     }
-    
+
+    /**
+     * Palauttaa luvun, joka kertoo, kuinka monta yritystä on käytetty
+     * kysymykseen.
+     *
+     * @return Yrityskerta lukuna.
+     */
     @Override
     public int palautaYrityskerta() {
         int palautus = yrityskerta;
         return palautus;
     }
-    
+
+    /**
+     * Kertoo, pääseekö tulos pistelistaan.
+     *
+     * @return True tai false.
+     */
     @Override
     public boolean pääseeListalle() {
         boolean palautus = pistelista.pääseeListalle(pelaajanPisteet);
         return palautus;
     }
-    
+
+    /**
+     * Metodin avulla lisätään nimi pistelistaan.
+     *
+     * @param nimi Lisättävä nimimerkki.
+     * @param tiedosto Tiedosto, johon tulos lisätään.
+     */
     @Override
     public void lisääNimi(String nimi, String tiedosto) {
         pistelista.lisääTulos(nimi, pelaajanPisteet);
         pistelista.tallennaPistelista(tiedosto);
     }
-    
+
+    /**
+     * Palauttaa vaikeusasteen.
+     *
+     * @return Vaikeusaste merkkijonona.
+     */
     @Override
     public String palautaVaikeusaste() {
         String palautus = vaikeusaste;
         return palautus;
     }
-    
+
+    /**
+     * Metodi kertoo, kuinka monta vaikeaa kysymystä on ratkaistu.
+     *
+     * 54 on vaikeiden kysymysten määrä.
+     *
+     * @return Ratkaistus vaikeat kysymykset kokonaislukuna.
+     */
     @Override
     public int onko54() {
         int palautus = moneskoVaikeaKysytään;

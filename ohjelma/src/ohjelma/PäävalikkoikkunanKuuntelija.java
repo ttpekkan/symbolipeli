@@ -10,6 +10,7 @@ import javax.swing.JButton;
  * @author Timo Pekkanen
  */
 public class PäävalikkoikkunanKuuntelija implements ActionListener {
+
     private Päävalikkoikkuna päävalikkoikkuna;
 
     /**
@@ -29,13 +30,15 @@ public class PäävalikkoikkunanKuuntelija implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
-        if (nappula.getText().equals("Aloita Peli")) {
+        if (nappula.getText().equals("Aloita Peli") && MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
             Musiikkikirjasto.pysäytäPäävalikkolaulu();
             päävalikkoikkuna.peli_ikkuna();
-        } else if (nappula.getText().equals("Lopeta")) {
+        } else if (nappula.getText().equals("Lopeta") && MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
             System.exit(0);
         } else {
-           päävalikkoikkuna.pistelista();
+            if (MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
+                päävalikkoikkuna.pistelista();
+            }
         }
     }
 }

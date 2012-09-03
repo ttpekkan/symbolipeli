@@ -38,7 +38,7 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
             ohjelma.sulje();
         }
         if (nappula.getText().equals("ok")) {
-            okNappula();
+            ohjelma.mitäOkNapinPainalluksenJälkeenTehdään();
         }
         if (nappula.getText().equals("Lopeta Peli")) {
             if (ohjelma.häviöVaiVoitto() == true) {
@@ -50,35 +50,37 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
         }
     }
 
-    private void okNappula() {
-        if (ohjelma.mitäTehdäänNumero() == 0) {
-            ohjelma.peliAlkaa();
-        } else if (ohjelma.mitäTehdäänNumero() == 1) {
-            ohjelma.päivitäKomponentit(2);
-        } else if (ohjelma.mitäTehdäänNumero() == 2) {
-            ohjelma.päivitäKomponentit(1);
-        } else if (ohjelma.mitäTehdäänNumero() == 3) {
-            ohjelma.annaVihje();
-        } else {
-            ohjelma.lopetus();
-        }
-    }
-    
+    /**
+     * Mitä tehdään, kun ikkuna halutaan sulkea.
+     *
+     * @param we ikkunan sulkemisnapin painallus.
+     */
     @Override
     public void windowClosing(WindowEvent we) {
         ohjelma.sulje();
     }
+
     @Override
-    public void windowOpened(WindowEvent we) {}
+    public void windowOpened(WindowEvent we) {
+    }
+
     @Override
-    public void windowClosed(WindowEvent we) {}
+    public void windowClosed(WindowEvent we) {
+    }
+
     @Override
-    public void windowIconified(WindowEvent we) {}
+    public void windowIconified(WindowEvent we) {
+    }
+
     @Override
-    public void windowDeiconified(WindowEvent we) {}
+    public void windowDeiconified(WindowEvent we) {
+    }
+
     @Override
-    public void windowActivated(WindowEvent we) {}
+    public void windowActivated(WindowEvent we) {
+    }
+
     @Override
-    public void windowDeactivated(WindowEvent we) {}
-  
+    public void windowDeactivated(WindowEvent we) {
+    }
 }

@@ -16,7 +16,7 @@ public class Päävalikkoikkuna {
     private JButton pistelista;
     private Container pohja;
     private JFrame päävalikkoikkuna;
-    private JMenu menu;
+    private Pistelistaikkuna pistelistaikkuna;
 
     /**
      * Tämä metodi luo päävalikkoikkunan.
@@ -25,10 +25,11 @@ public class Päävalikkoikkuna {
         päävalikkoikkuna = ikkuna;
         päävalikkoikkuna.setLocation(230, 180);
         UIManager.put("Button.select", Color.green);
-        KomponenttienMuokkaus.luoContentPaneKuvasta("taustakuva.png", päävalikkoikkuna);
+        MuokkaaKomponenttia.luoContentPaneKuvasta("taustakuva.png", päävalikkoikkuna);
         luoKomponentit();
         Musiikkikirjasto.jatkuvaToistoPäävalikkolaulu();
-        KomponenttienMuokkaus.neIkkunanavausToiminnotJotkaAinaSamat(päävalikkoikkuna);
+        MuokkaaKomponenttia.asetaLaskurinArvo(0);
+        MuokkaaKomponenttia.suoritaNeIkkunanavausToiminnotJotkaAinaSamat(päävalikkoikkuna);
         päävalikkoikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -38,26 +39,30 @@ public class Päävalikkoikkuna {
     private void luoKomponentit() {
         pohja = päävalikkoikkuna.getContentPane();
         aloita = new JButton("Aloita Peli");
-        KomponenttienMuokkaus.luoNappula(aloita, 46, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
+        MuokkaaKomponenttia.muokkaaJButtonia(aloita, 46, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
         aloita.addActionListener(new PäävalikkoikkunanKuuntelija(this));
         pistelista = new JButton("Pistelista");
-        KomponenttienMuokkaus.luoNappula(pistelista, 296, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
+        MuokkaaKomponenttia.muokkaaJButtonia(pistelista, 296, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
         pistelista.addActionListener(new PäävalikkoikkunanKuuntelija(this));
         lopeta = new JButton("Lopeta");
-        KomponenttienMuokkaus.luoNappula(lopeta, 546, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
+        MuokkaaKomponenttia.muokkaaJButtonia(lopeta, 546, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
         lopeta.addActionListener(new PäävalikkoikkunanKuuntelija(this));
         päävalikkoikkuna.getRootPane().setDefaultButton(aloita);
         
     }
 
     /**
-     * Tämän metodin avulla pysäytetään päävalikkolaulu.
+     * Tämän metodin luo pistelista JDialogin.
      */
     public void pistelista() {
-        Pistelistaikkuna pistelistaikkuna = new Pistelistaikkuna();
+        pistelistaikkuna = new Pistelistaikkuna();
+        MuokkaaKomponenttia.asetaLaskurinArvo(1);
         pistelistaikkuna.run(päävalikkoikkuna);
     }
-
+    
+    /**
+     * Metodi luo peli_ikkunan päävalikkoikkunan päälle.
+     */
     public void peli_ikkuna() {
         päävalikkoikkuna.getContentPane().removeAll();
         Peli_ikkuna peli_ikkuna = new Peli_ikkuna();

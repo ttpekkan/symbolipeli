@@ -10,41 +10,33 @@ import java.util.Collections;
 /**
  * Tämän luokan avulla hoidetaan äänentoisto.
  *
+ * Äänentoisto oli luontevinta hoitaa staattisten metodien ja kenttien kautta.
+ * Koska pelilaulut liittyvät aine tiettyyn kuvaan, niin kuvatiedoston
+ * lataaminen tehdään myös tämän luokan kautta.
+ *
  * @author Timo Pekkanen
  */
 public class Musiikkikirjasto {
-    
-    private static AudioClip aloituslaulu;
-    private static AudioClip häviölaulu;
-    private static AudioClip pelilaulu;    
-    private static AudioClip päävalikkolaulu;    
-    private static AudioClip voittolaulu;    
-    private static ArrayList<KuvaJaLaulu> kuvaJaLaulu_Lista;
 
-    /**
-     * Luokan konstruktori. Luo halutut audioklipit ja yhden LauluJaKuva
-     * ArrayListin.
-     */    
-    public Musiikkikirjasto() {
-        aloituslaulu = palautaHaluttuLaulu("pelinaloitus.wav");
-        häviölaulu = palautaHaluttuLaulu("lose.wav");
-        päävalikkolaulu = palautaHaluttuLaulu("päävalikko.wav");
-        voittolaulu = palautaHaluttuLaulu("win.wav");        
-        kuvaJaLaulu_Lista = new ArrayList<KuvaJaLaulu>();
-        lisääKaikkiLaulutJaKuvat();
-    }
+    private static AudioClip aloituslaulu = palautaHaluttuLaulu("pelinaloitus.wav");
+    private static AudioClip häviölaulu = palautaHaluttuLaulu("lose.wav");
+    private static AudioClip päävalikkolaulu = palautaHaluttuLaulu("päävalikko.wav");
+    private static AudioClip voittolaulu = palautaHaluttuLaulu("win.wav");
+    private static ArrayList<KuvaJaLaulu> kuvaJaLaulu_Lista = new ArrayList<KuvaJaLaulu>();
 
     /**
      * Laitetaan pelilaulu jatkuvaan toistoon.
      */
     public static void jatkuvaToistoPelilaulu() {
+        AudioClip pelilaulu = kuvaJaLaulu_Lista.get(0).palautaLaulu();
         pelilaulu.loop();
     }
 
     /**
      * Pysäytetään pelilaulu.
-     */    
+     */
     public static void pysäytäPelilaulu() {
+        AudioClip pelilaulu = kuvaJaLaulu_Lista.get(0).palautaLaulu();
         pelilaulu.stop();
     }
 
@@ -85,7 +77,7 @@ public class Musiikkikirjasto {
 
     /**
      * Pysäyttää aloituslaulun.
-     */    
+     */
     public static void pysäytäAloituslaulu() {
         aloituslaulu.stop();
     }
@@ -94,8 +86,8 @@ public class Musiikkikirjasto {
      * Palauttaa kuvan nimen kuvaJaLaulu_Listasta.
      */
     public static String palautaKuvannimi() {
+        lisääKaikkiLaulutJaKuvat();
         Collections.shuffle(kuvaJaLaulu_Lista);
-        pelilaulu = kuvaJaLaulu_Lista.get(0).palautaLaulu();
         return kuvaJaLaulu_Lista.get(0).palautaKuva();
     }
 
@@ -105,7 +97,7 @@ public class Musiikkikirjasto {
      * @param tiedosto Haluttu äänitiedosto.
      * @return Palautettu audioklippi.
      */
-    private AudioClip palautaHaluttuLaulu(String tiedosto) {
+    private static AudioClip palautaHaluttuLaulu(String tiedosto) {
         AudioClip musa = null;
         try {
             File currentDir = new File(".");
@@ -124,7 +116,7 @@ public class Musiikkikirjasto {
      * @param tiedostonimi1 Haluttu audioklippi.
      * @param tiedostonimi2 Halutun kuvatiedoston nimi merkkijonona.
      */
-    private void lisääKuvaJaLaulu(String tiedostonimi1, String tiedostonimi2) {
+    private static void lisääKuvaJaLaulu(String tiedostonimi1, String tiedostonimi2) {
         try {
             File currentDir = new File(".");
             URL currentDirURL = currentDir.toURL();
@@ -144,7 +136,7 @@ public class Musiikkikirjasto {
      * Peli myös sekoittaa ArrayListin, samalla arpoen pelin taustakuvan ja
      * pelimusiikin.
      */
-    private void lisääKaikkiLaulutJaKuvat() {
+    private static void lisääKaikkiLaulutJaKuvat() {
         lisääKuvaJaLaulu("stageselect.png", "stageselect.wav");
         lisääKuvaJaLaulu("mylittlepony.png", "mylittlepony.wav");
         lisääKuvaJaLaulu("lovegravy.png", "lovegravy.wav");

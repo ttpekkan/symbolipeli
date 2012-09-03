@@ -16,7 +16,6 @@ public class Ohjelma {
      */
     public static void main(String[] args) {
         JFrame ikkuna = new JFrame();       
-        Musiikkikirjasto musa = new Musiikkikirjasto();
         Päävalikkoikkuna pääohjelma = new Päävalikkoikkuna();
         pääohjelma.run(ikkuna);
     }

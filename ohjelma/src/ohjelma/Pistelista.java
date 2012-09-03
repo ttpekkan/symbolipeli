@@ -15,7 +15,7 @@ import javax.swing.JLabel;
  * 
  * @author Timo Pekkanen
  */
-public class Pistelista {
+public class Pistelista implements HaePistelista {
 
     private ArrayList<Pelitulos> pistelista;
     
@@ -34,6 +34,7 @@ public class Pistelista {
      * @return Metodi palauttaa true tai false, pisteistä ja pistelistasta
      * riippuen.
      */
+    @Override
     public boolean pääseeListalle(int pisteet) {
         if (pisteet > pistelista.get(pistelista.size() - 1).palautaPisteet()) {
             return true;
@@ -43,8 +44,9 @@ public class Pistelista {
     }
 
     /**
-     * Tämä metodi muodostaa tuloksista JLabeleita.
+     * Tämä metodi muodostaa tuloksista JLabeleita annetulle pohjalle.
      */
+    @Override
     public void JLabelesitys(Container pohja) {
         ArrayList<JLabel> tekstit = new ArrayList<JLabel>();
         for (Pelitulos nimi : pistelista) {
@@ -53,7 +55,7 @@ public class Pistelista {
         int luku = 1;
         int x = 25;
         int y = 10;
-        for (int i = 0; i < 10; i = i + 1) {
+        for (int i = 0; i < pistelista.size(); i = i + 1) {
             tekstit.get(i).setText(luku + ". " + pistelista.get(i).palautaNimi() + "  " + pistelista.get(i).palautaPisteet());
             tekstit.get(i).setLocation(x, y);
             tekstit.get(i).setSize(500, 40);
@@ -88,6 +90,7 @@ public class Pistelista {
      * @param nimi Pistelistaan lisätty nimimerkki.
      * @param pisteet Pistelistaan lisätyt pisteet.
      */
+    @Override
     public void lisääTulos(String nimi, int pisteet) {
         if (pääseeListalle(pisteet) == true) {
             pistelista.remove(pistelista.size() - 1);
@@ -99,6 +102,7 @@ public class Pistelista {
     /**
      * Tämä metodi tallentaa pistelista-ArrayListin tiedot tekstitiedostoon.
      */
+    @Override
     public void tallennaPistelista(String osoite) {
         try {
             PrintWriter kirjoittaja = new PrintWriter(new File(osoite));
@@ -110,21 +114,5 @@ public class Pistelista {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-    
-    /**
-     * Tätä listaa käytetään testauksessa.
-     */   
-    public void lataaTestilista() {
-        this.pistelista = new ArrayList<Pelitulos>();
-        try {
-            Scanner lukija = new Scanner(new File("src/testi.txt"));
-            while (lukija.hasNextLine()) {
-                pistelista.add(new Pelitulos(lukija.nextLine(), Integer.parseInt(lukija.nextLine())));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        Collections.sort(pistelista);
     }
 }

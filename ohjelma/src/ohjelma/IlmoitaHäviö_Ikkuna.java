@@ -44,9 +44,9 @@ public class IlmoitaHäviö_Ikkuna {
      */
     public void run() {
         ilmoitaHäviöIkkuna.setLocation(250, 30);
-        KomponenttienMuokkaus.luoDialoginContentPaneKuvasta("häviö.png", ilmoitaHäviöIkkuna);
+        MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("häviö.png", ilmoitaHäviöIkkuna);
         ilmoitaHäviöIkkunanKomponentit();
-        KomponenttienMuokkaus.neDialoginavausToiminnotJotkaAinaSamat(ilmoitaHäviöIkkuna);
+        MuokkaaKomponenttia.suoritaNeDialoginavausToiminnotJotkaAinaSamat(ilmoitaHäviöIkkuna);
     }
 
     /**
@@ -55,20 +55,20 @@ public class IlmoitaHäviö_Ikkuna {
     private void ilmoitaHäviöIkkunanKomponentit() {
         pohja = ilmoitaHäviöIkkuna.getContentPane();
         JLabel ilmoitaPisteet = new JLabel("Pisteesi: " + pelaajanPisteet);
-        KomponenttienMuokkaus.luoTeksti(ilmoitaPisteet, 350, 260, 300, 40, false, Color.red, Color.white, 24, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(ilmoitaPisteet, 350, 260, 300, 40, false, Color.red, Color.white, 24, pohja);
         JLabel gameover = new JLabel("Game Over!");
-        KomponenttienMuokkaus.luoTeksti(gameover, 320, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(gameover, 320, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
         JLabel oikeaVastausOlisiOllut = new JLabel("Oikea vastaus olisi ollut: " + oikeaVastaus);
-        KomponenttienMuokkaus.luoTeksti(oikeaVastausOlisiOllut, 320, 340, 520, 30, false, Color.red, Color.white, 18, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(oikeaVastausOlisiOllut, 320, 340, 520, 30, false, Color.red, Color.white, 18, pohja);
         suljePeliNappula = new JButton("Lopeta Peli");
-        KomponenttienMuokkaus.luoNappula(suljePeliNappula, 345, 610, 180, 50, Color.white, true, Color.blue, false,
+        MuokkaaKomponenttia.muokkaaJButtonia(suljePeliNappula, 345, 610, 180, 50, Color.white, true, Color.blue, false,
                 true, true, 16, Color.blue, pohja);
         ilmoitaHäviöIkkuna.getRootPane().setDefaultButton(suljePeliNappula);
         if (pääseeListalle == true) {
             JLabel nimi = new JLabel("Kirjoita nimesi tekstikenttään, jos haluat liittyä kemistien eliittiin.");
-            KomponenttienMuokkaus.luoTeksti(nimi, 75, 420, 700, 25, false, Color.red, Color.white, 18, pohja);
+            MuokkaaKomponenttia.muokkaaJLabelia(nimi, 75, 420, 700, 25, false, Color.red, Color.white, 18, pohja);
             nimikenttä = new JTextField();
-            KomponenttienMuokkaus.luoTekstikenttä(nimikenttä, 285, 460, 300, 40, 24, "", pohja);
+            MuokkaaKomponenttia.muokkaaJTextFieldiä(nimikenttä, 285, 460, 300, 40, 24, "", pohja);
         }
     }
 
