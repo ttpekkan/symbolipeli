@@ -3,7 +3,7 @@ package ohjelma;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -14,8 +14,7 @@ import javax.swing.JTextField;
  */
 public class IlmoitaVoitto_Ikkuna {
 
-    private JFrame ilmoitaVoittoIkkuna;
-    private KomponenttienLataus komponentit;
+    private JDialog ilmoitaVoittoIkkuna;
     private int pelaajanPisteet;
     private Container pohja;
     private boolean pääseeköListalle;
@@ -25,11 +24,12 @@ public class IlmoitaVoitto_Ikkuna {
     /**
      * IlmoitaVoitto_Ikkunan konstruktori.
      *
-     * @param ikkuna
-     * @param pisteet
-     * @param pääsee
+     * @param lopetusikkuna Ikkuna, johon kaikki tavara lisätään.
+     * @param pelaajanPisteet Pelaajan loppupisteet.
+     * @param pääseeköListalle Jos tulos tarpeeksi hyvä, niin true, muuten
+     * false.
      */
-    public IlmoitaVoitto_Ikkuna(JFrame lopetusikkuna, int pelaajanPisteet, boolean pääseeköListalle) {
+    public IlmoitaVoitto_Ikkuna(JDialog lopetusikkuna, int pelaajanPisteet, boolean pääseeköListalle) {
         this.ilmoitaVoittoIkkuna = lopetusikkuna;
         this.pelaajanPisteet = pelaajanPisteet;
         this.pääseeköListalle = pääseeköListalle;
@@ -39,11 +39,10 @@ public class IlmoitaVoitto_Ikkuna {
      * Tällä metodilla luodaan häviöikkuna.
      */
     public void run() {
-        komponentit = new KomponenttienLataus(ilmoitaVoittoIkkuna);
         ilmoitaVoittoIkkuna.setLocation(250, 30);
-        komponentit.luoContentPaneKuvasta("voitto.png");
+        MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("voitto.png", ilmoitaVoittoIkkuna);
         voittoKomponentit();
-        komponentit.neIkkunanavausToiminnotJotkaAinaSamat();
+        MuokkaaKomponenttia.suoritaNeDialoginavausToiminnotJotkaAinaSamat(ilmoitaVoittoIkkuna);
     }
 
     /**
@@ -52,18 +51,18 @@ public class IlmoitaVoitto_Ikkuna {
     private void voittoKomponentit() {
         pohja = ilmoitaVoittoIkkuna.getContentPane();
         JLabel ilmoitaPisteet = new JLabel("Pisteesi: " + pelaajanPisteet);
-        komponentit.luoTeksti(ilmoitaPisteet, 350, 240, 300, 40, false, Color.red, Color.white, 24, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(ilmoitaPisteet, 350, 240, 300, 40, false, Color.red, Color.white, 24, pohja);
         JLabel voitto = new JLabel("Voitit Pelin!");
-        komponentit.luoTeksti(voitto, 300, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
+        MuokkaaKomponenttia.muokkaaJLabelia(voitto, 300, 200, 400, 45, false, Color.red, Color.white, 40, pohja);
         suljePeliNappula = new JButton("Lopeta Peli");
-        komponentit.luoNappula(suljePeliNappula, 340, 590, 180, 50, Color.white, true, Color.blue, false,
+        MuokkaaKomponenttia.muokkaaJButtonia(suljePeliNappula, 340, 590, 180, 50, Color.white, true, Color.blue, false,
                 true, true, 16, Color.blue, pohja);
         ilmoitaVoittoIkkuna.getRootPane().setDefaultButton(suljePeliNappula);
         if (pääseeköListalle == true) {
             JLabel nimi = new JLabel("Kirjoita nimesi tekstikenttään, jos haluat liittyä kemistien eliittiin.");
-            komponentit.luoTeksti(nimi, 75, 290, 700, 25, false, Color.red, Color.white, 18, pohja);
+            MuokkaaKomponenttia.muokkaaJLabelia(nimi, 75, 290, 700, 25, false, Color.red, Color.white, 18, pohja);
             nimikenttä = new JTextField();
-            komponentit.luoTekstikenttä(nimikenttä, 285, 340, 300, 40, 24, "", pohja);
+            MuokkaaKomponenttia.muokkaaJTextFieldiä(nimikenttä, 285, 340, 300, 40, 24, "", pohja);
         }
     }
 

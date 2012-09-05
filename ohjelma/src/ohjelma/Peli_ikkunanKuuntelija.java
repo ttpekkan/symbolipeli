@@ -38,49 +38,49 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
             ohjelma.sulje();
         }
         if (nappula.getText().equals("ok")) {
-            okNappula();
+            ohjelma.mitäOkNapinPainalluksenJälkeenTehdään();
         }
         if (nappula.getText().equals("Lopeta Peli")) {
-            if (ohjelma.palautaKysymysnumero() == 111) {
-                ohjelma.lisääNimi("src/top10.txt", ohjelma.palautaVoittoNimi());
+            if (ohjelma.häviöVaiVoitto() == true) {
+                ohjelma.lisääNimi(ohjelma.palautaVoittoNimi(), "src/top10.txt");
             } else {
-                ohjelma.lisääNimi("src/top10.txt", ohjelma.palautaHäviöNimi());
+                ohjelma.lisääNimi(ohjelma.palutaHäviöNimi(), "src/top10.txt");
             }
             ohjelma.sulje();
         }
     }
 
-    private void okNappula() {
-        if (ohjelma.palautaKysymysnumero() == 0 && !ohjelma.palautaVastaus().equals("pelaa")) {
-            ohjelma.sulje();
-        } else if (ohjelma.palautaKysymysnumero() == 0 && ohjelma.palautaVastaus().equals("pelaa")) {
-            ohjelma.aloitaPeli();
-        } else if (ohjelma.palautaVastaus().equals(ohjelma.palautaOikeaVastaus()) && ohjelma.yrityksienMäärä() == 0) {
-            ohjelma.päivitäTilanne(2);
-        } else if (ohjelma.palautaVastaus().equals(ohjelma.palautaOikeaVastaus()) && ohjelma.yrityksienMäärä() == 1) {
-            ohjelma.päivitäTilanne(1);
-        } else if (!ohjelma.palautaVastaus().equals(ohjelma.palautaOikeaVastaus()) && ohjelma.yrityksienMäärä() == 0) {
-            ohjelma.annaVihje();
-        } else {
-            ohjelma.lopetus();
-        }
-    }
-    
+    /**
+     * Mitä tehdään, kun ikkuna halutaan sulkea.
+     *
+     * @param we ikkunan sulkemisnapin painallus.
+     */
     @Override
     public void windowClosing(WindowEvent we) {
         ohjelma.sulje();
     }
+
     @Override
-    public void windowOpened(WindowEvent we) {}
+    public void windowOpened(WindowEvent we) {
+    }
+
     @Override
-    public void windowClosed(WindowEvent we) {}
+    public void windowClosed(WindowEvent we) {
+    }
+
     @Override
-    public void windowIconified(WindowEvent we) {}
+    public void windowIconified(WindowEvent we) {
+    }
+
     @Override
-    public void windowDeiconified(WindowEvent we) {}
+    public void windowDeiconified(WindowEvent we) {
+    }
+
     @Override
-    public void windowActivated(WindowEvent we) {}
+    public void windowActivated(WindowEvent we) {
+    }
+
     @Override
-    public void windowDeactivated(WindowEvent we) {}
-  
+    public void windowDeactivated(WindowEvent we) {
+    }
 }

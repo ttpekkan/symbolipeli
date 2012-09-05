@@ -3,22 +3,22 @@ package ohjelma;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 
 /**
  * Tämä luokka valvoo, mitä nappeja päävalikkoikkunassa painetaan.
  *
  * @author Timo Pekkanen
  */
-public class PäävalikkoikkunanKuuntelija implements ActionListener {
-    private Päävalikkoikkuna päävalikkoikkuna;
+public class ValikkoikkunanKuuntelija implements ActionListener {
+
+    private Valikkoikkuna päävalikkoikkuna;
 
     /**
      * Luokan konstruktori.
      *
      * @param ohjelma Päävalikkoikkuna.
      */
-    public PäävalikkoikkunanKuuntelija(Päävalikkoikkuna päävalikkoikkuna) {
+    public ValikkoikkunanKuuntelija(Valikkoikkuna päävalikkoikkuna) {
         this.päävalikkoikkuna = päävalikkoikkuna;
     }
 
@@ -30,15 +30,15 @@ public class PäävalikkoikkunanKuuntelija implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
-        if (nappula.getText().equals("Aloita Peli")) {
-            päävalikkoikkuna.lopetaLaulu();
-            Peli_ikkuna uusi = new Peli_ikkuna();
-            SwingUtilities.invokeLater(uusi);
-        } else if (nappula.getText().equals("Lopeta")) {
+        if (nappula.getText().equals("Aloita Peli") && MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
+            Musiikkikirjasto.pysäytäPäävalikkolaulu();
+            päävalikkoikkuna.peli_ikkuna();
+        } else if (nappula.getText().equals("Lopeta") && MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
             System.exit(0);
         } else {
-            Pistelistaikkuna uusi = new Pistelistaikkuna();
-            SwingUtilities.invokeLater(uusi);
+            if (MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
+                päävalikkoikkuna.pistelista();
+            }
         }
     }
 }
