@@ -9,16 +9,16 @@ import javax.swing.JButton;
  *
  * @author Timo Pekkanen
  */
-public class PäävalikkoikkunanKuuntelija implements ActionListener {
+public class ValikkoikkunanKuuntelija implements ActionListener {
 
-    private Päävalikkoikkuna päävalikkoikkuna;
+    private Valikkoikkuna päävalikkoikkuna;
 
     /**
      * Luokan konstruktori.
      *
      * @param ohjelma Päävalikkoikkuna.
      */
-    public PäävalikkoikkunanKuuntelija(Päävalikkoikkuna päävalikkoikkuna) {
+    public ValikkoikkunanKuuntelija(Valikkoikkuna päävalikkoikkuna) {
         this.päävalikkoikkuna = päävalikkoikkuna;
     }
 

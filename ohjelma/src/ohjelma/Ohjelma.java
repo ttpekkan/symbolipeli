@@ -16,7 +16,7 @@ public class Ohjelma {
      */
     public static void main(String[] args) {
         JFrame ikkuna = new JFrame();       
-        Päävalikkoikkuna pääohjelma = new Päävalikkoikkuna();
+        Valikkoikkuna pääohjelma = new Valikkoikkuna();
         pääohjelma.run(ikkuna);
     }
     

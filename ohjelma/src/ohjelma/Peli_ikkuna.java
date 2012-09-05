@@ -9,12 +9,12 @@ import javax.swing.*;
  *
  * @author Timo Pekkanen
  */
-public class Peli_ikkuna extends Päävalikkoikkuna {
+public class Peli_ikkuna extends Valikkoikkuna {
 
     private JButton ok_nappula;
     private JButton sulje;
     private HaePelinArvoja peli;   
-    private IlmoitaHäviö_Ikkuna hävisit;
+    private IlmoitaTappio_Ikkuna hävisit;
     private IlmoitaVoitto_Ikkuna voitit;
     private int aika;
     private JDialog lopetusikkuna;
@@ -172,7 +172,7 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
         } else {
             Musiikkikirjasto.soitaHäviölaulu();
             vihje.setText(peli.palautaOnnittelu());
-            hävisit = new IlmoitaHäviö_Ikkuna(lopetusikkuna, peli.palautaPisteet(), peli.pääseeListalle(), peli.palautaOikeaVastaus());
+            hävisit = new IlmoitaTappio_Ikkuna(lopetusikkuna, peli.palautaPisteet(), peli.pääseeListalle(), peli.palautaOikeaVastaus());
             hävisit.run();
             hävisit.lisääActionListeneriin(this);
         }
@@ -185,6 +185,7 @@ public class Peli_ikkuna extends Päävalikkoikkuna {
         Musiikkikirjasto.pysäytäAloituslaulu();
         Musiikkikirjasto.pysäytäPelilaulu();
         Musiikkikirjasto.jatkuvaToistoPäävalikkolaulu();
+        ajastin.stop();
         if (peli_ikkuna != null) {
             super.run(peli_ikkuna);
         }

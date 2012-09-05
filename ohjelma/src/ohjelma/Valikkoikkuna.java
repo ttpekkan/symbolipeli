@@ -9,7 +9,7 @@ import javax.swing.*;
  *
  * @author Timo Pekkanen
  */
-public class Päävalikkoikkuna {
+public class Valikkoikkuna {
 
     private JButton aloita;
     private JButton lopeta;
@@ -40,13 +40,13 @@ public class Päävalikkoikkuna {
         pohja = päävalikkoikkuna.getContentPane();
         aloita = new JButton("Aloita Peli");
         MuokkaaKomponenttia.muokkaaJButtonia(aloita, 46, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
-        aloita.addActionListener(new PäävalikkoikkunanKuuntelija(this));
+        aloita.addActionListener(new ValikkoikkunanKuuntelija(this));
         pistelista = new JButton("Pistelista");
         MuokkaaKomponenttia.muokkaaJButtonia(pistelista, 296, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
-        pistelista.addActionListener(new PäävalikkoikkunanKuuntelija(this));
+        pistelista.addActionListener(new ValikkoikkunanKuuntelija(this));
         lopeta = new JButton("Lopeta");
         MuokkaaKomponenttia.muokkaaJButtonia(lopeta, 546, 450, 200, 50, Color.white, true, Color.green.darker(), false, true, true, 20, Color.green.darker(), pohja);
-        lopeta.addActionListener(new PäävalikkoikkunanKuuntelija(this));
+        lopeta.addActionListener(new ValikkoikkunanKuuntelija(this));
         päävalikkoikkuna.getRootPane().setDefaultButton(aloita);
         
     }

@@ -19,9 +19,9 @@ import org.junit.*;
  *
  * @author timo
  */
-public class PäävalikkoJaPistelistaikkunaTest {
+public class ValikkoJaPistelistaikkunaTest {
     
-    public PäävalikkoJaPistelistaikkunaTest() {
+    public ValikkoJaPistelistaikkunaTest() {
     }
 
     @BeforeClass
@@ -45,19 +45,19 @@ public class PäävalikkoJaPistelistaikkunaTest {
         try {
             Robot robot = new Robot();
             JFrame ikkuna = new JFrame();       
-            Päävalikkoikkuna pääohjelma = new Päävalikkoikkuna();
+            Valikkoikkuna pääohjelma = new Valikkoikkuna();
             pääohjelma.run(ikkuna);
-            Field kenttä = Päävalikkoikkuna.class.getDeclaredField("päävalikkoikkuna");
+            Field kenttä = Valikkoikkuna.class.getDeclaredField("päävalikkoikkuna");
             kenttä.setAccessible(true);
             JFrame testi = (JFrame) kenttä.get(pääohjelma);
             Component[] komponentit = testi.getContentPane().getComponents();
             assertEquals(komponentit.length, 3);
             assertEquals(testi.getContentPane().getHeight(), 694, 30);
             assertEquals(testi.getContentPane().getWidth(), 799, 30);
-            Field pistelista = Päävalikkoikkuna.class.getDeclaredField("pistelista");
+            Field pistelista = Valikkoikkuna.class.getDeclaredField("pistelista");
             pistelista.setAccessible(true);
             JButton nappula1 = (JButton) pistelista.get(pääohjelma);
-            Field aloita = Päävalikkoikkuna.class.getDeclaredField("aloita");
+            Field aloita = Valikkoikkuna.class.getDeclaredField("aloita");
             aloita.setAccessible(true);
             JButton nappula2 = (JButton) aloita.get(pääohjelma);
             assertEquals(0, MuokkaaKomponenttia.palautaLaskurinArvo());

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
  *
  * @author Timo Pekkanen
  */
-public class IlmoitaHäviö_Ikkuna {
+public class IlmoitaTappio_Ikkuna {
 
     private boolean pääseeListalle;
     private Container pohja;
@@ -31,7 +31,7 @@ public class IlmoitaHäviö_Ikkuna {
      * @param pääseeköListalle Jos tulos tarpeeksi hyvä, niin true, muuten
      * false.
      */
-    public IlmoitaHäviö_Ikkuna(JDialog lopetusikkuna, int pelaajanPisteet, boolean pääseeköListalle, String oikeaVastaus) {
+    public IlmoitaTappio_Ikkuna(JDialog lopetusikkuna, int pelaajanPisteet, boolean pääseeköListalle, String oikeaVastaus) {
         this.ilmoitaHäviöIkkuna = lopetusikkuna;
         this.pelaajanPisteet = pelaajanPisteet;
         this.pääseeListalle = pääseeköListalle;
@@ -44,7 +44,7 @@ public class IlmoitaHäviö_Ikkuna {
      */
     public void run() {
         ilmoitaHäviöIkkuna.setLocation(250, 30);
-        MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("häviö.png", ilmoitaHäviöIkkuna);
+        MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("lose.png", ilmoitaHäviöIkkuna);
         ilmoitaHäviöIkkunanKomponentit();
         MuokkaaKomponenttia.suoritaNeDialoginavausToiminnotJotkaAinaSamat(ilmoitaHäviöIkkuna);
     }

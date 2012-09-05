@@ -35,7 +35,7 @@ public class Peli_ikkunaTest {
     private JButton sulje;
     private JTextField vastaus;
     private JTextField nimikenttä;
-    private IlmoitaHäviö_Ikkuna häviö;
+    private IlmoitaTappio_Ikkuna häviö;
     private IlmoitaVoitto_Ikkuna voitto;
 
     public Peli_ikkunaTest() {
@@ -158,14 +158,14 @@ public class Peli_ikkunaTest {
             ok.doClick();
             ok.doClick();
             ok.doClick();
-            häviö = (IlmoitaHäviö_Ikkuna) kenttäJ.get(testi);
+            häviö = (IlmoitaTappio_Ikkuna) kenttäJ.get(testi);
             if (häviö == null) {
                 fail("Voitto ei toimi!");
             }
             if (peli.pääseeListalle() == true) {
                 fail("Pistelistassa häikkää!");
             }
-            Field kenttä = IlmoitaHäviö_Ikkuna.class.getDeclaredField("nimikenttä");
+            Field kenttä = IlmoitaTappio_Ikkuna.class.getDeclaredField("nimikenttä");
             kenttä.setAccessible(true);
             if ((JTextField) kenttä.get(häviö) != null) {
                 fail("Häviöikkunassa häikkää!");
@@ -187,8 +187,8 @@ public class Peli_ikkunaTest {
             kenttä2.setAccessible(true);
             kenttä2.setInt(peli, 600);
             ok.doClick();
-            häviö = (IlmoitaHäviö_Ikkuna) kenttäJ.get(testi);
-            Field kenttä = IlmoitaHäviö_Ikkuna.class.getDeclaredField("nimikenttä");
+            häviö = (IlmoitaTappio_Ikkuna) kenttäJ.get(testi);
+            Field kenttä = IlmoitaTappio_Ikkuna.class.getDeclaredField("nimikenttä");
             kenttä.setAccessible(true);
             nimikenttä = (JTextField) kenttä.get(häviö);
             nimikenttä.setText("Julius Ankanpää");
@@ -254,7 +254,7 @@ public class Peli_ikkunaTest {
                 fail("Vihje väärin!");
             }
             Thread.sleep(17000);
-            häviö = (IlmoitaHäviö_Ikkuna) kenttäJ.get(testi);
+            häviö = (IlmoitaTappio_Ikkuna) kenttäJ.get(testi);
             aika = (int) kenttäI.getInt(testi);
             assertEquals(0, aika);
             if (häviö == null) {

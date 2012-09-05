@@ -20,7 +20,7 @@ public class Musiikkikirjasto {
 
     private static AudioClip aloituslaulu = palautaHaluttuLaulu("pelinaloitus.wav");
     private static AudioClip häviölaulu = palautaHaluttuLaulu("lose.wav");
-    private static AudioClip päävalikkolaulu = palautaHaluttuLaulu("päävalikko.wav");
+    private static AudioClip päävalikkolaulu = palautaHaluttuLaulu("valikko.wav");
     private static AudioClip voittolaulu = palautaHaluttuLaulu("win.wav");
     private static ArrayList<KuvaJaLaulu> kuvaJaLaulu_Lista = new ArrayList<KuvaJaLaulu>();
 
