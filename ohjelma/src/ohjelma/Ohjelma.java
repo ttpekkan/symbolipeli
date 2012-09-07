@@ -10,14 +10,13 @@ import javax.swing.JFrame;
 public class Ohjelma {
 
     /**
-     * Luo uuden Päävalikko-olion.
+     * Metodi käynnistää valikon.
      *
      * @param args
      */
     public static void main(String[] args) {
-        JFrame ikkuna = new JFrame();       
+        JFrame ikkuna = new JFrame();
         Valikkoikkuna pääohjelma = new Valikkoikkuna();
         pääohjelma.run(ikkuna);
     }
-    
 }

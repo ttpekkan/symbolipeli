@@ -7,21 +7,21 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 
 /**
- * Tämä luokka valvoo niitä nappeja, joita painetaan pelissä.
+ * Tämä luokka kuuntelee peli-ikkunan ja lopetus-ikkunan nappeja.
  *
  * @author Timo Pekkanen
  */
 public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
 
-    private Peli_ikkuna ohjelma;
+    private Peli_ikkuna peli_ikkuna;
 
     /**
      * Luokan konstruktori.
      *
-     * @param ohjelma Ohjelma on PeliIkkuna-olio.
+     * @param peli_ikkuna Olio, jota halutaan kuunnella.
      */
-    public Peli_ikkunanKuuntelija(Peli_ikkuna ohjelma) {
-        this.ohjelma = ohjelma;
+    public Peli_ikkunanKuuntelija(Peli_ikkuna peli_ikkuna) {
+        this.peli_ikkuna = peli_ikkuna;
 
     }
 
@@ -35,18 +35,14 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
         if (nappula.getText().equals("Sulje Peli")) {
-            ohjelma.sulje();
+            peli_ikkuna.suljePeli_Ikkuna();
         }
         if (nappula.getText().equals("ok")) {
-            ohjelma.mitäOkNapinPainalluksenJälkeenTehdään();
+            peli_ikkuna.painettiinOkNappia();
         }
         if (nappula.getText().equals("Lopeta Peli")) {
-            if (ohjelma.häviöVaiVoitto() == true) {
-                ohjelma.lisääNimi(ohjelma.palautaVoittoNimi(), "src/top10.txt");
-            } else {
-                ohjelma.lisääNimi(ohjelma.palutaHäviöNimi(), "src/top10.txt");
-            }
-            ohjelma.sulje();
+            peli_ikkuna.lisääNimiPistelistaan("src/top10.txt");
+            peli_ikkuna.suljePeli_Ikkuna();
         }
     }
 
@@ -57,7 +53,7 @@ public class Peli_ikkunanKuuntelija implements ActionListener, WindowListener {
      */
     @Override
     public void windowClosing(WindowEvent we) {
-        ohjelma.sulje();
+        peli_ikkuna.suljePeli_Ikkuna();
     }
 
     @Override

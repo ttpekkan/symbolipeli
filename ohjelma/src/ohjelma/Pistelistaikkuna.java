@@ -14,13 +14,15 @@ import javax.swing.UIManager;
  */
 public class Pistelistaikkuna {
 
-    private JButton sulje;
+    private JButton suljePistelistaikkuna;
     private Container pohja;
     private JDialog pistelistaikkuna;
-    private HaePistelista pistelista;
+    private PistelistaRajapinta pistelista;
 
     /**
-     * Käynnistää pistelistaikkunan.
+     * Tämä metodi käynnistää pistelistaikkunan.
+     *
+     * @param omistus JFrame, jolle pistelistaikkuna "kuuluu".
      */
     public void run(JFrame omistus) {
         pistelistaikkuna = new JDialog(omistus, false);
@@ -28,7 +30,7 @@ public class Pistelistaikkuna {
         pistelistaikkuna.setLocation(130, 200);
         UIManager.put("Button.select", Color.green);
         MuokkaaKomponenttia.luoDialoginContentPaneKuvasta("pistelista.png", pistelistaikkuna);
-        luoKomponentit();
+        luoPistelistaikkunanKomponentit();
         MuokkaaKomponenttia.suoritaNeDialoginavausToiminnotJotkaAinaSamat(pistelistaikkuna);
         pistelistaikkuna.addWindowListener(new PistelistaikkunanKuuntelija(this));
 
@@ -37,19 +39,22 @@ public class Pistelistaikkuna {
     /**
      * Tämä metodi luo halutut komponentit pistelistaikkunaan.
      */
-    private void luoKomponentit() {
+    private void luoPistelistaikkunanKomponentit() {
         pohja = pistelistaikkuna.getContentPane();
-        sulje = new JButton("Sulje Pistelista");
-        MuokkaaKomponenttia.muokkaaJButtonia(sulje, 400, 50, 300, 75,
+        suljePistelistaikkuna = new JButton("Sulje Pistelista");
+        MuokkaaKomponenttia.muokkaaJButtonia(suljePistelistaikkuna, 400, 50, 300, 75,
                 Color.green.darker(), true, Color.BLUE.darker(), false, true, true, 26,
                 Color.green, pohja);
-        sulje.addActionListener(new PistelistaikkunanKuuntelija(this));
-        pistelistaikkuna.getRootPane().setDefaultButton(sulje);
-        pistelista.JLabelesitys(pohja);
+        suljePistelistaikkuna.addActionListener(new PistelistaikkunanKuuntelija(this));
+        pistelistaikkuna.getRootPane().setDefaultButton(suljePistelistaikkuna);
+        pistelista.rakennaPistelistanJLabelesitys(pohja);
     }
 
-    public void sulje() {
+    /**
+     * Toiminnot jotka halutaan tehdä, kun pistelistaikkuna suljetaan.
+     */
+    public void suljePistelistaikkuna() {
         MuokkaaKomponenttia.asetaLaskurinArvo(0);
         pistelistaikkuna.dispose();
-    }  
+    }
 }

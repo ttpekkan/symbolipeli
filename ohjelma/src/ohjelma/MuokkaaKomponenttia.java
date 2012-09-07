@@ -9,33 +9,36 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 /**
- * Tämän luokan avulla lisätään komponentteja JFrame- ja JDialog-ikkunoihin.
+ * Tämä on kirjastoluokka, jonka avulla voidaan muokata pelissä käytettyjä
+ * komponentteja.
  *
- * Koska komponenttien tekemiseen liittyy paljon toistoa, päätin tehdä niiden
- * valmistamiseen kirjastoluokan. Parametrien avulla saadaan halutun kaltaisia
- * komponentteja ikkunoihin.
+ * Tämä luokkaa pitää myös kirjaa siitä, montako pistelistaikkunaa on avoinna
+ * laskurin avulla.
  *
  * @author Timo Pekkanen
  */
-public class MuokkaaKomponenttia {
-    private static int luku;
+public final class MuokkaaKomponenttia {
+
+    private static int laskuri;
 
     /**
-     * 
-     * @param nappula Nappula, jota muokataan.
-     * @param xSijainti Nappulan sijainti x-tasossa.
-     * @param ySijainti Nappulan sijainti y-tasossa.
-     * @param xKoko Nappulan leveys.
-     * @param yKoko Nappulan korkeus.
-     * @param taustaväri Nappulan taustan väri.
-     * @param näkyyköTausta Halutaanko näyttää nappulan tausta.
-     * @param tekstiväri Nappulan tekstin väri.
-     * @param näytetäänköKohdistus Näytetäänö, kun nappula on kohdistettu.
-     * @param maalataankoNappulaKunPainetaan Maalataanko nappula, kun sitä on painettu.
-     * @param näytetäänköRajat Ovatko nappulan rajat näkyviä.
-     * @param fonttikoko Nappulan tekstin koko.
-     * @param rajanvärit Nappulan rajojen väri.
-     * @param pohja Pohja, johon nappula lisätään. 
+     *   Tämän metodin avulla lisätään halutut ominaisuudet JButtoniin.
+     *
+     *  @param nappula Nappula, jota muokataan.
+     *  @param xSijainti Nappulan sijainti x-tasossa.
+     *  @param ySijainti Nappulan sijainti y-tasossa.
+     *  @param xKoko Nappulan leveys.
+     *  @param yKoko Nappulan korkeus.
+     *  @param taustaväri Nappulan taustan väri.
+     *  @param näkyyköTausta Halutaanko näyttää nappulan tausta.
+     *  @param tekstiväri Nappulan tekstin väri.
+     *  @param näytetäänköKohdistus Näytetäänö, kun nappula on kohdistettu.
+     *  @param maalataankoNappulaKunPainetaan Maalataanko nappula, kun sitä on
+     * painettu.
+     *  @param näytetäänköRajat Ovatko nappulan rajat näkyviä.
+     *  @param fonttikoko Nappulan tekstin koko.
+     *  @param rajanvärit Nappulan rajojen väri.
+     *  @param pohja Pohja, johon nappula lisätään.
      */
     public static void muokkaaJButtonia(JButton nappula, int xSijainti, int ySijainti, int xKoko,
             int yKoko, Color taustaväri, boolean näkyyköTausta, Color tekstiväri,
@@ -55,7 +58,7 @@ public class MuokkaaKomponenttia {
     }
 
     /**
-     * Tämän metodin avulla lisätään halutut ominaisuudet tekstiin.
+     * Tämän metodin avulla lisätään halutut ominaisuudet JLabeliin.
      *
      * @param teksti JLabel, jota muokataan.
      * @param xSijainti Tekstin sijainti x-tasossa.
@@ -81,7 +84,7 @@ public class MuokkaaKomponenttia {
     }
 
     /**
-     * Tämän metodin avulla luodaan halutun kaltainen tekstikenttä.
+     * Tämän metodin avulla lisätään halutut ominaisuudet JTextFieldiin.
      *
      *
      * @param kenttä Tekstikenttä, jota muokataan.
@@ -126,10 +129,11 @@ public class MuokkaaKomponenttia {
             System.out.println(e);
         }
     }
-     /**
-     * Tämän metodin luodaan tehdään halutusta kuvasta ContentPane JDialogille.
+
+    /**
+     *  Tämän metodin luodaan tehdään halutusta kuvasta ContentPane JDialogille.
      *
-     * @param tiedosto Kuvatiedosto. jota halutaan käyttää.
+     *  @param tiedosto Kuvatiedosto. jota halutaan käyttää.
      */
     public static void luoDialoginContentPaneKuvasta(String tiedosto, JDialog ikkuna) {
         try {
@@ -139,8 +143,9 @@ public class MuokkaaKomponenttia {
             System.out.println(e);
         }
     }
+
     /**
-     * Lista niistä toiminnoista, jotka ovat aina samat, kun tehdään JDialog.
+     *  Lista niistä toiminnoista, jotka ovat aina samat, kun tehdään JDialog.
      */
     public static void suoritaNeDialoginavausToiminnotJotkaAinaSamat(JDialog ikkuna) {
         ikkuna.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -149,23 +154,23 @@ public class MuokkaaKomponenttia {
         ikkuna.setVisible(true);
         ikkuna.setModal(true);
     }
-    
+
     /**
      * Laskurin avulla pidetään kirjaa siitä, onko pistelistaikkuna aktiivinen.
-     * 
+     *
      * @param syöte Määritellään luvun arvo.
      */
     public static void asetaLaskurinArvo(int syöte) {
-        luku = syöte;
+        laskuri = syöte;
     }
-    
+
     /**
      * Metodi kertoo, mikä luvun arvo on.
-     * 
+     *
      * @return Palautettu luku.
      */
     public static int palautaLaskurinArvo() {
-        int palautus = luku;
+        int palautus = laskuri;
         return palautus;
     }
 }

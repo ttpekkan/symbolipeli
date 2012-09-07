@@ -1,9 +1,11 @@
 package ohjelma;
 
 /**
- * Luokka luo tulosolion. Luokan avulla pystyy myös järjestämään tuloksia.
+ *  Luokka luo pelitulos-olion, joka voidaan lisätä pistelistaan.
  *
- * @author timo
+ *  Luokka mahdollistaa myös pelituloksien vertailun.
+ *
+ *  @author Timo Pekkanen
  */
 public class Pelitulos implements Comparable<Pelitulos> {
 
@@ -24,7 +26,7 @@ public class Pelitulos implements Comparable<Pelitulos> {
     /**
      * Palauttaa pelituloksen nimen.
      *
-     * @return Nimi.
+     * @return Palautettu nimi.
      */
     public String palautaNimi() {
         String palautus = nimi;
@@ -34,7 +36,7 @@ public class Pelitulos implements Comparable<Pelitulos> {
     /**
      * Palauttaa pelituloksen pisteet.
      *
-     * @return Pisteet.
+     * @return Palautettu pistemäärä.
      */
     public int palautaPisteet() {
         int palautus = pisteet;

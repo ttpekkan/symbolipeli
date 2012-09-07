@@ -11,16 +11,16 @@ import java.util.Scanner;
 import javax.swing.JLabel;
 
 /**
- * Tämä luokka kontrolloi pistelistaan liittyviä tapahtumia. 
- * 
+ * Tämän luokan avulla voidaan ladata pistelista ja muokata sitä.
+ *
  * @author Timo Pekkanen
  */
-public class Pistelista implements HaePistelista {
+public class Pistelista implements PistelistaRajapinta {
 
     private ArrayList<Pelitulos> pistelista;
-    
+
     /**
-     * Luokan konstruktori, joka luo pistelistan ArrayListinä. 
+     * Luokan konstruktori, joka luo pistelistan ArrayListinä.
      */
     public Pistelista() {
         this.pistelista = new ArrayList<Pelitulos>();
@@ -28,14 +28,29 @@ public class Pistelista implements HaePistelista {
     }
 
     /**
+     * Tämä metodi lataa pistelista-ArrayListiin tekstitiedostossa olevat
+     * tiedot.
+     */
+    private void lataaPistelista() {
+        try {
+            Scanner lukija = new Scanner(new File("src/top10.txt"));
+            while (lukija.hasNextLine()) {
+                pistelista.add(new Pelitulos(lukija.nextLine(), Integer.parseInt(lukija.nextLine())));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        Collections.sort(pistelista);
+    }
+
+    /**
      * Metodi laskee, pääseekö tulos pistelistalle.
      *
      * @param pisteet Pelaajan pisteet.
-     * @return Metodi palauttaa true tai false, pisteistä ja pistelistasta
-     * riippuen.
+     * @return Metodi palauttaa true tai false, pisteistä riippuen.
      */
     @Override
-    public boolean pääseeListalle(int pisteet) {
+    public boolean pääseeköPelitulosListalle(int pisteet) {
         if (pisteet > pistelista.get(pistelista.size() - 1).palautaPisteet()) {
             return true;
         } else {
@@ -44,10 +59,10 @@ public class Pistelista implements HaePistelista {
     }
 
     /**
-     * Tämä metodi muodostaa tuloksista JLabeleita annetulle pohjalle.
+     *  Tämä metodi muodostaa tuloksista JLabeleita annetulle pohjalle.
      */
     @Override
-    public void JLabelesitys(Container pohja) {
+    public void rakennaPistelistanJLabelesitys(Container pohja) {
         ArrayList<JLabel> tekstit = new ArrayList<JLabel>();
         for (Pelitulos nimi : pistelista) {
             tekstit.add(new JLabel(nimi.palautaNimi()));
@@ -69,30 +84,16 @@ public class Pistelista implements HaePistelista {
     }
 
     /**
-     * Tämä metodi lataa pistelista-ArrayListiin tekstitiedostossa olevat
-     * tiedot.
-     */
-    private void lataaPistelista() {
-        try {
-            Scanner lukija = new Scanner(new File("src/top10.txt"));
-            while (lukija.hasNextLine()) {
-                pistelista.add(new Pelitulos(lukija.nextLine(), Integer.parseInt(lukija.nextLine())));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        Collections.sort(pistelista);
-    }
-
-    /**
      * Metodi lisää tuloksen pistelistaan.
+     *
+     * Metodi myös järjestää pistelistan lisäyksen jälkeen.
      *
      * @param nimi Pistelistaan lisätty nimimerkki.
      * @param pisteet Pistelistaan lisätyt pisteet.
      */
     @Override
-    public void lisääTulos(String nimi, int pisteet) {
-        if (pääseeListalle(pisteet) == true) {
+    public void lisääPelitulosPistelistaan(String nimi, int pisteet) {
+        if (pääseeköPelitulosListalle(pisteet) == true) {
             pistelista.remove(pistelista.size() - 1);
             pistelista.add(new Pelitulos(nimi, pisteet));
             Collections.sort(pistelista);

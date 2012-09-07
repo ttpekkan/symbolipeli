@@ -3,31 +3,34 @@ package ohjelma;
 import java.applet.AudioClip;
 
 /**
- * Tämä luokka luo olion, jonka attribuutit on kuvan nimi merkkijonona ja
- * audioklippi.
+ * Tämä luokka luo olion, jonka kenttiä ovat yksi kuvanNimi (String) ja yksi
+ * AudioClip.
+ *
+ * Pelilaulu liittyy ainaa yhteen tiettyyn kuvaan ja tämä oli helppo tapa
+ * liittää yksi laulu tiettyyn kuvaan.
  *
  * @author Timo Pekkanen
  */
 public class KuvaJaLaulu {
 
-    private String kuva;
+    private String kuvanNimi;
     private AudioClip laulu;
 
     /**
-     * Luokan konstruktori asettaa attribuuttien arvot.
+     *  Luokan konstruktori, joka asettaa kenttien arvot.
      *
-     * @param kuvannimi Syötetty merkkijono.
-     * @param laulu Syötetty audioklippi.
+     *  @param kuvannimi Kuvan nimi.
+     *  @param laulu AudioClip.
      */
     public KuvaJaLaulu(String kuvannimi, AudioClip laulu) {
-        this.kuva = kuvannimi;
+        this.kuvanNimi = kuvannimi;
         this.laulu = laulu;
     }
 
     /**
-     * Metodilla palauttaa luokan Audioklipin.
+     * Palauttaa olion AudioClipin.
      *
-     * @return Audioklippi, joka palautetaan.
+     * @return palautettu AudioClip.
      */
     public AudioClip palautaLaulu() {
         AudioClip palautus = laulu;
@@ -35,12 +38,12 @@ public class KuvaJaLaulu {
     }
 
     /**
-     * Metodilla palauttaa kuvan nimen.
+     * Palauttaa kuvan nimen.
      *
-     * @return Merkkijono, joka palautetaan.
+     * @return Palauttettu kuvan nimi.
      */
-    public String palautaKuva() {
-        String palautus = kuva;
+    public String palautaKuvanNimi() {
+        String palautus = kuvanNimi;
         return palautus;
     }
 }

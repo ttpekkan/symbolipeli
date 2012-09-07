@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Tämän luokan avulla suoritetaan jäljellä olevan ajan laskeminen.
+ * Tämä luokka seuraa peli_ikkunanassa olevaa ajastinta. Tämän luokan avulla
+ * voidaan käyttää peli_ikkunassa olevaa vähennäAikaa-metodia.
  *
  * @author Timo Pekkanen
  */
@@ -13,18 +14,20 @@ public class AjastimenKuuntelija implements ActionListener {
     private Peli_ikkuna peli_ikkuna;
 
     /**
-     * Luokan konstruktori.
+     * Luokan konstruktori, joka kertoo, mitä oliota halutaan kuunnella.
      *
-     * @param ohjelma Ohjelma on Peli_ikkuna-luokka.
+     * @param peli_ikkuna Parametri on peli_ikkuna-olio, jota tämä luokka
+     * kuuntelee.
      */
     public AjastimenKuuntelija(Peli_ikkuna peli_ikkuna) {
         this.peli_ikkuna = peli_ikkuna;
     }
 
     /**
-     * Tämän metodin avulla luokka käyttää peli_ikkuna luokassa olevaa metodia.
+     * Metodi suorittaa peli_ikkunassa olevaa vähennäAikaa-metodia sekunnin
+     * välein kun ajastin on päällä.
      *
-     * @param e Sekunnin välein tapahtuva tapahtuma (kun ajastin päällä).
+     * @param e Parametri on ajastimen tapahtuma.
      */
     @Override
     public void actionPerformed(ActionEvent e) {

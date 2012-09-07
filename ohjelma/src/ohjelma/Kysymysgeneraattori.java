@@ -6,18 +6,21 @@ import java.util.Collections;
 import java.util.Scanner;
 
 /**
- * Tämä luokka generoi pelissä käytettävät kysymykset.
+ * Tämä luokka luo pelissä käytetyt kysymykset tekstitiedostoista.
+ *
+ * Kysymykset on jaettu kolmeen vaikeusasteen mukaan ja kukin kysymyssarja
+ * tallennetaan omaan ArrayListiin.
  *
  * @author Timo Pekkanen
  */
-public class Kysymysgeneraattori {
+public final class Kysymysgeneraattori {
 
     private ArrayList<Alkuaine> helpotKysymykset;
     private ArrayList<Alkuaine> keskivaikeatKysymykset;
     private ArrayList<Alkuaine> vaikeatKysymykset;
 
     /**
-     * Luokan konstruktori, joka luo kolme valmista ArrayListiä.
+     *    Luokan konstruktori, joka luo kolme valmista ArrayListiä.
      */
     public Kysymysgeneraattori() {
         helpotKysymykset = new ArrayList<Alkuaine>();
@@ -27,40 +30,10 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Metodi palauttaa helpon alkuaineen.
+     * Metodi, joka lataa tekstitieodoston kysymykset haluttuun ArrayListiin.
      *
-     * @param hakuluku Alkuaineen sijainti ArrayListissä.
-     * @return Haluttu alkuaine.
-     */
-    public Alkuaine palautaHelppoKysymys(int hakuluku) {
-        return helpotKysymykset.get(hakuluku);
-    }
-
-    /**
-     * Metodi palauttaa keskivaikean alkuaineen.
-     *
-     * @param hakuluku Alkuaineen sijainti ArrayListissä.
-     * @return Haluttu alkuaine.
-     */
-    public Alkuaine palautaKeskivaikeaKysymys(int hakuluku) {
-        return keskivaikeatKysymykset.get(hakuluku);
-    }
-
-    /**
-     * Metodi palauttaa vaikean alkuaineen.
-     *
-     * @param hakuluku Alkuaineen sijainti ArrayListissä.
-     * @return Haluttu alkuaine.
-     */
-    public Alkuaine palautaVaikeaKysymys(int hakuluku) {
-        return vaikeatKysymykset.get(hakuluku);
-    }
-
-    /**
-     * Lataa kysymysarjan ArrayListiin.
-     *
-     * @param tiedosto Tiedosto, josta alkuaineet ladataan.
-     * @param sarja ArrayList, johon alkuaineet lisätään.
+     * @param tiedosto Tieodosto, josta kysymykset ladataan.
+     * @param sarja ArrayList, johon kysymykset ladataan.
      */
     private void lataaKysymyssarja(String tiedosto, ArrayList<Alkuaine> sarja) {
         try {
@@ -74,7 +47,7 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Lisää helpot alkuaineet ArrayListiin ja sekoittaa sen.
+     *    Lataa helpot kysymykset ArrayListiin ja sekoittaa listan.
      */
     private void lataaHelpotKysymykset() {
         lataaKysymyssarja("helpotkysymykset.txt", helpotKysymykset);
@@ -82,7 +55,7 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Lisää keskivaikeat alkuaineet ArrayListiin ja sekoittaa sen.
+     * Lataa keskivaikeat kysymykset ArrayListiin ja sekoittaa listan.
      */
     private void lataaKeskivaikeatKysymykset() {
         lataaKysymyssarja("keskivaikeatkysymykset.txt", keskivaikeatKysymykset);
@@ -90,7 +63,7 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Lisää vaikeat alkuaineet ArrayListiin ja sekoittaa sen.
+     * Lataa vaikeat kysymykset ArrayListiin ja sekoittaa listan.
      */
     private void lataaVaikeatKysymykset() {
         lataaKysymyssarja("vaikeatkysymykset.txt", vaikeatKysymykset);
@@ -98,11 +71,44 @@ public class Kysymysgeneraattori {
     }
 
     /**
-     * Lataa kaikki alkuaineet, edellisiä metodeja hyväksikäyttäen.
+     *    Lataa kaikki kolme kysymyssarjaa kerralla.
      */
     private void luoKaikkiKysymykset() {
         lataaHelpotKysymykset();
         lataaKeskivaikeatKysymykset();
         lataaVaikeatKysymykset();
+    }
+
+    /**
+     * Metodi palauttaa helpon kysymyksen halutusta kohdasta.
+     *
+     * @param hakuluku Kohta, josta kysymys haetaan.
+     * @return Palauttaa halutun alkuaine-kysymyksen.
+     */
+    public Alkuaine palautaHelppoKysymys(int hakuluku) {
+        Alkuaine palautus = helpotKysymykset.get(hakuluku);
+        return palautus;
+    }
+
+    /**
+     * Metodi palauttaa keskivaikean kysymyksen halutusta kohdasta.
+     *
+     * @param hakuluku Kohta, josta kysymys haetaan.
+     * @return Palauttaa halutun alkuaine-kysymyksen.
+     */
+    public Alkuaine palautaKeskivaikeaKysymys(int hakuluku) {
+        Alkuaine palautus = keskivaikeatKysymykset.get(hakuluku);
+        return palautus;
+    }
+
+    /**
+     * Metodi palauttaa vaikean kysymyksen halutusta kohdasta.
+     *
+     * @param hakuluku Kohta, josta kysymys haetaan.
+     * @return Palauttaa halutun alkuaine-kysymyksen.
+     */
+    public Alkuaine palautaVaikeaKysymys(int hakuluku) {
+        Alkuaine palautus = vaikeatKysymykset.get(hakuluku);
+        return palautus;
     }
 }

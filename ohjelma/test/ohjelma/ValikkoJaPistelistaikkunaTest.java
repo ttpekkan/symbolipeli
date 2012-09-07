@@ -6,6 +6,7 @@ package ohjelma;
 
 import java.awt.Component;
 import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.Field;
@@ -77,6 +78,12 @@ public class ValikkoJaPistelistaikkunaTest {
             komponentit = testi.getContentPane().getComponents();
             assertEquals(komponentit.length, 11);
             assertEquals(0, MuokkaaKomponenttia.palautaLaskurinArvo());
+            robot.mouseMove(1080, 960);
+            robot.mousePress(InputEvent.BUTTON1_MASK);
+            robot.mouseRelease(InputEvent.BUTTON1_MASK);
+            Thread.sleep(500);
+            assertEquals(testi.getContentPane().getHeight(), 694, 30);
+            assertEquals(testi.getContentPane().getWidth(), 799, 30);
             ikkuna.dispose();
         } catch (Exception e) {
             System.out.println(e);
@@ -100,7 +107,7 @@ public class ValikkoJaPistelistaikkunaTest {
             testidialog.dispatchEvent(new WindowEvent(testidialog, WindowEvent.WINDOW_CLOSING));
             assertEquals(false, testidialog.isVisible());
             testi.run(uusi);
-            Field sulje = Pistelistaikkuna.class.getDeclaredField("sulje");
+            Field sulje = Pistelistaikkuna.class.getDeclaredField("suljePistelistaikkuna");
             sulje.setAccessible(true);
             JButton nappula = (JButton) sulje.get(testi);
             nappula.doClick();

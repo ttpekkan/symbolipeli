@@ -7,11 +7,11 @@ import java.net.URL;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 
-public class LauluJaKuvaTest {
+public class KuvaJaLauluTest {
     public KuvaJaLaulu testi;
     public AudioClip musa;
     
-    public LauluJaKuvaTest() {
+    public KuvaJaLauluTest() {
     }
 
     @BeforeClass
@@ -48,6 +48,6 @@ public class LauluJaKuvaTest {
 
     @Test
     public void testPalautaKuva() {
-       assertEquals("Pelle Hermanni", testi.palautaKuva());
+       assertEquals("Pelle Hermanni", testi.palautaKuvanNimi());
     }
 }

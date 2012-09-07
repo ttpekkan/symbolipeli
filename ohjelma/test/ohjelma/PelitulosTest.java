@@ -4,14 +4,14 @@ package ohjelma;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 
-public class TulosTest {
+public class PelitulosTest {
     public Pelitulos eka;
     public Pelitulos toka;
     public Pelitulos kolmas;
     public Pelitulos neljäs;
     public Pelitulos viides;
     
-    public TulosTest() {
+    public PelitulosTest() {
     }
 
     @BeforeClass

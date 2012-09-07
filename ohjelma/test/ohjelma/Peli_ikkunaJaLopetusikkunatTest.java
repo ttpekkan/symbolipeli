@@ -1,15 +1,20 @@
 package ohjelma;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-public class Peli_ikkunaTest {
+public class Peli_ikkunaJaLopetusikkunatTest {
 
     private Peli_ikkuna testi;
     private Field kenttäA;
@@ -30,15 +35,15 @@ public class Peli_ikkunaTest {
     private JFrame ikkuna;
     private int moneskoKysymys;
     private int aika;
-    private HaePelinArvoja peli;
+    private Pelirajapinta peli;
     private JButton ok;
     private JButton sulje;
     private JTextField vastaus;
     private JTextField nimikenttä;
-    private IlmoitaTappio_Ikkuna häviö;
-    private IlmoitaVoitto_Ikkuna voitto;
+    private Ilmoitatappioikkuna häviö;
+    private Ilmoitavoittoikkuna voitto;
 
-    public Peli_ikkunaTest() {
+    public Peli_ikkunaJaLopetusikkunatTest() {
     }
 
     @BeforeClass
@@ -64,8 +69,8 @@ public class Peli_ikkunaTest {
             vihje = null;
             kenttäC = Peli_ikkuna.class.getDeclaredField("peli");
             kenttäC.setAccessible(true);
-            peli = (HaePelinArvoja) kenttäC.get(testi);
-            kenttäD = Peli_ikkuna.class.getDeclaredField("symboli");
+            peli = (Pelirajapinta) kenttäC.get(testi);
+            kenttäD = Peli_ikkuna.class.getDeclaredField("alkuaineenSymboli");
             kenttäD.setAccessible(true);
             symboli = (JLabel) kenttäD.get(testi);
             kenttäE = Peli_ikkuna.class.getDeclaredField("ok_nappula");
@@ -74,17 +79,17 @@ public class Peli_ikkunaTest {
             kenttäF = Peli_ikkuna.class.getDeclaredField("vastauskenttä");
             kenttäF.setAccessible(true);
             vastaus = (JTextField) kenttäF.get(testi);
-            kenttäH = Peli_ikkuna.class.getDeclaredField("pistetilanne");
+            kenttäH = Peli_ikkuna.class.getDeclaredField("pelaajanPisteet");
             kenttäH.setAccessible(true);
             pinnat = (JLabel) kenttäH.get(testi);
             kenttäI = Peli_ikkuna.class.getDeclaredField("aika");
             kenttäI.setAccessible(true);
             aika = (int) kenttäI.getInt(testi);
-            kenttäJ = Peli_ikkuna.class.getDeclaredField("hävisit");
+            kenttäJ = Peli_ikkuna.class.getDeclaredField("häviöikkuna");
             kenttäJ.setAccessible(true);
-            kenttäK = Peli_ikkuna.class.getDeclaredField("voitit");
+            kenttäK = Peli_ikkuna.class.getDeclaredField("voittoikkuna");
             kenttäK.setAccessible(true);
-            kenttäL = Peli_ikkuna.class.getDeclaredField("sulje");
+            kenttäL = Peli_ikkuna.class.getDeclaredField("sulje_nappula");
             kenttäL.setAccessible(true);
             sulje = (JButton) kenttäL.get(testi);
         } catch (Exception e) {
@@ -95,8 +100,8 @@ public class Peli_ikkunaTest {
     @After
     public void tearDown() {
         Musiikkikirjasto.pysäytäPelilaulu();
-        Musiikkikirjasto.jatkuvaToistoPäävalikkolaulu();
-        testi.sulje();
+        Musiikkikirjasto.jatkuvaToistoValikkolaulu();
+        testi.suljePeli_Ikkuna();
         ikkuna.dispose();
     }
 
@@ -141,7 +146,7 @@ public class Peli_ikkunaTest {
                 }
                 vastaus.setText("Kryptoniitti");
                 ok.doClick();
-                vastaus.setText(peli.palautaOikeaVastaus());
+                vastaus.setText(peli.palautaAlkuaineenOikeaVastaus());
                 ok.doClick();
             }
             String pisteet = pinnat.getText();
@@ -158,20 +163,22 @@ public class Peli_ikkunaTest {
             ok.doClick();
             ok.doClick();
             ok.doClick();
-            häviö = (IlmoitaTappio_Ikkuna) kenttäJ.get(testi);
+            häviö = (Ilmoitatappioikkuna) kenttäJ.get(testi);
             if (häviö == null) {
-                fail("Voitto ei toimi!");
+                fail("Häviöikkuna ei toimi!");
             }
-            if (peli.pääseeListalle() == true) {
+            if (peli.pääseeköPelitulosListalle() == true) {
                 fail("Pistelistassa häikkää!");
             }
-            Field kenttä = IlmoitaTappio_Ikkuna.class.getDeclaredField("nimikenttä");
+            Field kenttä = Ilmoitatappioikkuna.class.getDeclaredField("nimikenttä");
             kenttä.setAccessible(true);
             if ((JTextField) kenttä.get(häviö) != null) {
-                fail("Häviöikkunassa häikkää!");
+                fail("Häviöikkunan tekstikentässä häikkää!");
             }
             assertEquals(häviö.palautaNimikentänNimi(), "");
-            sulje.doClick();
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
         } catch (Exception e) {
             System.out.println(e);
             fail("Virhe!");
@@ -183,17 +190,17 @@ public class Peli_ikkunaTest {
         try {
             ok.doClick();
             ok.doClick();
-            Field kenttä2 = Peli.class.getDeclaredField("pelaajanPisteet");
+            Field kenttä2 = Symbolipeli.class.getDeclaredField("pelaajanPisteet");
             kenttä2.setAccessible(true);
             kenttä2.setInt(peli, 600);
             ok.doClick();
-            häviö = (IlmoitaTappio_Ikkuna) kenttäJ.get(testi);
-            Field kenttä = IlmoitaTappio_Ikkuna.class.getDeclaredField("nimikenttä");
+            häviö = (Ilmoitatappioikkuna) kenttäJ.get(testi);
+            Field kenttä = Ilmoitatappioikkuna.class.getDeclaredField("nimikenttä");
             kenttä.setAccessible(true);
             nimikenttä = (JTextField) kenttä.get(häviö);
             nimikenttä.setText("Julius Ankanpää");
             assertEquals(nimikenttä.getText(), häviö.palautaNimikentänNimi());
-            testi.lisääNimi(nimikenttä.getText(), "src/testi.txt");
+            testi.lisääNimiPistelistaan("src/testi.txt");
             testaaNimenLisäys(600);
         } catch (Exception e) {
             System.out.println(e);
@@ -206,36 +213,34 @@ public class Peli_ikkunaTest {
         try {
             ok.doClick();
             for (int i = 0; i < 111; i = i + 1) {
-                vastaus.setText(peli.palautaOikeaVastaus());
+                vastaus.setText(peli.palautaAlkuaineenOikeaVastaus());
                 ok.doClick();
             }
             String pisteet = pinnat.getText();
             assertEquals(pisteet, "Pisteet: " + 530);
-            voitto = (IlmoitaVoitto_Ikkuna) kenttäK.get(testi);
+            voitto = (Ilmoitavoittoikkuna) kenttäK.get(testi);
             if (voitto == null) {
                 fail("Voitto ei toimi!");
             }
-            if (peli.pääseeListalle() == false) {
+            if (peli.pääseeköPelitulosListalle() == false) {
                 fail("Pistelistassa häikkää!");
             }
-            Field kenttä = IlmoitaVoitto_Ikkuna.class.getDeclaredField("nimikenttä");
+            Field kenttä = Ilmoitavoittoikkuna.class.getDeclaredField("nimikenttä");
             kenttä.setAccessible(true);
             nimikenttä = (JTextField) kenttä.get(voitto);
             nimikenttä.setText("Julius Ankanpää");
             assertEquals(nimikenttä.getText(), voitto.palautaNimikentänNimi());
-            testi.lisääNimi(nimikenttä.getText(), "src/testi.txt");
+            testi.lisääNimiPistelistaan("src/testi.txt");
             testaaNimenLisäys(530);
         } catch (Exception e) {
             System.out.println(e);
             fail("Virhe!");
         }
-    }
+    } 
 
     @Test
     public void testaaAjanToiminen() {
         try {
-            Field kenttä5 = Peli_ikkuna.class.getDeclaredField("hävisit");
-            kenttä5.setAccessible(true);
             assertEquals(15, aika);
             vihje = (JLabel) kenttäB.get(testi);
             String neuvo = vihje.getText();
@@ -243,27 +248,28 @@ public class Peli_ikkunaTest {
             Thread.sleep(5000);
             aika = (int) kenttäI.getInt(testi);
             assertEquals(10, aika, 1);
-            vastaus.setText(peli.palautaOikeaVastaus());
+            vastaus.setText(peli.palautaAlkuaineenOikeaVastaus());
             ok.doClick();
             aika = (int) kenttäI.getInt(testi);
             assertEquals(15, aika);
             Thread.sleep(17000);
             aika = (int) kenttäI.getInt(testi);
             assertEquals(15, aika, 2);
-            if (peli.annaVihje().equals(neuvo)) {
+            if (peli.palautaAlkuaineenVihje().equals(neuvo)) {
                 fail("Vihje väärin!");
             }
-            Thread.sleep(17000);
-            häviö = (IlmoitaTappio_Ikkuna) kenttäJ.get(testi);
+            Thread.sleep(16000);
+            häviö = (Ilmoitatappioikkuna) kenttäJ.get(testi);
             aika = (int) kenttäI.getInt(testi);
             assertEquals(0, aika);
             if (häviö == null) {
                 fail("Häviöikkuna ei toimi");
             }
+            sulje.doClick();
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
+    } 
 
     private void testaaNimenLisäys(int pisteet) {
         try {
@@ -284,5 +290,5 @@ public class Peli_ikkunaTest {
             System.out.println(e);
             fail("Tiedostoon kirjoittaminen!");
         }
-    }
+    } 
 }

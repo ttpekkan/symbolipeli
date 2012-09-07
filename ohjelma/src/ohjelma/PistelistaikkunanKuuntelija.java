@@ -7,7 +7,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 
 /**
- * Tämä luokka valvoo pistelistaikkunassa olevaa nappulaa.
+ * Tämä luokka kuuntelee pistelistaikkunan napinpainalluksia.
  *
  * @author Timo Pekkanen
  */
@@ -18,7 +18,7 @@ public class PistelistaikkunanKuuntelija implements ActionListener, WindowListen
     /**
      * Luokan konstruktori.
      *
-     * @param ohjelma Pistelistaikkuna.
+     * @param pistelistaikkuna Olio, jota halutaan kuunnella.
      */
     public PistelistaikkunanKuuntelija(Pistelistaikkuna pistelistaikkuna) {
         this.pistelistaikkuna = pistelistaikkuna;
@@ -33,18 +33,18 @@ public class PistelistaikkunanKuuntelija implements ActionListener, WindowListen
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
         if (nappula.getText().equals("Sulje Pistelista")) {
-            pistelistaikkuna.sulje();
+            pistelistaikkuna.suljePistelistaikkuna();
         }
     }
 
     /**
-     * Toiminnot, jos suljetaan ikkuna ikkunan x-painikkeesta.
+     * Toiminnot jotka tehdään, jos suljetaan ikkuna ikkunan x-painikkeesta.
      *
      * @param we Ikkunan painallus.
      */
     @Override
     public void windowClosing(WindowEvent we) {
-        pistelistaikkuna.sulje();
+        pistelistaikkuna.suljePistelistaikkuna();
     }
 
     @Override

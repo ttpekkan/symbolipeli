@@ -5,21 +5,21 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- * Tämä luokka valvoo, mitä nappeja päävalikkoikkunassa painetaan.
+ * Tämä luokka kuuntelee, mitä valikkoikkunan nappeja painetaan.
  *
  * @author Timo Pekkanen
  */
 public class ValikkoikkunanKuuntelija implements ActionListener {
 
-    private Valikkoikkuna päävalikkoikkuna;
+    private Valikkoikkuna valikkoikkuna;
 
     /**
      * Luokan konstruktori.
      *
-     * @param ohjelma Päävalikkoikkuna.
+     * @param valikkoikkuna Olio, jota kuunellaan.
      */
-    public ValikkoikkunanKuuntelija(Valikkoikkuna päävalikkoikkuna) {
-        this.päävalikkoikkuna = päävalikkoikkuna;
+    public ValikkoikkunanKuuntelija(Valikkoikkuna valikkoikkuna) {
+        this.valikkoikkuna = valikkoikkuna;
     }
 
     /**
@@ -31,13 +31,13 @@ public class ValikkoikkunanKuuntelija implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton nappula = ((JButton) e.getSource());
         if (nappula.getText().equals("Aloita Peli") && MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
-            Musiikkikirjasto.pysäytäPäävalikkolaulu();
-            päävalikkoikkuna.peli_ikkuna();
+            Musiikkikirjasto.pysäytäValikkolaulu();
+            valikkoikkuna.näytäPeli_ikkuna();
         } else if (nappula.getText().equals("Lopeta") && MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
             System.exit(0);
         } else {
             if (MuokkaaKomponenttia.palautaLaskurinArvo() == 0) {
-                päävalikkoikkuna.pistelista();
+                valikkoikkuna.näytäPistelista();
             }
         }
     }

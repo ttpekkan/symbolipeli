@@ -35,14 +35,14 @@ public class PistelistaTest {
     @Test
     public void pääseeListalle() {
         for (int i = 0; i < 10; i = i + 1) {
-            lista.lisääTulos("Katala Karhu", 564);
+            lista.lisääPelitulosPistelistaan("Katala Karhu", 564);
         }
         boolean totta = true;
-        if (lista.pääseeListalle(-1000000000) == true) {
+        if (lista.pääseeköPelitulosListalle(-1000000000) == true) {
             totta = false;
         }
         assertEquals(totta, true);
-        if (lista.pääseeListalle(1000000000) == true) {
+        if (lista.pääseeköPelitulosListalle(1000000000) == true) {
             totta = true;
         }
         assertEquals(totta, true);
@@ -57,7 +57,7 @@ public class PistelistaTest {
     public void JLabelit() {
         JFrame a = new JFrame();
         Container b = a.getContentPane();
-        lista.JLabelesitys(b);
+        lista.rakennaPistelistanJLabelesitys(b);
         Component[] c = b.getComponents();
         a.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         a.setResizable(false);

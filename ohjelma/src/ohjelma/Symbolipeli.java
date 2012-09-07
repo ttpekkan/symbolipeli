@@ -9,14 +9,14 @@ import java.util.Collections;
  * Julkisten metodien avulla pelissä tapahtuvat muutokset kommunikoidaan
  * käyttäliittymälle. Käyttöliittymästä voidaan päivittää Pelitilanetta.
  *
- * @author Timo Pekkanen
+ *  @author Timo Pekkanen
  */
-public class Peli implements HaePelinArvoja {
+public class Symbolipeli implements Pelirajapinta {
 
-    private Alkuaine kysyttyAine;  
+    private Alkuaine kysyttyAine;
     private ArrayList<String> henkilöt;
     private ArrayList<String> onnittelut;
-    private HaePistelista pistelista;
+    private PistelistaRajapinta pistelista;
     private int kysymysnumero;
     private int moneskoHelppoKysytään;
     private int moneskoKeskivaikeaKysytään;
@@ -25,7 +25,7 @@ public class Peli implements HaePelinArvoja {
     private int yrityskerta;
     private Kysymysgeneraattori alkuaineet;
     private String oikeaVastaus;
-    private String symboli;    
+    private String symboli;
     private String vaikeusaste;
     private String vihje;
 
@@ -35,19 +35,23 @@ public class Peli implements HaePelinArvoja {
      * Konstruktori luo henkilöt, onnittelut, kysymykset, pistelistan ja asettaa
      * lukujen alkuarvot.
      */
-    public Peli() {
+    public Symbolipeli() {
         lisääHenkilöt();
         lisääOnnittelut();
         alkuaineet = new Kysymysgeneraattori();
         pistelista = new Pistelista();
-        kysymysnumero = 1;
+        kysymysnumero = 0;
         moneskoHelppoKysytään = 0;
         moneskoKeskivaikeaKysytään = 0;
         moneskoVaikeaKysytään = 0;
-        kysyKysymys(alkuaineet.palautaHelppoKysymys(moneskoHelppoKysytään));
+        asetaKysymys(alkuaineet.palautaHelppoKysymys(moneskoHelppoKysytään));
         vihje = "";
         vaikeusaste = "helppo";
         yrityskerta = 0;
+    }
+
+    private void pelinAloitus() {
+        kysymysnumero = 1;
     }
 
     /**
@@ -99,7 +103,7 @@ public class Peli implements HaePelinArvoja {
      *
      * @param aine Alkuaineolio, jonka avulla muutetaan kolmen kentän arvoa.
      */
-    private void kysyKysymys(Alkuaine aine) {
+    private void asetaKysymys(Alkuaine aine) {
         kysyttyAine = aine;
         symboli = kysyttyAine.aineenSymboli();
         oikeaVastaus = kysyttyAine.aineenNimi();
@@ -108,11 +112,10 @@ public class Peli implements HaePelinArvoja {
     /**
      * Tämän metodin avulla päivitetään tilannetta ja kysytään uusi kysymys.
      *
-     * @param kerroin Kerroin määrää, paljon edellisestä kysymyksetä annettaan
+     * @param kerroin Kerroin määrää, paljon edellisestä kysymyksetä annetaan
      * pisteitä.
      */
-    @Override
-    public void päivitäTilanne(int kerroin) {
+    private void tilanteenPäivitys(int kerroin) {
         vihje = (palautaSatunnainenNimi() + ": " + palautaSatunnainenOnnittelu());
         yrityskerta = 0;
         kysymysnumero = kysymysnumero + 1;
@@ -121,7 +124,7 @@ public class Peli implements HaePelinArvoja {
             if (moneskoHelppoKysytään == 11) {
                 vaikeusaste = "keskivaikea";
                 vihje = (palautaSatunnainenNimi() + ": Edellinen Oikein! Siirrytään keskivaikeisiin.");
-                kysyKysymys(alkuaineet.palautaKeskivaikeaKysymys(moneskoKeskivaikeaKysytään));
+                asetaKysymys(alkuaineet.palautaKeskivaikeaKysymys(moneskoKeskivaikeaKysytään));
                 return;
             }
         }
@@ -130,7 +133,7 @@ public class Peli implements HaePelinArvoja {
             if (moneskoKeskivaikeaKysytään == 46) {
                 vaikeusaste = ("vaikea");
                 vihje = (palautaSatunnainenNimi() + ": Siirrytään vaikeisiin.");
-                kysyKysymys(alkuaineet.palautaVaikeaKysymys(moneskoVaikeaKysytään));
+                asetaKysymys(alkuaineet.palautaVaikeaKysymys(moneskoVaikeaKysytään));
                 return;
             }
         }
@@ -138,7 +141,7 @@ public class Peli implements HaePelinArvoja {
             kysyVaikea(kerroin);
             if (moneskoVaikeaKysytään == 54) {
                 kysymysnumero = kysymysnumero - 1;
-                lopetus();
+                pelinLopetus();
             }
         }
     }
@@ -153,7 +156,7 @@ public class Peli implements HaePelinArvoja {
         moneskoHelppoKysytään = moneskoHelppoKysytään + 1;
         pelaajanPisteet = pelaajanPisteet + (1 * kertoluku);
         if (moneskoHelppoKysytään < 11) {
-            kysyKysymys(alkuaineet.palautaHelppoKysymys(moneskoHelppoKysytään));
+            asetaKysymys(alkuaineet.palautaHelppoKysymys(moneskoHelppoKysytään));
         }
     }
 
@@ -167,7 +170,7 @@ public class Peli implements HaePelinArvoja {
         moneskoKeskivaikeaKysytään = moneskoKeskivaikeaKysytään + 1;
         pelaajanPisteet = pelaajanPisteet + (2 * kertoluku);
         if (moneskoKeskivaikeaKysytään < 46) {
-            kysyKysymys(alkuaineet.palautaKeskivaikeaKysymys(moneskoKeskivaikeaKysytään));
+            asetaKysymys(alkuaineet.palautaKeskivaikeaKysymys(moneskoKeskivaikeaKysytään));
         }
     }
 
@@ -181,7 +184,7 @@ public class Peli implements HaePelinArvoja {
         moneskoVaikeaKysytään = moneskoVaikeaKysytään + 1;
         pelaajanPisteet = pelaajanPisteet + (3 * kertoluku);
         if (moneskoVaikeaKysytään < 54) {
-            kysyKysymys(alkuaineet.palautaVaikeaKysymys(moneskoVaikeaKysytään));
+            asetaKysymys(alkuaineet.palautaVaikeaKysymys(moneskoVaikeaKysytään));
         }
     }
 
@@ -189,7 +192,7 @@ public class Peli implements HaePelinArvoja {
      * Tämän luokan avulla muutetaan niitä kenttiä, joiden tulee muuttua, kun
      * peli loppuu.
      */
-    private void lopetus() {
+    private void pelinLopetus() {
         if (moneskoVaikeaKysytään == 54) {
             vihje = (palautaSatunnainenNimi() + ": Mestarillinen suoritus!");
         } else {
@@ -203,8 +206,7 @@ public class Peli implements HaePelinArvoja {
      * @return Palautettu vihje.
      */
     @Override
-    public String annaVihje() {
-        yrityskerta = yrityskerta + 1;
+    public String palautaAlkuaineenVihje() {
         return (palautaSatunnainenNimi() + ": " + kysyttyAine.aineenVihje());
     }
 
@@ -214,29 +216,29 @@ public class Peli implements HaePelinArvoja {
      * @return Palautettu onnittelu.
      */
     @Override
-    public String palautaOnnittelu() {
+    public String palautaOnnitteluOikeastaVastauksesta() {
         String palautus = vihje;
         return palautus;
     }
 
     /**
-     * Palauttaa oikean vastauksen.
+     * Palauttaa kysyttävän aineen oikean vastauksen.
      *
      * @return Oikea vastaus.
      */
     @Override
-    public String palautaOikeaVastaus() {
+    public String palautaAlkuaineenOikeaVastaus() {
         String palautus = oikeaVastaus;
         return palautus;
     }
 
     /**
-     * Palauttaa alkuaineen symbolin.
+     * Palauttaa kysyttävän aineen alkuaineen symbolin.
      *
      * @return Palautetty symboli.
      */
     @Override
-    public String palautaSymboli() {
+    public String palautaAlkuaineenSymboli() {
         String palautus = symboli;
         return palautus;
     }
@@ -258,20 +260,8 @@ public class Peli implements HaePelinArvoja {
      * @return Palautetut pisteet.
      */
     @Override
-    public int palautaPisteet() {
+    public int palautaPelaajanPisteet() {
         int palautus = pelaajanPisteet;
-        return palautus;
-    }
-
-    /**
-     * Palauttaa luvun, joka kertoo, kuinka monta yritystä on käytetty
-     * kysymykseen.
-     *
-     * @return Yrityskerta lukuna.
-     */
-    @Override
-    public int palautaYrityskerta() {
-        int palautus = yrityskerta;
         return palautus;
     }
 
@@ -281,8 +271,8 @@ public class Peli implements HaePelinArvoja {
      * @return True tai false.
      */
     @Override
-    public boolean pääseeListalle() {
-        boolean palautus = pistelista.pääseeListalle(pelaajanPisteet);
+    public boolean pääseeköPelitulosListalle() {
+        boolean palautus = pistelista.pääseeköPelitulosListalle(pelaajanPisteet);
         return palautus;
     }
 
@@ -293,32 +283,60 @@ public class Peli implements HaePelinArvoja {
      * @param tiedosto Tiedosto, johon tulos lisätään.
      */
     @Override
-    public void lisääNimi(String nimi, String tiedosto) {
-        pistelista.lisääTulos(nimi, pelaajanPisteet);
+    public void lisääPelitulosPistelistaan(String nimi, String tiedosto) {
+        pistelista.lisääPelitulosPistelistaan(nimi, pelaajanPisteet);
         pistelista.tallennaPistelista(tiedosto);
     }
 
     /**
-     * Palauttaa vaikeusasteen.
+     * Palauttaa pelin vaikeusasteen.
      *
      * @return Vaikeusaste merkkijonona.
      */
     @Override
-    public String palautaVaikeusaste() {
+    public String palautaPelinVaikeusaste() {
         String palautus = vaikeusaste;
         return palautus;
     }
 
     /**
-     * Metodi kertoo, kuinka monta vaikeaa kysymystä on ratkaistu.
+     * Metodi kertoo, onko peli ratkaistu.
      *
-     * 54 on vaikeiden kysymysten määrä.
-     *
-     * @return Ratkaistus vaikeat kysymykset kokonaislukuna.
+     * @return True tai false.
      */
     @Override
-    public int onko54() {
-        int palautus = moneskoVaikeaKysytään;
-        return palautus;
+    public boolean onkoVastattuOikeinKaikkiinKysymyksiin() {
+        if (moneskoVaikeaKysytään == 54) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Tämän metodin avulla peliin voidaan syöttää vastaus.
+     *
+     * @param vastaus Vastaus merkkijonona.
+     * @return Palautus kertoo, mitä symbolipeli tekee, kun on saanut
+     * vastauksen.
+     */
+    @Override
+    public String syötäPeliinVastaus(String vastaus) {
+        if (kysymysnumero == 0) {
+            pelinAloitus();
+            return "aloita";
+        } else if (vastaus.equals(oikeaVastaus) && yrityskerta == 0) {
+            tilanteenPäivitys(2);
+            return "päivitä2";
+        } else if (vastaus.equals(oikeaVastaus) && yrityskerta == 1) {
+            tilanteenPäivitys(1);
+            return "päivitä1";
+        } else if (!vastaus.equals(oikeaVastaus) && yrityskerta == 0) {
+            yrityskerta = yrityskerta + 1;
+            return "vihje";
+        } else {
+            pelinLopetus();
+            return "lopeta";
+        }
     }
 }
